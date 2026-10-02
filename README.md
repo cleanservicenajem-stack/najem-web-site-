@@ -57,7 +57,3 @@ endroit pour qu'elle apparaisse partout.
 
 Les secrets ne sont jamais versionnés ni exposés au navigateur. `.env.example`
 documente les variables attendues, sans aucune valeur réelle.
-
----
-
-Designed by [vsnstudios](https://www.vsnstudios.ma/)

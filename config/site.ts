@@ -138,12 +138,6 @@ export const siteConfig = {
 
   /** Métriques publiques : à ne remplir qu'avec des chiffres vérifiables. */
   publicMetrics: null as { label: string; value: string }[] | null,
-
-  /** Crédit du studio affiché en pied de page. */
-  credits: {
-    label: 'vsnstudios',
-    url: 'https://www.vsnstudios.ma/',
-  },
 } as const;
 
 export type SiteConfig = typeof siteConfig;

@@ -10,7 +10,7 @@ import { SocialIcon } from '@/components/ui/SocialIcon';
 
 export async function Footer() {
   const year = new Date().getFullYear();
-  const { credits, social, serviceAreas } = siteConfig;
+  const { social, serviceAreas } = siteConfig;
   const contact = await getContact();
   const whatsapp = await whatsappHref();
 
@@ -136,17 +136,6 @@ export async function Footer() {
           </div>
         </div>
 
-        <p className="pb-8 text-center text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-100/55">
-          Designed by{' '}
-          <a
-            href={credits.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-sm text-brand-100/85 transition-colors duration-300 hover:text-white"
-          >
-            {credits.label}
-          </a>
-        </p>
       </Container>
     </footer>
   );
