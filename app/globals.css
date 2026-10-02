@@ -1,0 +1,377 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Najem Clean Service — design system
+   Les couleurs sont échantillonnées directement sur le logo officiel
+   (symbole goutte + typographie NAJEM / Clean Service).
+
+   THÈME SOMBRE
+   Le thème s'active par la classe `dark` posée sur <html>. Le principe est de
+   ne jamais dupliquer les règles des composants : ce sont les *valeurs* des
+   tokens ci-dessous qui changent, les classes utilitaires restent identiques.
+   Trois familles de tokens ne basculent jamais, car elles servent déjà des
+   fonds sombres dans les deux thèmes : `night`, `white` et les teintes claires
+   de la gamme `brand` (50 à 400).
+   ========================================================================== */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Bleu profond de la typographie "NAJEM" */
+  --color-navy-50: #eef5fd;
+  --color-navy-100: #d7e7fa;
+  --color-navy-200: #aecff3;
+  --color-navy-300: #7cb0e8;
+  --color-navy-400: #3d7fc8;
+  --color-navy-500: #14589f;
+  --color-navy-600: #04448a;
+  --color-navy-700: #063a72;
+  --color-navy-800: #072f5b;
+  --color-navy-900: #062442;
+  --color-navy-950: #04182c;
+
+  /* Bleu électrique du symbole */
+  --color-brand-50: #edf7ff;
+  --color-brand-100: #d6ecff;
+  --color-brand-200: #b0dbff;
+  --color-brand-300: #7ac4ff;
+  --color-brand-400: #34a4fb;
+  --color-brand-500: #0f86e0;
+  --color-brand-600: #0a6fcf;
+  --color-brand-700: #0a58a7;
+  --color-brand-800: #0e4a86;
+  --color-brand-900: #113f6f;
+
+  /* Cyan / ciel */
+  --color-sky-brand: #17a8ee;
+  --color-cyan-brand: #23c4e8;
+
+  /* Turquoise du swoosh */
+  --color-teal-brand: #21c3b6;
+  --color-teal-soft: #7fded6;
+
+  /* Surfaces */
+  --color-paper: #f6fafd;
+  --color-paper-deep: #eef4fa;
+  --color-ink: #0d2033;
+  --color-ink-soft: #4a5f74;
+  --color-hairline: #dce7f2;
+
+  /*
+   * Surface des cartes et des sections « claires ». Distincte de `white` :
+   * `white` reste du blanc pur (écran de téléphone, texte sur fond sombre),
+   * `surface` suit le thème.
+   */
+  --color-surface: #ffffff;
+
+  /* Aplats et filets teintés marque, posés sur `surface`. */
+  --color-brand-tint: #edf7ff;
+  --color-brand-line: #d6ecff;
+  --color-brand-line-strong: #b0dbff;
+
+  /* Bleus profonds volontairement fixes : bandeaux et pieds de page sombres. */
+  --color-night: #062442;
+  --color-night-deep: #04182c;
+
+  /* États — avertissement (contenu à compléter, brouillon). */
+  --color-warn-surface: #fffaeb;
+  --color-warn-line: #f3e0b3;
+  --color-warn-ink: #7a4a05;
+
+  /* États — erreur de formulaire. */
+  --color-danger-surface: #fef3f2;
+  --color-danger-line: #f8d3cf;
+  --color-danger-ink: #b42318;
+
+  /* Typographie */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Rayons */
+  --radius-xs: 0.375rem;
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
+
+  /* Ombres — très douces, teintées bleu plutôt que noires */
+  --shadow-soft: 0 1px 2px rgba(6, 36, 66, 0.04), 0 8px 24px -12px rgba(6, 36, 66, 0.14);
+  --shadow-card: 0 1px 1px rgba(6, 36, 66, 0.03), 0 18px 40px -24px rgba(6, 36, 66, 0.22);
+  --shadow-lift: 0 2px 4px rgba(6, 36, 66, 0.05), 0 32px 60px -28px rgba(6, 36, 66, 0.3);
+  --shadow-header: 0 1px 0 rgba(220, 231, 242, 0.9), 0 12px 30px -22px rgba(6, 36, 66, 0.35);
+
+  /* Timings */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Variables sémantiques (contrat stable pour les composants) */
+:root {
+  color-scheme: light;
+
+  --primary: var(--color-brand-600);
+  --primary-dark: var(--color-navy-600);
+  --secondary: var(--color-sky-brand);
+  --accent: var(--color-teal-brand);
+  --background: #ffffff;
+  --background-muted: var(--color-paper);
+  --foreground: var(--color-ink);
+  --muted: var(--color-ink-soft);
+  --border: var(--color-hairline);
+
+  --header-height: 4.5rem;
+  --gradient-brand: linear-gradient(112deg, #04448a 0%, #0a6fcf 46%, #17a8ee 100%);
+  --gradient-brand-soft: linear-gradient(140deg, #edf7ff 0%, #ffffff 45%, #eafaf8 100%);
+  --gradient-accent-line: linear-gradient(90deg, transparent, #17a8ee, #21c3b6, transparent);
+  --gradient-success-soft: linear-gradient(150deg, #f2fdfb, #f6fafd);
+
+  /* Trames décoratives */
+  --veil-dot: rgba(10, 111, 207, 0.16);
+  --veil-line: rgba(255, 255, 255, 0.045);
+}
+
+/* ==========================================================================
+   Thème sombre — seules les valeurs changent, jamais les classes.
+   ========================================================================== */
+.dark {
+  color-scheme: dark;
+
+  /* Surfaces : le fond de page est le plus sombre, les cartes se détachent. */
+  --color-surface: #0e2438;
+  --color-paper: #091b2c;
+  --color-paper-deep: #061524;
+  --color-hairline: #1b3350;
+  --color-ink: #e8eff7;
+  --color-ink-soft: #a3b6ca;
+
+  /*
+   * La gamme `navy` ne sert qu'au texte sur fond clair : elle s'inverse.
+   * Les fonds sombres utilisent `night` / `night-deep`, qui ne bougent pas.
+   */
+  --color-navy-950: #f8fbfe;
+  --color-navy-900: #f2f7fc;
+  --color-navy-800: #dce8f4;
+  --color-navy-700: #c4d8ea;
+  --color-navy-600: #a9c8e2;
+  --color-navy-500: #8fb6d8;
+
+  /* Bleus d'accentuation éclaircis pour rester lisibles sur fond sombre. */
+  --color-brand-700: #a7d8ff;
+  --color-brand-600: #6cbfff;
+  --color-brand-500: #49aefa;
+
+  --color-brand-tint: rgba(73, 174, 250, 0.12);
+  --color-brand-line: rgba(108, 191, 255, 0.22);
+  --color-brand-line-strong: rgba(108, 191, 255, 0.4);
+
+  --color-warn-surface: rgba(245, 182, 66, 0.12);
+  --color-warn-line: rgba(245, 182, 66, 0.3);
+  --color-warn-ink: #f3ce9a;
+
+  --color-danger-surface: rgba(248, 113, 113, 0.12);
+  --color-danger-line: rgba(248, 113, 113, 0.3);
+  --color-danger-ink: #fbb4ae;
+
+  --background: #091b2c;
+
+  /* Sur fond sombre, l'ombre portée bleutée ne se voit plus : on la noircit. */
+  --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-card: 0 1px 1px rgba(0, 0, 0, 0.3), 0 18px 40px -24px rgba(0, 0, 0, 0.75);
+  --shadow-lift: 0 2px 4px rgba(0, 0, 0, 0.35), 0 32px 60px -28px rgba(0, 0, 0, 0.8);
+  --shadow-header: 0 1px 0 rgba(27, 51, 80, 0.9), 0 12px 30px -22px rgba(0, 0, 0, 0.9);
+
+  --gradient-brand-soft: linear-gradient(140deg, #0b2135 0%, #091b2c 45%, #0a2530 100%);
+  --gradient-success-soft: linear-gradient(150deg, #0b2b2c, #0c2033);
+
+  --veil-dot: rgba(108, 191, 255, 0.14);
+  --veil-line: rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 5.25rem;
+  }
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv11', 'ss01';
+    font-variant-ligatures: contextual;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-navy-900);
+    letter-spacing: -0.022em;
+    text-wrap: balance;
+    font-weight: 700;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-brand-400) 28%, transparent);
+    color: var(--color-navy-900);
+  }
+
+  /* Le curseur personnalisé ne remplace jamais le curseur natif */
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    /*
+     * Filet de sécurité : les blocs révélés au défilement partent d'une
+     * opacité nulle posée en style inline. Tant que le JavaScript n'a pas
+     * repris la main (et si le JavaScript ne s'exécute pas du tout), ils
+     * doivent rester lisibles.
+     */
+    [data-reveal] {
+      opacity: 1 !important;
+      transform: none !important;
+      filter: none !important;
+    }
+  }
+}
+
+@layer components {
+  /* Filet horizontal signature (rappel du swoosh du logo) */
+  .hairline-accent {
+    height: 1px;
+    width: 100%;
+    background: var(--gradient-accent-line);
+    opacity: 0.55;
+  }
+
+  .text-gradient-brand {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Trame très discrète utilisée sur les sections sombres */
+  .grid-veil {
+    background-image:
+      linear-gradient(to right, var(--veil-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--veil-line) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, #000 40%, transparent 100%);
+  }
+
+  .dot-veil {
+    background-image: radial-gradient(var(--veil-dot) 1px, transparent 1px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 30%, transparent 100%);
+  }
+}
+
+@layer utilities {
+  .container-page {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+    max-width: 82.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .container-page {
+      padding-inline: 2rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-page {
+      padding-inline: 3rem;
+    }
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Masque en forme de goutte, dérivé de la silhouette du logo */
+  .droplet-mask {
+    -webkit-mask-image: url('/images/decor/droplet-mask.svg');
+    mask-image: url('/images/decor/droplet-mask.svg');
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+}
+
+/*
+ * Bascule de thème : la transition n'est active que pendant le changement.
+ * Une transition permanente sur `*` alourdirait chaque survol de la page.
+ */
+.theme-switching,
+.theme-switching *,
+.theme-switching ::before,
+.theme-switching ::after {
+  transition:
+    background-color 240ms var(--ease-out-soft),
+    border-color 240ms var(--ease-out-soft),
+    color 240ms var(--ease-out-soft),
+    fill 240ms var(--ease-out-soft) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-switching,
+  .theme-switching *,
+  .theme-switching ::before,
+  .theme-switching ::after {
+    transition: none !important;
+  }
+}
+
+/* Direction RTL — préparé pour une future version arabe */
+[dir='rtl'] .rtl-flip {
+  transform: scaleX(-1);
+}
