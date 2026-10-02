@@ -26,9 +26,9 @@ export function AlerteStockage() {
           <code className="rounded bg-warn-ink/10 px-1.5 py-0.5 text-[0.85em]">
             SUPABASE_SERVICE_ROLE_KEY
           </code>{' '}
-          dans le fichier <code className="rounded bg-warn-ink/10 px-1.5 py-0.5 text-[0.85em]">
-            .env.local
-          </code>, puis redémarrez le serveur.
+          en variables d’environnement — dans{' '}
+          <code className="rounded bg-warn-ink/10 px-1.5 py-0.5 text-[0.85em]">.env.local</code> en
+          local, dans les réglages de l’hébergeur en ligne — puis redémarrez ou redéployez.
         </p>
       </div>
     </div>

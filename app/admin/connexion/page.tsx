@@ -34,12 +34,13 @@ export default async function ConnexionPage({
             <ShieldAlert className="h-5 w-5" aria-hidden="true" />
             <p className="mt-3 font-semibold">Administration non configurée</p>
             <p className="mt-2">
-              Les clés Supabase sont absentes. Renseignez{' '}
+              Il manque une variable d’environnement sur ce serveur :{' '}
               <code className="font-mono text-[0.85em]">SUPABASE_URL</code>,{' '}
-              <code className="font-mono text-[0.85em]">SUPABASE_ANON_KEY</code> et{' '}
-              <code className="font-mono text-[0.85em]">SUPABASE_SERVICE_ROLE_KEY</code> dans{' '}
-              <code className="font-mono text-[0.85em]">.env.local</code>, puis redémarrez le
-              serveur.
+              <code className="font-mono text-[0.85em]">SUPABASE_ANON_KEY</code> ou{' '}
+              <code className="font-mono text-[0.85em]">ADMIN_EMAILS</code>. En local, elles se
+              renseignent dans <code className="font-mono text-[0.85em]">.env.local</code> ; en
+              ligne, dans les réglages de l’hébergeur. Un redéploiement est nécessaire pour
+              qu’elles soient prises en compte.
             </p>
           </div>
         )}
