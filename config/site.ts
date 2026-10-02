@@ -39,19 +39,17 @@ export type OpeningHours = {
 };
 
 /**
- * PLACEHOLDER — domaine de production non communiqué.
- * Renseigner `NEXT_PUBLIC_SITE_URL` avant la mise en ligne : cette valeur sert
- * aux URL canoniques, au sitemap, aux balises Open Graph et au JSON-LD.
+ * Domaine de production. Il sert aux URL canoniques, au sitemap, au robots.txt,
+ * aux balises Open Graph et au JSON-LD.
+ *
+ * La forme avec `www` est la bonne : le domaine nu redirige vers elle. Déclarer
+ * le domaine nu ferait passer chaque URL annoncée par une redirection.
+ *
+ * `NEXT_PUBLIC_SITE_URL` reste prioritaire, pour les environnements de recette.
  */
-const FALLBACK_SITE_URL = 'https://www.najemcleanservice.com';
+const DOMAINE_PRODUCTION = 'https://www.najemcleanservice.ma';
 
-const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? FALLBACK_SITE_URL).replace(/\/$/, '');
-
-/**
- * Le domaine n'est affiché comme information publique que s'il a été confirmé
- * par la variable d'environnement. Sinon, il ne sert qu'aux URL techniques.
- */
-export const siteUrlIsConfirmed = Boolean(process.env.NEXT_PUBLIC_SITE_URL);
+const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? DOMAINE_PRODUCTION).replace(/\/$/, '');
 
 export const siteConfig = {
   name: 'Najem Clean Service',

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Clock, HandHeart, ShieldCheck, Wand2 } from 'lucide-react';
-import { siteConfig, siteUrlIsConfirmed } from '@/config/site';
+import { siteConfig } from '@/config/site';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { SectionHeading } from '@/components/ui/SectionHeading';
@@ -52,10 +52,7 @@ const facts = [
   { label: 'Activité', value: 'Services de nettoyage à domicile' },
   { label: 'Canal de réservation', value: 'Application mobile iOS et Android' },
   { label: 'Langue du service', value: 'Français' },
-  // Le domaine n'est annoncé que lorsqu'il a été confirmé.
-  ...(siteUrlIsConfirmed
-    ? [{ label: 'Site officiel', value: siteConfig.url.replace(/^https?:\/\//, '') }]
-    : []),
+  { label: 'Site officiel', value: siteConfig.url.replace(/^https?:\/\//, '') },
 ];
 
 export default async function AboutPage() {
