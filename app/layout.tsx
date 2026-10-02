@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 
 import { siteConfig } from '@/config/site';
@@ -7,18 +7,33 @@ import { themeColors, themeInitScript } from '@/lib/theme';
 import { defaultOgImage } from '@/lib/seo';
 import { Analytics } from '@/components/analytics/Analytics';
 
-const inter = Inter({
-  subsets: ['latin'],
+/**
+ * Polices servies depuis le site, et non depuis Google.
+ *
+ * Trois raisons : le visiteur n'ouvre pas de connexion vers un domaine tiers,
+ * aucune requête vers Google n'est faite à son insu, et la compilation ne
+ * dépend plus d'un téléchargement au moment du build.
+ *
+ * Ce sont les fichiers variables officiels, sous-ensemble latin, qui couvre le
+ * français y compris « œ ». Un seul fichier par famille suffit pour toute la
+ * plage de graisses.
+ */
+const inter = localFont({
+  src: './fonts/inter-latin.woff2',
+  weight: '400 600',
+  style: 'normal',
   display: 'swap',
   variable: '--font-inter',
-  weight: ['400', '500', '600'],
+  fallback: ['system-ui', 'sans-serif'],
 });
 
-const jakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
+const jakarta = localFont({
+  src: './fonts/plus-jakarta-sans-latin.woff2',
+  weight: '600 800',
+  style: 'normal',
   display: 'swap',
   variable: '--font-jakarta',
-  weight: ['600', '700', '800'],
+  fallback: ['system-ui', 'sans-serif'],
 });
 
 export const metadata: Metadata = {
