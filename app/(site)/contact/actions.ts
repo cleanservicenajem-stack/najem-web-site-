@@ -54,6 +54,10 @@ const deliver = async (payload: {
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',
+      // Sans délai maximum, un fournisseur qui ne répond pas laisse le
+      // visiteur devant un formulaire qui tourne indéfiniment. Le message est
+      // de toute façon déjà enregistré en base : l'e-mail n'est qu'une alerte.
+      signal: AbortSignal.timeout(8000),
       headers: {
         Authorization: `Bearer ${apiKey}`,
         'Content-Type': 'application/json',

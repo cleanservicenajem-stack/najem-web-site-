@@ -131,7 +131,7 @@ export const services: Service[] = [
     slug: 'nettoyage-apres-demenagement',
     title: 'Nettoyage après déménagement',
     shortTitle: 'Déménagement',
-    metaTitle: 'Nettoyage après déménagement à Casablanca',
+    metaTitle: 'Nettoyage déménagement à Casablanca',
     metaDescription:
       "Nettoyage après déménagement à Casablanca : un logement vide remis au propre, à l'entrée comme à la sortie. Réservez depuis l'application Najem.",
     benefit: 'Un logement vide remis au propre, entrée ou sortie',
@@ -211,7 +211,7 @@ export const services: Service[] = [
     slug: 'professionnels',
     title: 'Pour les professionnels',
     shortTitle: 'Professionnels',
-    metaTitle: 'Nettoyage pour professionnels à Casablanca',
+    metaTitle: 'Nettoyage professionnels à Casablanca',
     metaDescription:
       "Nettoyage pour professionnels à Casablanca : conciergeries et location courte durée. Réservez chaque intervention depuis l'application Najem.",
     benefit: 'Prestation sur mesure pour les conciergeries et la location courte durée',
