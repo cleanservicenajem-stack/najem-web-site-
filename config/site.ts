@@ -57,9 +57,10 @@ export const siteConfig = {
   /** Baseline officielle présente dans le logo. */
   tagline: 'A Cleaner Brighter Tomorrow',
   /** Phrase de positionnement en français utilisée dans l'interface. */
-  positioning: 'Services de nettoyage à domicile, réservables depuis une application mobile.',
+  positioning:
+    'Services de nettoyage à domicile à Casablanca, réservables depuis une application mobile.',
   description:
-    "Najem Clean Service est un service de nettoyage à domicile qui se réserve depuis une application mobile disponible sur iPhone et Android. Vous choisissez votre prestation, vos disponibilités, et un professionnel se déplace chez vous.",
+    "Najem Clean Service est un service de nettoyage à domicile à Casablanca qui se réserve depuis une application mobile disponible sur iPhone et Android. Vous choisissez votre prestation, vos disponibilités, et un professionnel se déplace chez vous.",
   url: siteUrl,
 
   locale: {
@@ -101,11 +102,16 @@ export const siteConfig = {
   social: [] as SocialLink[],
 
   /**
-   * Zones desservies — laisser vide tant que les villes ne sont pas confirmées.
-   * Aucune page locale n'est générée tant que ce tableau est vide (voir
-   * `config/local-seo.ts`).
+   * Zones desservies. Casablanca est couverte dans son ensemble : aucun
+   * quartier n'est distingué, et aucun ne doit l'être tant que la couverture
+   * réelle n'a pas été vérifiée quartier par quartier.
+   *
+   * Ce tableau alimente le pied de page et la propriété `areaServed` des
+   * données structurées. Il n'engendre aucune page « Nettoyage <ville> » :
+   * `config/local-seo.ts` garde ce verrou fermé, une page par zone étant
+   * précisément ce que Google qualifie de doorway page.
    */
-  serviceAreas: [] as ServiceArea[],
+  serviceAreas: [{ name: 'Casablanca', slug: 'casablanca' }] as ServiceArea[],
 
   /** Zone d'activité déclarée par défaut dans les données structurées. */
   primaryMarket: {

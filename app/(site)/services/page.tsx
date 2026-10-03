@@ -30,8 +30,8 @@ export default async function ServicesPage() {
     <>
       <PageHero
         eyebrow="Prestations"
-        title="Les services de nettoyage Najem Clean Service"
-        lead="De l’entretien courant à l’intervention plus complète, pour les particuliers comme pour les professionnels. Toutes les prestations se réservent depuis l’application."
+        title="Les services de nettoyage Najem Clean Service à Casablanca"
+        lead="De l’entretien courant à l’intervention plus complète, pour les particuliers comme pour les professionnels. Toutes les prestations sont disponibles dans l’ensemble de Casablanca et se réservent depuis l’application."
         crumbs={crumbs}
       >
         <StoreButtons />
@@ -103,7 +103,7 @@ export default async function ServicesPage() {
         data={[
           webPageSchema({
             path: '/services',
-            name: 'Services de nettoyage à domicile — Najem Clean Service',
+            name: 'Services de nettoyage à domicile à Casablanca — Najem Clean Service',
             description,
           }),
           breadcrumbSchema(crumbs),

@@ -9,7 +9,7 @@ import { createMetadata } from '@/lib/seo';
 import { breadcrumbSchema, webPageSchema } from '@/lib/schema';
 
 const description =
-  'Politique de confidentialité du site Najem Clean Service : données collectées via le formulaire de contact, finalités, durée de conservation et exercice de vos droits.';
+  'Politique de confidentialité Najem Clean Service : données collectées via le formulaire de contact, finalités, conservation et exercice de vos droits.';
 
 export const metadata: Metadata = createMetadata({
   title: 'Politique de confidentialité',

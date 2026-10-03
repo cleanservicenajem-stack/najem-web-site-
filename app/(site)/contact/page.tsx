@@ -30,7 +30,7 @@ export default async function ContactPage() {
       <PageHero
         eyebrow="Contact"
         title="Une question ? Écrivez-nous."
-        lead="Ce formulaire est destiné aux demandes de renseignements. Pour une demande liée à une réservation en cours, l’application reste le canal le plus direct : le contexte de votre rendez-vous y est déjà rattaché."
+        lead="Ce formulaire est destiné aux demandes de renseignements sur nos prestations de nettoyage à domicile à Casablanca. Pour une demande liée à une réservation en cours, l’application reste le canal le plus direct : le contexte de votre rendez-vous y est déjà rattaché."
         crumbs={crumbs}
       />
 

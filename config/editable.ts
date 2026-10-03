@@ -131,7 +131,7 @@ const accueil: GroupeEditable = {
       label: 'Titre principal',
       aide: 'Le seul titre de niveau 1 de la page : il pèse lourd pour le référencement.',
       type: 'paragraphe',
-      repli: 'Votre maison mérite un service de nettoyage de confiance.',
+      repli: 'Votre maison à Casablanca mérite un service de nettoyage de confiance.',
       longueurMax: 120,
     },
     {
@@ -210,44 +210,44 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
   {
     chemin: 'accueil',
     label: 'Accueil',
-    titre: 'Najem Clean Service | Services de nettoyage à domicile',
+    titre: 'Najem Clean Service | Nettoyage à domicile à Casablanca',
     description:
-      'Réservez facilement un service de nettoyage professionnel avec Najem Clean Service. Téléchargez l’application sur iPhone ou Android et planifiez votre prochain nettoyage.',
+      'Nettoyage à domicile à Casablanca, réservable en quelques clics. Téléchargez l’application Najem Clean Service sur iPhone ou Android.',
   },
   {
     chemin: 'services',
     label: 'Services',
-    titre: 'Services de nettoyage à domicile',
+    titre: 'Services de nettoyage à Casablanca',
     description:
-      'Nettoyage régulier, ponctuel, après déménagement, grand nettoyage, entretien spécialisé et prestations pour les professionnels : toutes les prestations Najem Clean Service se réservent depuis l’application mobile.',
+      'Nettoyage régulier, ponctuel, après déménagement, grand nettoyage et prestations pour professionnels à Casablanca, depuis l’application Najem.',
   },
   {
     chemin: 'application',
     label: 'Application',
     titre: 'Application mobile iOS et Android',
     description:
-      'L’application Najem Clean Service est disponible sur iPhone et Android. Réservez un service de nettoyage à domicile, gérez vos rendez-vous et suivez vos demandes depuis votre compte.',
+      'L’application Najem Clean Service est disponible sur iPhone et Android : réservez un nettoyage à domicile à Casablanca et suivez vos rendez-vous.',
   },
   {
     chemin: 'a-propos',
     label: 'À propos',
     titre: 'À propos',
     description:
-      'Najem Clean Service est un service de nettoyage à domicile réservable depuis une application mobile iOS et Android. Découvrez sa mission, sa vision et ses valeurs.',
+      'Najem Clean Service est un service de nettoyage à domicile à Casablanca, réservable depuis une application iOS et Android. Mission, vision, valeurs.',
   },
   {
     chemin: 'faq',
     label: 'FAQ',
     titre: 'Questions fréquentes',
     description:
-      'Réservation, application iOS et Android, gestion des rendez-vous, modification, paiement : les réponses aux questions les plus fréquentes sur Najem Clean Service.',
+      'Réservation, application iOS et Android, rendez-vous, modification, paiement : les réponses aux questions fréquentes sur Najem Clean Service.',
   },
   {
     chemin: 'contact',
     label: 'Contact',
     titre: 'Contact',
     description:
-      'Une question sur les services de nettoyage Najem Clean Service ou sur l’application ? Écrivez-nous depuis le formulaire de contact, nous vous répondons par e-mail.',
+      'Une question sur le nettoyage à domicile à Casablanca ou sur l’application Najem Clean Service ? Écrivez-nous, nous répondons par e-mail.',
   },
   {
     chemin: 'blog',
@@ -303,14 +303,14 @@ const moteursGeneratifs: GroupeEditable = {
       aide: 'La toute première ligne lue par un moteur génératif. Elle sert aussi de description par défaut du site.',
       type: 'paragraphe',
       repli:
-        'Service de nettoyage à domicile réservable depuis une application mobile iOS et Android.',
+        'Service de nettoyage à domicile à Casablanca, réservable depuis une application mobile iOS et Android.',
       longueurMax: 200,
     },
     {
       cle: 'geo.activite',
       label: 'Activité',
       type: 'texte',
-      repli: 'Services de nettoyage à domicile.',
+      repli: 'Services de nettoyage à domicile à Casablanca.',
       longueurMax: 120,
     },
     {
@@ -319,7 +319,7 @@ const moteursGeneratifs: GroupeEditable = {
       aide: 'N’annoncez une ville que si elle est réellement couverte : une zone inexacte se retourne contre vous.',
       type: 'paragraphe',
       repli:
-        'Non publiées à ce jour ; la disponibilité est confirmée dans l’application au moment de la réservation.',
+        'Casablanca, dans l’ensemble de la ville. La disponibilité d’un créneau à une adresse donnée est confirmée dans l’application au moment de la réservation.',
       longueurMax: 250,
     },
     {

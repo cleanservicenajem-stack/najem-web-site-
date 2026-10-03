@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, MapPin } from 'lucide-react';
 import { enabledServices, getServiceBySlug } from '@/config/services';
+import { serviceAreaSuffix } from '@/config/local-seo';
 import { getServiceAffiche, getServicesAffiches } from '@/lib/content';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
@@ -38,8 +39,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return createMetadata({
-    title: service.metaTitle ?? `${service.title} à domicile`,
-    description: service.summary.slice(0, 158),
+    title: service.metaTitle,
+    description: service.metaDescription,
     path: `/services/${service.slug}`,
   });
 }
@@ -51,6 +52,9 @@ export default async function ServicePage({ params }: PageProps) {
   if (!base) notFound();
 
   const service = await getServiceAffiche(base);
+  // Chaîne vide tant qu'aucune ville n'est confirmée : la section entière
+  // disparaît alors, plutôt que d'annoncer une couverture inconnue.
+  const zones = serviceAreaSuffix();
   const others = (await getServicesAffiches(
     enabledServices.filter((item) => item.slug !== service.slug),
   )).slice(0, 4);
@@ -77,6 +81,22 @@ export default async function ServicePage({ params }: PageProps) {
                   ))}
                 </div>
               </Reveal>
+
+              {zones ? (
+                <Reveal className="mt-12">
+                  <div className="rounded-3xl border border-[var(--border)] bg-paper/60 p-7">
+                    <h2 className="flex items-center gap-3 font-display text-[1.4rem] font-semibold text-navy-900">
+                      <MapPin className="h-5 w-5 shrink-0 text-brand-500" aria-hidden="true" />
+                      Zones d’intervention
+                    </h2>
+                    <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-ink-soft">
+                      Cette prestation est disponible{zones}, dans l’ensemble de la ville. La
+                      disponibilité d’un créneau à votre adresse est confirmée dans l’application,
+                      au moment de la réservation.
+                    </p>
+                  </div>
+                </Reveal>
+              ) : null}
 
               <div className="mt-14">
                 <h2 className="font-display text-[1.4rem] font-semibold text-navy-900">
@@ -170,6 +190,12 @@ export default async function ServicePage({ params }: PageProps) {
           </div>
         </Container>
       </section>
+
+      {/* TODO (client) : questions fréquentes propres à chaque prestation.
+          Elles doivent venir de l'entreprise : une FAQ inventée serait reprise
+          telle quelle par Google et par les moteurs génératifs. Prévoir un
+          champ `faq` dans config/services.ts, puis ajouter `faqSchema()` aux
+          données structurées ci-dessous. */}
 
       <FinalCta />
 

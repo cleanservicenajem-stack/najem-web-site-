@@ -21,8 +21,25 @@ const cleanUndefined = (input: JsonLd): JsonLd =>
     Object.entries(input).filter(([, value]) => value !== undefined && value !== null),
   );
 
+/**
+ * Zone couverte, déclarée au plus précis que l'on sache réellement.
+ *
+ * Chaque ville confirmée est rattachée à son pays : un moteur qui ne situe pas
+ * « Casablanca » comprend au moins le marché. Sans ville confirmée, seul le
+ * pays est annoncé — jamais une couverture plus large que la réalité.
+ */
+const areaServed = (): JsonLd | JsonLd[] => {
+  const pays: JsonLd = { '@type': 'Country', name: siteConfig.primaryMarket.country };
+  const villes = siteConfig.serviceAreas.map((area) => ({
+    '@type': 'City',
+    name: area.name,
+    containedInPlace: pays,
+  }));
+  return villes.length > 0 ? villes : pays;
+};
+
 export const organizationSchema = async (): Promise<JsonLd> => {
-  const { social, serviceAreas } = siteConfig;
+  const { social } = siteConfig;
   const [contact, resume] = await Promise.all([getContact(), getTexte('geo.resume')]);
 
   const contactPoint =
@@ -70,10 +87,7 @@ export const organizationSchema = async (): Promise<JsonLd> => {
       siteConfig.apps.android.url,
       ...social.map((item) => item.href),
     ],
-    areaServed:
-      serviceAreas.length > 0
-        ? serviceAreas.map((area) => ({ '@type': 'City', name: area.name }))
-        : { '@type': 'Country', name: siteConfig.primaryMarket.country },
+    areaServed: areaServed(),
     makesOffer: {
       '@type': 'Offer',
       itemOffered: {
@@ -137,10 +151,7 @@ export const serviceSchema = (service: Service): JsonLd =>
     description: service.summary,
     url: absoluteUrl(`/services/${service.slug}`),
     provider: { '@id': ORGANIZATION_ID },
-    areaServed:
-      siteConfig.serviceAreas.length > 0
-        ? siteConfig.serviceAreas.map((area) => ({ '@type': 'City', name: area.name }))
-        : { '@type': 'Country', name: siteConfig.primaryMarket.country },
+    areaServed: areaServed(),
     availableChannel: {
       '@type': 'ServiceChannel',
       name: `Application ${siteConfig.name}`,
