@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowUpRight, PenLine } from 'lucide-react';
 import { blogCategories } from '@/content/blog/posts';
-import { allPosts, getCategory } from '@/lib/blog';
+import { getCategory, publishedPosts } from '@/lib/blog';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { FinalCta } from '@/components/home/FinalCta';
@@ -48,8 +48,19 @@ export default async function BlogPage() {
 
       <section className="bg-surface py-16 md:py-24" aria-label="Articles">
         <Container>
+          {publishedPosts.length === 0 ? (
+            <div className="mx-auto max-w-xl rounded-3xl border border-[var(--border)] bg-paper px-8 py-14 text-center">
+              <PenLine className="mx-auto h-6 w-6 text-brand-400" aria-hidden="true" />
+              <p className="mt-5 font-display text-[1.3rem] font-semibold text-navy-800">
+                Articles à venir
+              </p>
+              <p className="mx-auto mt-3 max-w-md text-[0.925rem] leading-relaxed text-ink-soft">
+                Les premiers conseils d’entretien seront publiés ici prochainement.
+              </p>
+            </div>
+          ) : (
           <Stagger className="grid gap-8 md:grid-cols-2 lg:grid-cols-3" stagger={0.08}>
-            {allPosts.map((post) => {
+            {publishedPosts.map((post) => {
               const category = getCategory(post.category);
 
               return (
@@ -63,12 +74,6 @@ export default async function BlogPage() {
                         sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         className="object-cover transition-transform duration-700 ease-[var(--ease-out-soft)] group-hover:scale-[1.03]"
                       />
-                      {post.status === 'brouillon' ? (
-                        <span className="absolute left-4 top-4 inline-flex items-center gap-1.5 rounded-full bg-surface/95 px-3 py-1 text-[0.7rem] font-semibold uppercase tracking-[0.1em] text-navy-700 shadow-sm">
-                          <PenLine className="h-3 w-3" aria-hidden="true" />
-                          Brouillon
-                        </span>
-                      ) : null}
                     </div>
 
                     <div className="flex flex-1 flex-col p-6">
@@ -101,12 +106,7 @@ export default async function BlogPage() {
               );
             })}
           </Stagger>
-
-          <p className="mt-12 max-w-2xl text-[0.875rem] leading-relaxed text-ink-soft">
-            Les articles signalés «&nbsp;brouillon&nbsp;» sont des contenus d’exemple qui servent à
-            valider la structure éditoriale du blog. Ils ne sont pas indexés par les moteurs de
-            recherche tant qu’ils n’ont pas été relus et validés.
-          </p>
+          )}
         </Container>
       </section>
 

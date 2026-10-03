@@ -2,22 +2,26 @@ import { blogCategories, blogPosts } from '@/content/blog/posts';
 import type { BlogPost } from '@/content/blog/types';
 import { slugify } from '@/lib/utils';
 
-export const allPosts = [...blogPosts].sort((a, b) =>
-  b.datePublished.localeCompare(a.datePublished),
-);
+const allPosts = [...blogPosts].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 
-/** Articles réellement publiés : seuls ceux-là sont indexables et dans le sitemap. */
+/**
+ * Seule liste exposée au site public.
+ *
+ * Un brouillon n'est pas un article caché : il n'existe pas du tout côté
+ * visiteur. Il est absent du blog, du sitemap, de llms.txt, des articles liés,
+ * et son adresse directe renvoie une page introuvable.
+ */
 export const publishedPosts = allPosts.filter((post) => post.status === 'publie');
 
 export const getPostBySlug = (slug: string): BlogPost | undefined =>
-  allPosts.find((post) => post.slug === slug);
+  publishedPosts.find((post) => post.slug === slug);
 
 export const getCategory = (slug: string) => blogCategories.find((c) => c.slug === slug);
 
 export const getRelatedPosts = (post: BlogPost): BlogPost[] =>
   post.related
-    .map((slug) => getPostBySlug(slug))
-    .filter((related): related is BlogPost => Boolean(related) && related!.slug !== post.slug)
+    .flatMap((slug) => getPostBySlug(slug) ?? [])
+    .filter((related) => related.slug !== post.slug)
     .slice(0, 2);
 
 /** Sommaire construit à partir des titres de niveau 2. */

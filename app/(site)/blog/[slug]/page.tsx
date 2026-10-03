@@ -2,8 +2,14 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ArrowRight, PenLine } from 'lucide-react';
-import { allPosts, getCategory, getPostBySlug, getRelatedPosts, getTableOfContents } from '@/lib/blog';
+import { ArrowRight } from 'lucide-react';
+import {
+  getCategory,
+  getPostBySlug,
+  getRelatedPosts,
+  getTableOfContents,
+  publishedPosts,
+} from '@/lib/blog';
 import { Container } from '@/components/ui/Container';
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs';
 import { StoreButtons } from '@/components/ui/StoreButtons';
@@ -19,9 +25,13 @@ import { formatDateFr } from '@/lib/utils';
 type PageProps = { params: Promise<{ slug: string }> };
 
 export function generateStaticParams() {
-  return allPosts.map((post) => ({ slug: post.slug }));
+  return publishedPosts.map((post) => ({ slug: post.slug }));
 }
 
+/**
+ * Aucune page hors de cette liste : l'adresse d'un brouillon renvoie une 404,
+ * et non une page lisible marquée « ne pas indexer ».
+ */
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
@@ -45,8 +55,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     type: 'article',
     publishedTime: post.datePublished,
     modifiedTime: post.dateModified ?? post.datePublished,
-    // Les brouillons ne doivent jamais être indexés.
-    noindex: post.status === 'brouillon',
   });
 }
 
@@ -93,16 +101,6 @@ export default async function BlogPostPage({ params }: PageProps) {
                 Publié le <time dateTime={post.datePublished}>{formatDateFr(post.datePublished)}</time>{' '}
                 · {post.author}
               </p>
-
-              {post.status === 'brouillon' ? (
-                <p className="mt-6 inline-flex items-start gap-2.5 rounded-2xl border border-warn-line bg-warn-surface px-4 py-3 text-[0.85rem] leading-relaxed text-warn-ink">
-                  <PenLine className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-                  <span>
-                    Article d’exemple, en attente de relecture et de validation. Il n’est pas
-                    indexé par les moteurs de recherche.
-                  </span>
-                </p>
-              ) : null}
             </div>
           </Container>
         </header>
@@ -230,21 +228,16 @@ export default async function BlogPostPage({ params }: PageProps) {
             primaryImage: post.cover.src,
           }),
           breadcrumbSchema(crumbs),
-          // Aucune donnée structurée d'article pour un brouillon en noindex.
-          ...(post.status === 'publie'
-            ? [
-                articleSchema({
-                  title: post.title,
-                  description: post.description,
-                  path: `/blog/${post.slug}`,
-                  datePublished: post.datePublished,
-                  dateModified: post.dateModified,
-                  image: post.cover.src,
-                  author: post.author,
-                }),
-              ]
-            : []),
-          ...(post.status === 'publie' && post.faq && post.faq.length > 0
+          articleSchema({
+            title: post.title,
+            description: post.description,
+            path: `/blog/${post.slug}`,
+            datePublished: post.datePublished,
+            dateModified: post.dateModified,
+            image: post.cover.src,
+            author: post.author,
+          }),
+          ...(post.faq && post.faq.length > 0
             ? [
                 faqSchema(
                   post.faq.map((entry, index) => ({
