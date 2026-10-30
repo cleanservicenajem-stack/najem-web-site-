@@ -14,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: Omit<MetadataRoute.Sitemap[number], 'lastModified'>[] = [
     { url: absoluteUrl('/'), changeFrequency: 'weekly', priority: 1 },
     { url: absoluteUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
+    { url: absoluteUrl('/tarifs'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/application'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/a-propos'), changeFrequency: 'yearly', priority: 0.6 },
     { url: absoluteUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },

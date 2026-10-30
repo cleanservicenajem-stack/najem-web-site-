@@ -66,6 +66,7 @@ ${services}
 
 - [Accueil](${absoluteUrl('/')})
 - [Services](${absoluteUrl('/services')})
+- [Tarifs](${absoluteUrl('/tarifs')})
 - [Application mobile](${absoluteUrl('/application')})
 - [À propos](${absoluteUrl('/a-propos')})
 - [FAQ](${absoluteUrl('/faq')})

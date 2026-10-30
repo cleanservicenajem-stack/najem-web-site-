@@ -12,6 +12,10 @@ export const dynamic = 'force-dynamic';
 
 /** Nombre de champs facultatifs encore vides : c'est ce qui reste à renseigner. */
 const champsAComplete = async (groupe: GroupeEditable): Promise<number> => {
+  // Dans les tarifs, une liste d'options vide est un choix (« Aucune option »),
+  // pas une information manquante.
+  if (groupe.slug === 'tarifs') return 0;
+
   const etats = await Promise.all(
     groupe.champs.map(async (champ) =>
       Boolean(champ.facultatif) && (await getTexte(champ.cle)).length === 0,

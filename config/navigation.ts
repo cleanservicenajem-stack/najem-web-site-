@@ -8,6 +8,7 @@ export type NavItem = {
 export const mainNav: NavItem[] = [
   { label: 'Accueil', href: '/' },
   { label: 'Services', href: '/services', description: 'Les prestations de nettoyage' },
+  { label: 'Tarifs', href: '/tarifs', description: 'Prix des formules et abonnements' },
   { label: 'Application', href: '/application', description: 'iOS et Android' },
   { label: 'À propos', href: '/a-propos', description: "L'entreprise et sa mission" },
   { label: 'FAQ', href: '/faq', description: 'Questions fréquentes' },
@@ -20,6 +21,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: 'Accueil', href: '/' },
       { label: 'Services', href: '/services' },
+      { label: 'Tarifs', href: '/tarifs' },
       { label: 'Application', href: '/application' },
       { label: 'À propos', href: '/a-propos' },
       { label: 'Conseils', href: '/blog' },

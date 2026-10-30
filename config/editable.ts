@@ -12,6 +12,7 @@
  */
 
 import { services } from '@/config/services';
+import { categoriesTarifs } from '@/config/tarifs';
 
 export type ChampType = 'texte' | 'paragraphe' | 'telephone' | 'email';
 
@@ -222,6 +223,13 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
       'Nettoyage régulier, ponctuel, après déménagement, grand nettoyage et prestations pour professionnels à Casablanca, depuis l’application Najem.',
   },
   {
+    chemin: 'tarifs',
+    label: 'Tarifs',
+    titre: 'Tarifs ménage à domicile Casablanca',
+    description:
+      'Ménage à domicile à Casablanca à partir de 200 DH : express, complet, grand ménage ou prestige, et abonnement mensuel dès 890 DH. Tous nos prix.',
+  },
+  {
     chemin: 'application',
     label: 'Application',
     titre: 'Application mobile iOS et Android',
@@ -349,10 +357,81 @@ const moteursGeneratifs: GroupeEditable = {
   ],
 };
 
+/**
+ * Page Tarifs : prix, durée et options de chaque formule, et abonnements.
+ *
+ * Les champs sont générés à partir de `config/tarifs.ts`, qui fournit aussi les
+ * valeurs de repli. Les options tiennent sur une seule ligne, séparées par des
+ * points-virgules : l'enregistrement remplace les retours à la ligne par des
+ * espaces.
+ */
+const tarifs: GroupeEditable = {
+  slug: 'tarifs',
+  label: 'Tarifs',
+  description:
+    'Les prix affichés sur la page Tarifs. Pour les options, écrivez-les à la suite, séparées par un point-virgule, au format « Libellé : prix ». Exemple : Repassage : +80 DH ; Terrasse ou balcon : +80 DH. Une case d’options vide affiche « Aucune option ».',
+  champs: [
+    {
+      cle: 'tarifs.introduction',
+      label: 'Texte sous le titre',
+      type: 'paragraphe',
+      repli:
+        'Le prix dépend de la taille de votre logement et de la formule choisie. Ce sont les prix de l’application Najem Clean Service, où vous réservez et réglez votre ménage.',
+      longueurMax: 400,
+    },
+    ...categoriesTarifs.flatMap((categorie) => [
+      ...categorie.formules.flatMap((formule) => [
+        {
+          cle: `tarifs.${formule.id}.prix`,
+          label: `${categorie.titre} · ${formule.nom} — prix`,
+          type: 'texte' as const,
+          repli: formule.prix,
+          longueurMax: 30,
+        },
+        {
+          cle: `tarifs.${formule.id}.duree`,
+          label: `${categorie.titre} · ${formule.nom} — durée`,
+          type: 'texte' as const,
+          repli: formule.duree,
+          longueurMax: 30,
+        },
+        {
+          cle: `tarifs.${formule.id}.options`,
+          label: `${categorie.titre} · ${formule.nom} — options`,
+          aide: 'Options séparées par un point-virgule, au format « Libellé : prix ». Laisser vide s’il n’y en a pas.',
+          type: 'paragraphe' as const,
+          repli: formule.options,
+          longueurMax: 600,
+          facultatif: true,
+        },
+      ]),
+      ...(categorie.abonnement
+        ? [
+            {
+              cle: `tarifs.${categorie.abonnement.id}.prix`,
+              label: `${categorie.titre} · Abonnement mensuel — prix par mois`,
+              type: 'texte' as const,
+              repli: categorie.abonnement.prix,
+              longueurMax: 30,
+            },
+            {
+              cle: `tarifs.${categorie.abonnement.id}.contenu`,
+              label: `${categorie.titre} · Abonnement mensuel — contenu`,
+              type: 'texte' as const,
+              repli: categorie.abonnement.contenu,
+              longueurMax: 160,
+            },
+          ]
+        : []),
+    ]),
+  ],
+};
+
 export const groupesEditables: GroupeEditable[] = [
   coordonnees,
   accueil,
   prestations,
+  tarifs,
   referencement,
   moteursGeneratifs,
 ];
