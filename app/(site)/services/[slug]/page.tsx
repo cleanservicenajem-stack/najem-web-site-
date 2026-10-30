@@ -8,6 +8,7 @@ import { getServiceAffiche, getServicesAffiches } from '@/lib/content';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { StoreButtons } from '@/components/ui/StoreButtons';
+import { ArrowLink } from '@/components/ui/ArrowLink';
 import { Pill } from '@/components/ui/Pill';
 import { FinalCta } from '@/components/home/FinalCta';
 import { Reveal } from '@/components/animations/Reveal';
@@ -163,6 +164,10 @@ export default async function ServicePage({ params }: PageProps) {
                   La réservation, les rendez-vous et les échanges se gèrent au même endroit.
                 </p>
                 <StoreButtons className="mt-6" />
+                <div className="mt-6 flex flex-col items-start gap-3">
+                  <ArrowLink href="/tarifs">Voir les tarifs</ArrowLink>
+                  <ArrowLink href="/femme-de-menage-casablanca">Femme de ménage à Casablanca</ArrowLink>
+                </div>
               </div>
 
               <nav aria-label="Autres prestations" className="mt-8">

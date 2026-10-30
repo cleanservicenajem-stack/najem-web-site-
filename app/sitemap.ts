@@ -15,6 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: absoluteUrl('/'), changeFrequency: 'weekly', priority: 1 },
     { url: absoluteUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/tarifs'), changeFrequency: 'monthly', priority: 0.9 },
+    { url: absoluteUrl('/femme-de-menage-casablanca'), changeFrequency: 'monthly', priority: 0.9 },
+    { url: absoluteUrl('/nettoyage-canape-tapis-casablanca'), changeFrequency: 'monthly', priority: 0.8 },
     { url: absoluteUrl('/application'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/a-propos'), changeFrequency: 'yearly', priority: 0.6 },
     { url: absoluteUrl('/faq'), changeFrequency: 'monthly', priority: 0.7 },

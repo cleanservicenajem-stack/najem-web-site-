@@ -39,7 +39,7 @@ export async function Footer() {
             </div>
           </div>
 
-          <div className="grid gap-10 sm:grid-cols-3">
+          <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-4">
             {footerNav.map((group) => (
               <nav key={group.title} aria-label={group.title}>
                 <p className="font-display text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-white">

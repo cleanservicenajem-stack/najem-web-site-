@@ -17,6 +17,19 @@ export const mainNav: NavItem[] = [
 
 export const footerNav: { title: string; items: NavItem[] }[] = [
   {
+    // Liens présents sur toutes les pages vers les pages qui répondent aux
+    // recherches les plus fréquentes : c'est aussi ce qui les fait découvrir
+    // et peser auprès de Google.
+    title: 'Ménage à Casablanca',
+    items: [
+      { label: 'Femme de ménage à Casablanca', href: '/femme-de-menage-casablanca' },
+      { label: 'Grand ménage', href: '/services/grand-nettoyage' },
+      { label: 'Ménage Airbnb', href: '/services/professionnels' },
+      { label: 'Canapé et tapis', href: '/nettoyage-canape-tapis-casablanca' },
+      { label: 'Après déménagement', href: '/services/nettoyage-apres-demenagement' },
+    ],
+  },
+  {
     title: 'Navigation',
     items: [
       { label: 'Accueil', href: '/' },

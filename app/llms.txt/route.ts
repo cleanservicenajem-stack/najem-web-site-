@@ -67,6 +67,8 @@ ${services}
 - [Accueil](${absoluteUrl('/')})
 - [Services](${absoluteUrl('/services')})
 - [Tarifs](${absoluteUrl('/tarifs')})
+- [Femme de ménage à Casablanca](${absoluteUrl('/femme-de-menage-casablanca')})
+- [Nettoyage canapé et tapis à Casablanca](${absoluteUrl('/nettoyage-canape-tapis-casablanca')})
 - [Application mobile](${absoluteUrl('/application')})
 - [À propos](${absoluteUrl('/a-propos')})
 - [FAQ](${absoluteUrl('/faq')})

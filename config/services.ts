@@ -66,11 +66,11 @@ export type Service = {
 export const services: Service[] = [
   {
     slug: 'nettoyage-regulier',
-    title: 'Nettoyage régulier',
+    title: 'Ménage régulier',
     shortTitle: 'Régulier',
-    metaTitle: 'Nettoyage régulier à Casablanca',
+    metaTitle: 'Ménage régulier à Casablanca',
     metaDescription:
-      "Nettoyage régulier à domicile à Casablanca : un passage planifié au rythme que vous fixez. Réservez depuis l'application Najem Clean Service.",
+      "Ménage régulier à domicile à Casablanca : des passages planifiés au rythme que vous fixez, ou un abonnement mensuel. Réservez depuis l'application Najem.",
     benefit: 'Un intérieur propre sans y penser',
     pitch: 'Un abonnement disponible en 3 clics, sur mesure et sans engagement.',
     summary:
@@ -99,11 +99,11 @@ export const services: Service[] = [
   },
   {
     slug: 'nettoyage-ponctuel',
-    title: 'Nettoyage ponctuel',
+    title: 'Ménage ponctuel',
     shortTitle: 'Ponctuel',
-    metaTitle: 'Nettoyage ponctuel à Casablanca',
+    metaTitle: 'Ménage ponctuel à Casablanca',
     metaDescription:
-      "Nettoyage ponctuel à domicile à Casablanca : une intervention unique, sans engagement de suivi. Réservez un créneau depuis l'application Najem.",
+      "Ménage ponctuel à domicile à Casablanca : une intervention unique, sans engagement, avant de recevoir ou au retour de vacances. Réservez dans l'app Najem.",
     benefit: 'Une intervention unique, disponible à tout moment depuis votre téléphone',
     summary:
       "Le nettoyage ponctuel est une intervention unique, sans engagement de suivi. Il répond à un besoin précis : avant de recevoir, après un événement, ou simplement pour reprendre la main sur un logement.",
@@ -156,11 +156,11 @@ export const services: Service[] = [
   },
   {
     slug: 'grand-nettoyage',
-    title: 'Grand nettoyage',
-    shortTitle: 'Grand nettoyage',
-    metaTitle: 'Grand nettoyage à Casablanca',
+    title: 'Grand ménage',
+    shortTitle: 'Grand ménage',
+    metaTitle: 'Grand ménage à domicile à Casablanca',
     metaDescription:
-      "Grand nettoyage à domicile à Casablanca : une remise à niveau complète, au-delà de l'entretien courant. Réservez depuis l'application Najem.",
+      "Grand ménage à domicile à Casablanca : une remise à niveau complète, au-delà de l'entretien courant, appartement ou villa. Réservez dans l'app Najem.",
     benefit: 'Une remise à niveau complète du logement',
     summary:
       "Le grand nettoyage est une intervention plus complète que l'entretien courant. Il cible les zones qui ne sont pas traitées à chaque passage et sert souvent de point de départ avant de mettre en place un rythme régulier.",
@@ -185,9 +185,9 @@ export const services: Service[] = [
     slug: 'entretien-specialise',
     title: 'Entretien spécialisé',
     shortTitle: 'Spécialisé',
-    metaTitle: 'Entretien spécialisé à Casablanca',
+    metaTitle: 'Tapis, canapés, vitres à Casablanca',
     metaDescription:
-      "Entretien spécialisé à Casablanca : les demandes qui sortent du nettoyage courant, traitées à part. Décrivez votre besoin dans l'application Najem.",
+      "Entretien spécialisé à Casablanca : tapis, canapés, vitres, repassage et désinfection, des soins dédiés. Décrivez votre besoin dans l'application Najem.",
     benefit: 'Une demande particulière, traitée à part',
     summary:
       "L'entretien spécialisé regroupe les demandes qui sortent du nettoyage courant et nécessitent un traitement adapté. La faisabilité est confirmée en fonction de la demande et du professionnel disponible.",
@@ -209,11 +209,11 @@ export const services: Service[] = [
   },
   {
     slug: 'professionnels',
-    title: 'Pour les professionnels',
-    shortTitle: 'Professionnels',
-    metaTitle: 'Nettoyage professionnels à Casablanca',
+    title: 'Ménage Airbnb et conciergeries',
+    shortTitle: 'Airbnb et pros',
+    metaTitle: 'Ménage Airbnb à Casablanca',
     metaDescription:
-      "Nettoyage pour professionnels à Casablanca : conciergeries et location courte durée. Réservez chaque intervention depuis l'application Najem.",
+      "Ménage Airbnb et location courte durée à Casablanca : remise en état entre deux voyageurs, pour conciergeries et propriétaires. Réservez dans l'app Najem.",
     benefit: 'Prestation sur mesure pour les conciergeries et la location courte durée',
     pitch: 'Intervention rapide pour que votre bien soit toujours opérationnel.',
     summary:
