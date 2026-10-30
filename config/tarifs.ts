@@ -3,9 +3,8 @@
  *
  * Source : l'application Najem Clean Service, écrans « Gestion Services » et
  * « Abonnements », relevés le 30 octobre 2026. Seules les formules actives
- * dans l'application figurent ici : « Intervention urgente » et l'abonnement
- * « Grand appartement et villa » y sont désactivés, ils ne sont donc pas
- * affichés.
+ * dans l'application figurent ici : « Intervention urgente » y est désactivée,
+ * elle n'est donc pas affichée. Les trois abonnements sont actifs.
  *
  * Ces valeurs ne servent que de repli : chaque prix, durée et liste d'options
  * reste modifiable depuis l'administration (groupe « Tarifs »).
@@ -108,6 +107,15 @@ export const categoriesTarifs: CategorieTarif[] = [
           'Heure supplémentaire : +150 DH ; Shampouineuse canapé et tapis : +150 DH ; Petit repassage : +80 DH ; Grand repassage : +150 DH ; Terrasse ou balcon : +80 DH',
       },
     ],
+    abonnement: {
+      id: 'abonnement-grand',
+      prix: '1 090 DH',
+      contenu: '3 ménages express et 1 grand ménage chaque mois',
+      inclus: [
+        { formule: 'grand-express', quantite: 3 },
+        { formule: 'grand-menage', quantite: 1 },
+      ],
+    },
   },
   {
     id: 'tres-grand',
