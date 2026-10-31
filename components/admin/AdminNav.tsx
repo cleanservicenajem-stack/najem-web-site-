@@ -76,6 +76,26 @@ export async function AdminNav({ actif, nonLus }: { actif?: string; nonLus?: num
               </Link>
             </li>
           </ul>
+
+          <p className="mt-8 font-display text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-ink-soft">
+            Compte
+          </p>
+          <ul className="mt-4 space-y-1">
+            <li>
+              <Link
+                href="/admin/mot-de-passe"
+                aria-current={actif === 'mot-de-passe' ? 'page' : undefined}
+                className={cn(
+                  'block rounded-xl px-4 py-2.5 text-[0.95rem] transition-colors duration-300',
+                  actif === 'mot-de-passe'
+                    ? 'bg-brand-tint font-semibold text-brand-700'
+                    : 'text-ink hover:bg-paper',
+                )}
+              >
+                Mot de passe
+              </Link>
+            </li>
+          </ul>
         </nav>
 
         <div className="space-y-3 border-t border-[var(--border)] pt-6">

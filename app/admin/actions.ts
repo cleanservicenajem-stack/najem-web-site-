@@ -183,3 +183,57 @@ export async function effacerMessage(donnees: FormData): Promise<void> {
   await supprimerMessage(id);
   revalidatePath('/admin/messages');
 }
+
+/**
+ * Changement du mot de passe de l'administrateur connecté. L'ancien mot de
+ * passe est redemandé : une session restée ouverte ne suffit pas à le changer.
+ */
+export async function changerMotDePasse(
+  _etat: EtatEnregistrement,
+  donnees: FormData,
+): Promise<EtatEnregistrement> {
+  const compte = await administrateurCourant();
+  if (!compte) return { status: 'error', message: 'Session expirée : reconnectez-vous.' };
+
+  const limite = rateLimit(`admin-mdp:${await adresseClient()}`, { limit: 5, windowMs: 10 * 60 * 1000 });
+  if (!limite.success) {
+    return {
+      status: 'error',
+      message: `Trop de tentatives. Réessayez dans ${Math.ceil(limite.retryAfterSeconds / 60)} minutes.`,
+    };
+  }
+
+  const actuel = String(donnees.get('actuel') ?? '');
+  const nouveau = String(donnees.get('nouveau') ?? '');
+  const confirmation = String(donnees.get('confirmation') ?? '');
+  const erreurs: Record<string, string> = {};
+
+  if (!actuel) erreurs.actuel = 'Indiquez votre mot de passe actuel.';
+  if (nouveau.length < 12) erreurs.nouveau = 'Au moins 12 caractères.';
+  else if (nouveau.length > 200) erreurs.nouveau = '200 caractères au maximum.';
+  else if (nouveau === actuel) erreurs.nouveau = 'Le nouveau mot de passe doit être différent de l’actuel.';
+  if (confirmation !== nouveau) erreurs.confirmation = 'Les deux saisies ne correspondent pas.';
+  if (Object.keys(erreurs).length > 0) {
+    return { status: 'error', message: 'Corrigez les champs indiqués.', erreurs };
+  }
+
+  const supabase = await clientRequete();
+  const verification = await supabase.auth.signInWithPassword({ email: compte.email, password: actuel });
+  if (verification.error) {
+    return {
+      status: 'error',
+      message: 'Corrigez les champs indiqués.',
+      erreurs: { actuel: 'Mot de passe actuel incorrect.' },
+    };
+  }
+
+  const { error } = await supabase.auth.updateUser({ password: nouveau });
+  if (error) {
+    return {
+      status: 'error',
+      message: 'Le mot de passe n’a pas pu être changé. Réessayez dans un instant.',
+    };
+  }
+
+  return { status: 'success', message: 'Mot de passe changé. Utilisez-le à votre prochaine connexion.' };
+}
