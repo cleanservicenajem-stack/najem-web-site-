@@ -103,7 +103,7 @@ const anglais: TextesApplication = {
   },
   ecrans: {
     reservation: 'Booking screen of the Najem Clean Service app: choosing the service',
-    mesReservations: '“Mes réservations” (My bookings) screen of the Najem Clean Service app',
+    mesReservations: 'Services and monthly plan screen of the Najem Clean Service app',
   },
   demarrer: {
     surtitre: 'First steps',
@@ -187,7 +187,7 @@ const arabe: TextesApplication = {
   },
   ecrans: {
     reservation: 'شاشة الحجز في تطبيق Najem Clean Service: اختيار الخدمة',
-    mesReservations: 'شاشة « Mes réservations » (حجوزاتي) في تطبيق Najem Clean Service',
+    mesReservations: 'شاشة الخدمات والاشتراك الشهري في تطبيق Najem Clean Service',
   },
   demarrer: {
     surtitre: 'الخطوات الأولى',

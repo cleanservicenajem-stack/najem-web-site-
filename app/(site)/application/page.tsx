@@ -190,7 +190,7 @@ export default async function ApplicationPage() {
                 <FloatingPhone amplitude={7} duration={9} className="-ml-10 sm:-ml-14">
                   <PhoneFrame
                     src="/images/app/app-screen-3.png"
-                    alt="Écran « Mes réservations » de l’application Najem Clean Service"
+                    alt="Écran « Nos prestations » et abonnement de l’application Najem Clean Service"
                     width={242}
                     sizes="(max-width: 640px) 58vw, 242px"
                   />

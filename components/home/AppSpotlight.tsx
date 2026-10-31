@@ -120,7 +120,7 @@ export function AppSpotlight({ textes, boutiques }: AppSpotlightProps) {
                     src="/images/app/app-screen-3.png"
                     alt={
                       textes?.ecrans.mesReservations ??
-                      'Écran « Mes réservations » de l’application Najem Clean Service'
+                      'Écran « Nos prestations » et abonnement de l’application Najem Clean Service'
                     }
                     width={210}
                     sizes="210px"

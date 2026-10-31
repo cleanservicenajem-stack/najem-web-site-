@@ -32,8 +32,11 @@ export const traduireDuree = (texte: string, commun: TextesCommuns): string => {
 };
 
 /** Libellé d'option traduit ; le libellé français s'il n'a pas de traduction. */
-export const traduireOption = (libelle: string, commun: TextesCommuns): string =>
-  commun.options[libelle.trim()] ?? libelle;
+export const traduireOption = (libelle: string, commun: TextesCommuns): string => {
+  const traduit = commun.options[libelle.trim()];
+  // L'application est en français : son libellé reste visible pour la retrouver.
+  return traduit ? `${traduit} (${libelle.trim()})` : libelle;
+};
 
 /** « +150 DH » → « +150 درهم » ; le texte d'origine s'il est illisible. */
 export const traduirePrixOption = (prix: string, commun: TextesCommuns): string => {
@@ -90,7 +93,8 @@ export const traduireGrille = (
         id: formule.id,
         categorieId: categorie.id,
         categorie: nomCategorie,
-        formule: nom,
+        // Nom de la formule dans l'application (en français), pour la retrouver.
+        formule: `${nom} (${formule.nom})`,
         detail: traduireDuree(formule.duree, commun),
         prix: commun.prix(valeur),
         valeur,
@@ -114,7 +118,7 @@ export const traduireGrille = (
           id: abonnement.id,
           categorieId: categorie.id,
           categorie: nomCategorie,
-          formule: commun.abonnement,
+          formule: `${commun.abonnement} (Abonnement mensuel)`,
           detail: contenu,
           prix: `${commun.prix(prixMensuel)} ${commun.parMois}`,
           valeur: prixMensuel,

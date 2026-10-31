@@ -118,7 +118,7 @@ const anglais: TextesAccueil = {
       { titre: 'Tracking', texte: 'You can always see how your request is progressing.' },
     ],
     ecrans: {
-      mesReservations: '“Mes réservations” (My bookings) screen of the Najem Clean Service app',
+      mesReservations: 'Services and monthly plan screen of the Najem Clean Service app',
       reservation: 'Booking screen of the Najem Clean Service app: choosing the service',
     },
   },
@@ -242,7 +242,7 @@ const arabe: TextesAccueil = {
       { titre: 'المتابعة', texte: 'تبقى على اطلاع دائم بتقدّم طلبك.' },
     ],
     ecrans: {
-      mesReservations: 'شاشة « Mes réservations » (حجوزاتي) في تطبيق Najem Clean Service',
+      mesReservations: 'شاشة الخدمات والاشتراك الشهري في تطبيق Najem Clean Service',
       reservation: 'شاشة الحجز في تطبيق Najem Clean Service: اختيار الخدمة',
     },
   },
