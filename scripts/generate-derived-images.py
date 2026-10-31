@@ -31,6 +31,8 @@ def font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont:
         "/System/Library/Fonts/Supplemental/Arial Bold.ttf" if bold else "/System/Library/Fonts/Supplemental/Arial.ttf",
         "/System/Library/Fonts/Helvetica.ttc",
         "/Library/Fonts/Arial.ttf",
+        # Linux : Inter, la police du site.
+        "/usr/share/fonts/opentype/inter/Inter-Bold.otf" if bold else "/usr/share/fonts/opentype/inter/Inter-Regular.otf",
     ]
     for path in candidates:
         if os.path.exists(path):
@@ -120,15 +122,14 @@ def make_og() -> None:
     card.alpha_composite(radial_glow((w, h), SKY, (140, 90), 420, 0.20))
     card.alpha_composite(radial_glow((w, h), TEAL, (1080, 560), 380, 0.16))
 
+    # Pas d'arcs décoratifs : avec le logo de 2026, plus large que haut, ils
+    # passaient entre le symbole et le nom.
     draw = ImageDraw.Draw(card)
-    for i in range(3):
-        y = 470 + i * 26
-        draw.arc((-240, y - 180, w + 240, y + 320), 200, 340, fill=(SKY[0], SKY[1], SKY[2], 40), width=3)
 
     art = fit(full_logo, 620, 430)
     card.alpha_composite(art, ((w - art.size[0]) // 2, (h - art.size[1]) // 2 - 26))
 
-    label = "SERVICES DE NETTOYAGE À DOMICILE  ·  iOS & ANDROID"
+    label = "MÉNAGE À DOMICILE À CASABLANCA  ·  iOS & ANDROID"
     f = font(23, bold=True)
     tw = draw.textlength(label, font=f)
     draw.text(((w - tw) / 2, h - 86), label, font=f, fill=NAVY + (210,))

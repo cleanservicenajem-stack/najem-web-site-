@@ -4,17 +4,17 @@ import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
 /**
- * Logo officiel Najem Clean Service.
+ * Logo officiel Najem Clean Service (version d'octobre 2026).
  *
- * Les fichiers proviennent du logo fourni : seul le fond plat a été détouré et
- * l'artwork recadré. Aucune couleur, aucune forme et aucune typographie n'a été
- * modifiée ou recréée. La variante « dark » est issue du master officiel sur
- * fond noir, pas d'une recolorisation.
+ * Les fichiers proviennent du logo fourni par l'entreprise : le fond blanc a
+ * été détouré et l'artwork découpé par `scripts/prepare-logo-2026.py`. Aucune
+ * forme ni typographie n'a été redessinée. La variante « dark » passe le bleu
+ * marine au blanc ; les bleus vifs (maison, balayage, étoiles, « CLEAN
+ * SERVICE ») restent identiques.
  *
- * - `lockup` : symbole + bloc typographique côte à côte (header, en-têtes
- *   compacts). La baseline « A Cleaner Brighter Tomorrow » est retirée de cette
- *   version uniquement, car elle deviendrait illisible sous 6px.
- * - `stacked` : logo complet d'origine, baseline comprise (footer, page 404).
+ * - `lockup` : symbole + bloc « NAJEM / CLEAN SERVICE » côte à côte (header,
+ *   en-têtes compacts).
+ * - `stacked` : logo complet d'origine, symbole au-dessus du nom (footer).
  *
  * `tone: 'auto'` affiche les deux masters et laisse le CSS choisir selon le
  * thème. Le choix ne peut pas dépendre du JavaScript : le logo serait alors
@@ -22,9 +22,9 @@ import { cn } from '@/lib/utils';
  */
 
 /** Ratios réels des fichiers (identiques entre variantes claire et sombre). */
-const symbolRatio = 512 / 567;
-const wordmarkRatio = 760 / 252;
-const stackedRatio = 900 / 1019;
+const symbolRatio = 610 / 448;
+const wordmarkRatio = 924 / 263;
+const stackedRatio = 924 / 749;
 
 type Tone = 'light' | 'dark' | 'auto';
 
@@ -77,8 +77,8 @@ function StackedLogo({
     <Image
       src={sources[tone].stacked}
       alt={`${siteConfig.name} — logo`}
-      width={900}
-      height={1019}
+      width={924}
+      height={749}
       // Dimensions intrinsèques du fichier + mise à l'échelle en CSS : le ratio
       // d'origine est conservé quelle que soit la taille demandée.
       {...(priority ? { priority: true } : { loading: 'eager' as const })}
