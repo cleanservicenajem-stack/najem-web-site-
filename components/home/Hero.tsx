@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/ui/Container';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
 import { Pill } from '@/components/ui/Pill';
-import { StoreButtons } from '@/components/ui/StoreButtons';
+import { StoreButtons, type TextesBoutiques } from '@/components/ui/StoreButtons';
 import { EASE_OUT } from '@/lib/motion';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 
@@ -62,14 +62,38 @@ function Bubbles() {
   );
 }
 
+/**
+ * Textes fixes du héros (boutons, mention sous les badges, texte alternatif de
+ * la capture d’écran), pour les pages traduites. Sans eux, le français s’affiche.
+ */
+export type TextesHero = {
+  telecharger: string;
+  decouvrir: string;
+  disponibilite: string;
+  ecran: string;
+};
+
 type HeroProps = {
   /** Textes pilotés depuis l'administration du site. */
   badge: string;
   titre: string;
   accroche: string;
+  /** Pages traduites : textes fixes du héros. */
+  textes?: TextesHero;
+  /** Pages traduites : adresse de la page Application dans la langue de la page. */
+  lienApplication?: string;
+  /** Pages traduites : libellés des badges App Store et Google Play. */
+  boutiques?: TextesBoutiques;
 };
 
-export function Hero({ badge, titre, accroche }: HeroProps) {
+export function Hero({
+  badge,
+  titre,
+  accroche,
+  textes,
+  lienApplication = '/application',
+  boutiques,
+}: HeroProps) {
   const reduceMotion = usePrefersReducedMotion();
 
   // Les cibles d'animation restent identiques quelle que soit la préférence :
@@ -123,8 +147,8 @@ export function Hero({ badge, titre, accroche }: HeroProps) {
 
             <motion.div {...fade(0.58)} className="mt-9 flex flex-wrap items-center gap-3">
               <Magnet>
-                <Button href="/application" size="lg">
-                  Télécharger l’application
+                <Button href={lienApplication} size="lg">
+                  {textes?.telecharger ?? 'Télécharger l’application'}
                 </Button>
               </Magnet>
               <Button
@@ -133,24 +157,25 @@ export function Hero({ badge, titre, accroche }: HeroProps) {
                 size="lg"
                 icon={<ArrowDown className="h-4 w-4" aria-hidden="true" />}
               >
-                Découvrir nos services
+                {textes?.decouvrir ?? 'Découvrir nos services'}
               </Button>
             </motion.div>
 
             <motion.div {...fade(0.7)} className="mt-10">
-              <StoreButtons />
+              <StoreButtons textes={boutiques} />
               <p className="mt-4 flex items-center gap-2 text-[0.85rem] text-ink-soft">
                 <Sparkles className="h-4 w-4 text-teal-brand" aria-hidden="true" />
-                Application disponible sur iPhone et Android.
+                {textes?.disponibilite ?? 'Application disponible sur iPhone et Android.'}
               </p>
             </motion.div>
           </div>
 
           <div className="relative flex justify-center lg:justify-end">
-            {/* Panneau en forme de goutte, dérivé de la silhouette du logo */}
+            {/* Panneau en forme de goutte, dérivé de la silhouette du logo ;
+                en arabe, il suit le téléphone de l’autre côté. */}
             <div
               aria-hidden="true"
-              className="droplet-mask absolute right-2 top-1/2 h-[26rem] w-[23rem] -translate-y-1/2 rotate-6 bg-[linear-gradient(150deg,#0a6fcf_0%,#17a8ee_45%,#21c3b6_100%)] opacity-[0.14] md:h-[34rem] md:w-[30rem] lg:right-6"
+              className="droplet-mask absolute end-2 top-1/2 h-[26rem] w-[23rem] -translate-y-1/2 rotate-6 bg-[linear-gradient(150deg,#0a6fcf_0%,#17a8ee_45%,#21c3b6_100%)] opacity-[0.14] rtl:-rotate-6 md:h-[34rem] md:w-[30rem] lg:end-6"
             />
             <div
               aria-hidden="true"
@@ -168,7 +193,7 @@ export function Hero({ badge, titre, accroche }: HeroProps) {
               <FloatingPhone amplitude={9} duration={8}>
                 <PhoneFrame
                   src="/images/app/app-screen-1.png"
-                  alt="Écran d’accueil de l’application Najem Clean Service"
+                  alt={textes?.ecran ?? 'Écran d’accueil de l’application Najem Clean Service'}
                   width={286}
                   priority
                   sizes="(max-width: 768px) 62vw, 286px"

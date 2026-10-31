@@ -27,7 +27,19 @@ const pillars = [
   },
 ];
 
-export function TrustSection() {
+type TitreTexte = { titre: string; texte: string };
+
+/**
+ * Textes de la section pour les pages traduites (le français par défaut). Les
+ * piliers suivent l’ordre de la liste française.
+ */
+export type TextesConfiance = {
+  titre: string;
+  introduction: string;
+  piliers: [TitreTexte, TitreTexte, TitreTexte, TitreTexte];
+};
+
+export function TrustSection({ textes }: { textes?: TextesConfiance }) {
   return (
     <section className="bg-surface py-20 md:py-28" aria-labelledby="confiance-titre">
       <Container>
@@ -36,7 +48,7 @@ export function TrustSection() {
             <Parallax distance={26}>
               <div
                 aria-hidden="true"
-                className="droplet-mask absolute -left-14 -top-16 h-32 w-24 bg-[linear-gradient(160deg,#0a6fcf,#21c3b6)] opacity-[0.07]"
+                className="droplet-mask absolute -start-14 -top-16 h-32 w-24 bg-[linear-gradient(160deg,#0a6fcf,#21c3b6)] opacity-[0.07]"
               />
             </Parallax>
 
@@ -45,37 +57,39 @@ export function TrustSection() {
                 id="confiance-titre"
                 className="relative font-display text-[clamp(1.7rem,1.15rem+2.2vw,2.6rem)] font-bold leading-[1.12] text-navy-900"
               >
-                Faire entrer quelqu’un chez soi demande de la confiance.
+                {textes?.titre ?? 'Faire entrer quelqu’un chez soi demande de la confiance.'}
               </h2>
             </Reveal>
 
             <Reveal delay={0.08}>
               <p className="mt-6 max-w-md text-[1.02rem] leading-relaxed text-ink-soft">
-                C’est le point de départ du service. Tout ce qui suit — le parcours de réservation,
-                le suivi des rendez-vous, les échanges — a été pensé pour que vous sachiez à tout
-                moment où en est votre demande.
+                {textes?.introduction ??
+                  'C’est le point de départ du service. Tout ce qui suit — le parcours de réservation, le suivi des rendez-vous, les échanges — a été pensé pour que vous sachiez à tout moment où en est votre demande.'}
               </p>
             </Reveal>
           </div>
 
           <Stagger className="divide-y divide-[var(--border)] border-y border-[var(--border)]" as="ul">
-            {pillars.map((pillar) => (
-              <StaggerItem as="li" key={pillar.title}>
-                <div className="group flex items-start gap-5 py-7">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper text-brand-600 transition-colors duration-400 group-hover:bg-brand-tint">
-                    <pillar.icon className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h3 className="font-display text-[1.05rem] font-semibold text-navy-800">
-                      {pillar.title}
-                    </h3>
-                    <p className="mt-2 text-[0.925rem] leading-relaxed text-ink-soft">
-                      {pillar.text}
-                    </p>
+            {pillars.map((pillar, index) => {
+              const pilier = textes?.piliers[index];
+              return (
+                <StaggerItem as="li" key={pillar.title}>
+                  <div className="group flex items-start gap-5 py-7">
+                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-paper text-brand-600 transition-colors duration-400 group-hover:bg-brand-tint">
+                      <pillar.icon className="h-[1.15rem] w-[1.15rem]" aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h3 className="font-display text-[1.05rem] font-semibold text-navy-800">
+                        {pilier?.titre ?? pillar.title}
+                      </h3>
+                      <p className="mt-2 text-[0.925rem] leading-relaxed text-ink-soft">
+                        {pilier?.texte ?? pillar.text}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </StaggerItem>
-            ))}
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </Container>

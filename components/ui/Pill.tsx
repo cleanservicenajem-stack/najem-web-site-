@@ -13,7 +13,7 @@ export function Pill({ children, className, tone = 'light', dot = true }: PillPr
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-2 rounded-full py-1.5 pl-3 pr-4 text-[0.8rem] font-medium',
+        'inline-flex items-center gap-2 rounded-full py-1.5 ps-3 pe-4 text-[0.8rem] font-medium',
         tone === 'light'
           ? 'border border-brand-line bg-brand-tint text-navy-600'
           : 'border border-white/15 bg-white/10 text-brand-50 backdrop-blur-sm',

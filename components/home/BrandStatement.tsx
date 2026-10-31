@@ -29,10 +29,23 @@ const facts = [
   },
 ];
 
-export async function BrandStatement() {
+type TitreTexte = { titre: string; texte: string };
+
+/**
+ * Textes du bloc pour les pages traduites. Sans eux, le titre et le texte
+ * viennent de l’administration et les repères restent en français.
+ */
+export type TextesPresentation = {
+  titre: string;
+  texte: string;
+  /** Les trois repères, dans l’ordre de la liste française. */
+  reperes: [TitreTexte, TitreTexte, TitreTexte];
+};
+
+export async function BrandStatement({ textes }: { textes?: TextesPresentation }) {
   const [titre, texte] = await Promise.all([
-    getTexte('accueil.presentation.titre'),
-    getTexte('accueil.presentation.texte'),
+    textes?.titre ?? getTexte('accueil.presentation.titre'),
+    textes?.texte ?? getTexte('accueil.presentation.texte'),
   ]);
 
   return (
@@ -56,17 +69,22 @@ export async function BrandStatement() {
             </Reveal>
 
             <Stagger className="mt-10 grid gap-6 sm:grid-cols-3" stagger={0.07}>
-              {facts.map((fact) => (
-                <StaggerItem key={fact.label}>
-                  <div className="border-t border-[var(--border)] pt-5">
-                    <fact.icon className="h-5 w-5 text-brand-500" aria-hidden="true" />
-                    <p className="mt-3 font-display text-[0.95rem] font-semibold text-navy-800">
-                      {fact.label}
-                    </p>
-                    <p className="mt-1.5 text-[0.9rem] leading-relaxed text-ink-soft">{fact.text}</p>
-                  </div>
-                </StaggerItem>
-              ))}
+              {facts.map((fact, index) => {
+                const repere = textes?.reperes[index];
+                return (
+                  <StaggerItem key={fact.label}>
+                    <div className="border-t border-[var(--border)] pt-5">
+                      <fact.icon className="h-5 w-5 text-brand-500" aria-hidden="true" />
+                      <p className="mt-3 font-display text-[0.95rem] font-semibold text-navy-800">
+                        {repere?.titre ?? fact.label}
+                      </p>
+                      <p className="mt-1.5 text-[0.9rem] leading-relaxed text-ink-soft">
+                        {repere?.texte ?? fact.text}
+                      </p>
+                    </div>
+                  </StaggerItem>
+                );
+              })}
             </Stagger>
           </div>
         </div>

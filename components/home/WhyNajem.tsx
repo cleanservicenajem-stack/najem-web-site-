@@ -34,7 +34,24 @@ const benefits = [
   },
 ];
 
-export function WhyNajem() {
+const etapes = ['Choisir la prestation', 'Indiquer ses disponibilités', 'Confirmer la demande'];
+
+type TitreTexte = { titre: string; texte: string };
+
+/**
+ * Textes de la section pour les pages traduites (le français par défaut). Les
+ * listes suivent l’ordre des listes françaises.
+ */
+export type TextesPourquoi = {
+  surtitre: string;
+  titre: string;
+  introduction: string;
+  atout: TitreTexte;
+  etapes: [string, string, string];
+  avantages: [TitreTexte, TitreTexte, TitreTexte, TitreTexte];
+};
+
+export function WhyNajem({ textes }: { textes?: TextesPourquoi }) {
   return (
     <section
       id="pourquoi-najem"
@@ -44,9 +61,12 @@ export function WhyNajem() {
       <Container>
         <SectionHeading
           id="pourquoi-titre"
-          eyebrow="Pourquoi Najem"
-          title="Ce qui change concrètement pour vous."
-          lead="L’objectif n’est pas d’ajouter une application de plus à votre téléphone, mais de retirer une contrainte de votre semaine."
+          eyebrow={textes?.surtitre ?? 'Pourquoi Najem'}
+          title={textes?.titre ?? 'Ce qui change concrètement pour vous.'}
+          lead={
+            textes?.introduction ??
+            'L’objectif n’est pas d’ajouter une application de plus à votre téléphone, mais de retirer une contrainte de votre semaine.'
+          }
         />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)]">
@@ -57,43 +77,46 @@ export function WhyNajem() {
                   <highlight.icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="mt-6 font-display text-xl font-semibold text-navy-800">
-                  {highlight.title}
+                  {textes?.atout.titre ?? highlight.title}
                 </h3>
-                <p className="mt-3 text-[0.975rem] leading-relaxed text-ink-soft">{highlight.text}</p>
+                <p className="mt-3 text-[0.975rem] leading-relaxed text-ink-soft">
+                  {textes?.atout.texte ?? highlight.text}
+                </p>
               </div>
 
               <ol className="mt-10 space-y-3 border-t border-[var(--border)] pt-6 text-[0.9rem] text-ink-soft">
-                {['Choisir la prestation', 'Indiquer ses disponibilités', 'Confirmer la demande'].map(
-                  (step, index) => (
-                    <li key={step} className="flex items-center gap-3">
-                      <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-tint text-[0.7rem] font-semibold text-brand-700">
-                        {index + 1}
-                      </span>
-                      {step}
-                    </li>
-                  ),
-                )}
+                {(textes?.etapes ?? etapes).map((step, index) => (
+                  <li key={step} className="flex items-center gap-3">
+                    <span className="flex h-6 w-6 items-center justify-center rounded-full bg-brand-tint text-[0.7rem] font-semibold text-brand-700">
+                      {index + 1}
+                    </span>
+                    {step}
+                  </li>
+                ))}
               </ol>
             </SpotlightCard>
           </Reveal>
 
           <Stagger className="grid gap-6 sm:grid-cols-2" stagger={0.07}>
-            {benefits.map((benefit) => (
-              <StaggerItem key={benefit.title}>
-                <article className="group h-full rounded-3xl border border-[var(--border)] bg-paper/60 p-7 transition-all duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-brand-line hover:bg-surface hover:shadow-[var(--shadow-card)]">
-                  <benefit.icon
-                    className="h-5 w-5 text-brand-500 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-0.5"
-                    aria-hidden="true"
-                  />
-                  <h3 className="mt-5 font-display text-[1.05rem] font-semibold text-navy-800">
-                    {benefit.title}
-                  </h3>
-                  <p className="mt-2.5 text-[0.925rem] leading-relaxed text-ink-soft">
-                    {benefit.text}
-                  </p>
-                </article>
-              </StaggerItem>
-            ))}
+            {benefits.map((benefit, index) => {
+              const avantage = textes?.avantages[index];
+              return (
+                <StaggerItem key={benefit.title}>
+                  <article className="group h-full rounded-3xl border border-[var(--border)] bg-paper/60 p-7 transition-all duration-500 ease-[var(--ease-out-soft)] hover:-translate-y-1 hover:border-brand-line hover:bg-surface hover:shadow-[var(--shadow-card)]">
+                    <benefit.icon
+                      className="h-5 w-5 text-brand-500 transition-transform duration-500 ease-[var(--ease-out-soft)] group-hover:-translate-y-0.5"
+                      aria-hidden="true"
+                    />
+                    <h3 className="mt-5 font-display text-[1.05rem] font-semibold text-navy-800">
+                      {avantage?.titre ?? benefit.title}
+                    </h3>
+                    <p className="mt-2.5 text-[0.925rem] leading-relaxed text-ink-soft">
+                      {avantage?.texte ?? benefit.text}
+                    </p>
+                  </article>
+                </StaggerItem>
+              );
+            })}
           </Stagger>
         </div>
       </Container>

@@ -2,7 +2,7 @@ import { Bell, CalendarClock, CreditCard, MessageSquareText, Smartphone } from '
 import ShinyText from '@/components/reactbits/ShinyText';
 import { Container } from '@/components/ui/Container';
 import { PhoneFrame } from '@/components/ui/PhoneFrame';
-import { StoreButtons } from '@/components/ui/StoreButtons';
+import { StoreButtons, type TextesBoutiques } from '@/components/ui/StoreButtons';
 import { Reveal } from '@/components/animations/Reveal';
 import { Stagger, StaggerItem } from '@/components/animations/Stagger';
 import { FloatingPhone } from '@/components/animations/FloatingPhone';
@@ -15,7 +15,30 @@ const features = [
   { icon: Bell, title: 'Suivi', text: 'Vous gardez la visibilité sur l’avancement de votre demande.' },
 ];
 
-export function AppSpotlight() {
+type TitreTexte = { titre: string; texte: string };
+
+/**
+ * Textes de la section pour les pages traduites (le français par défaut). Les
+ * captures restent celles de l’application, en français : seuls leurs textes
+ * alternatifs sont traduits.
+ */
+export type TextesAppSpotlight = {
+  surtitre: string;
+  titre: string;
+  introduction: string;
+  /** Les cinq fonctionnalités, dans l’ordre de la liste française. */
+  fonctionnalites: [TitreTexte, TitreTexte, TitreTexte, TitreTexte, TitreTexte];
+  /** Textes alternatifs des captures « Mes réservations » et « réservation ». */
+  ecrans: { mesReservations: string; reservation: string };
+};
+
+type AppSpotlightProps = {
+  textes?: TextesAppSpotlight;
+  /** Pages traduites : libellés des badges App Store et Google Play. */
+  boutiques?: TextesBoutiques;
+};
+
+export function AppSpotlight({ textes, boutiques }: AppSpotlightProps) {
   return (
     <section
       id="application"
@@ -38,7 +61,7 @@ export function AppSpotlight() {
             <Reveal y={10}>
               <p className="flex items-center gap-2.5 text-[0.7rem] font-semibold uppercase tracking-[0.2em]">
                 <span aria-hidden="true" className="h-px w-6 bg-brand-300/60" />
-                <ShinyText text="Application mobile" />
+                <ShinyText text={textes?.surtitre ?? 'Application mobile'} />
               </p>
             </Reveal>
 
@@ -47,60 +70,70 @@ export function AppSpotlight() {
                 id="application-titre"
                 className="mt-5 font-display text-[clamp(1.85rem,1.2rem+2.6vw,3rem)] font-bold leading-[1.08] text-white"
               >
-                Tout votre service de nettoyage dans votre poche.
+                {textes?.titre ?? 'Tout votre service de nettoyage dans votre poche.'}
               </h2>
             </Reveal>
 
             <Reveal delay={0.12}>
               <p className="mt-5 max-w-xl text-[1.02rem] leading-relaxed text-brand-100/80">
-                L’application réunit ce dont vous avez besoin avant, pendant et après une
-                intervention. Pas de va-et-vient entre plusieurs canaux : votre demande, vos
-                rendez-vous et vos échanges sont regroupés.
+                {textes?.introduction ??
+                  'L’application réunit ce dont vous avez besoin avant, pendant et après une intervention. Pas de va-et-vient entre plusieurs canaux : votre demande, vos rendez-vous et vos échanges sont regroupés.'}
               </p>
             </Reveal>
 
             <Stagger className="mt-10 divide-y divide-white/10 border-y border-white/10" as="ul">
-              {features.map((feature) => (
-                <StaggerItem as="li" key={feature.title}>
-                  <div className="group flex items-start gap-4 py-4 transition-colors duration-400 hover:bg-white/[0.03]">
-                    <feature.icon
-                      className="mt-0.5 h-5 w-5 shrink-0 text-brand-300 transition-transform duration-400 group-hover:scale-110"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <h3 className="font-display text-[1rem] font-semibold text-white">
-                        {feature.title}
-                      </h3>
-                      <p className="mt-1 text-[0.9rem] leading-relaxed text-brand-100/70">
-                        {feature.text}
-                      </p>
+              {features.map((feature, index) => {
+                const fonctionnalite = textes?.fonctionnalites[index];
+                return (
+                  <StaggerItem as="li" key={feature.title}>
+                    <div className="group flex items-start gap-4 py-4 transition-colors duration-400 hover:bg-white/[0.03]">
+                      <feature.icon
+                        className="mt-0.5 h-5 w-5 shrink-0 text-brand-300 transition-transform duration-400 group-hover:scale-110"
+                        aria-hidden="true"
+                      />
+                      <div>
+                        <h3 className="font-display text-[1rem] font-semibold text-white">
+                          {fonctionnalite?.titre ?? feature.title}
+                        </h3>
+                        <p className="mt-1 text-[0.9rem] leading-relaxed text-brand-100/70">
+                          {fonctionnalite?.texte ?? feature.text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </StaggerItem>
-              ))}
+                  </StaggerItem>
+                );
+              })}
             </Stagger>
 
             <Reveal delay={0.1} className="mt-10">
-              <StoreButtons tone="light" />
+              <StoreButtons tone="light" textes={boutiques} />
             </Reveal>
           </div>
 
           <div className="relative flex justify-center lg:justify-end">
             <Reveal y={28} className="relative">
               <div className="relative flex items-end justify-center">
-                <div className="hidden translate-y-6 -rotate-6 opacity-90 sm:block">
+                {/* En arabe, la composition est inversée : le second téléphone
+                    chevauche toujours le premier, incliné vers l’extérieur. */}
+                <div className="hidden translate-y-6 -rotate-6 opacity-90 rtl:rotate-6 sm:block">
                   <PhoneFrame
                     src="/images/app/app-screen-3.png"
-                    alt="Écran « Mes réservations » de l’application Najem Clean Service"
+                    alt={
+                      textes?.ecrans.mesReservations ??
+                      'Écran « Mes réservations » de l’application Najem Clean Service'
+                    }
                     width={210}
                     sizes="210px"
                   />
                 </div>
 
-                <FloatingPhone amplitude={8} duration={9} className="-ml-8 sm:-ml-10">
+                <FloatingPhone amplitude={8} duration={9} className="-ms-8 sm:-ms-10">
                   <PhoneFrame
                     src="/images/app/app-screen-2.png"
-                    alt="Écran de réservation de l’application Najem Clean Service : choix de la prestation"
+                    alt={
+                      textes?.ecrans.reservation ??
+                      'Écran de réservation de l’application Najem Clean Service : choix de la prestation'
+                    }
                     width={252}
                     sizes="(max-width: 640px) 60vw, 252px"
                   />
