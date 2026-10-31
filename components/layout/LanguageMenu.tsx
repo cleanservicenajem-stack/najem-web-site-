@@ -82,10 +82,12 @@ export function LanguageMenu({ courante, className }: { courante: Langue; classN
         <ul>
           {langues.map((langue) => {
             const { complet } = libellesLangues[langue];
+            // L'arabe paraît plus petit à taille égale : on le grossit un peu.
+            const taille = langue === 'ar' ? 'text-[1rem]' : undefined;
             return (
               <li key={langue}>
                 {langue === courante ? (
-                  <span aria-current="true" lang={langue} className={cn(ligne, 'text-brand-700')}>
+                  <span aria-current="true" lang={langue} className={cn(ligne, taille, 'text-brand-700')}>
                     {complet}
                     <Check className="h-4 w-4" aria-hidden="true" />
                   </span>
@@ -94,7 +96,7 @@ export function LanguageMenu({ courante, className }: { courante: Langue; classN
                     href={accueilParLangue[langue]}
                     hrefLang={langue}
                     lang={langue}
-                    className={cn(ligne, 'text-navy-800 hover:bg-brand-tint hover:text-brand-700')}
+                    className={cn(ligne, taille, 'text-navy-800 hover:bg-brand-tint hover:text-brand-700')}
                   >
                     {complet}
                   </a>
