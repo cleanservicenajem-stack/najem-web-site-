@@ -14,3 +14,6 @@ yarn-error.log*
 next-env.d.ts
 # Captures d'écran de recette (jetables)
 /.captures/
+
+# Python
+__pycache__/
