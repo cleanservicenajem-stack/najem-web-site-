@@ -9,6 +9,7 @@ import { EASE_OUT } from '@/lib/motion';
 import { LogoLink } from '@/components/ui/Logo';
 import { StoreButtons } from '@/components/ui/StoreButtons';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { cn } from '@/lib/utils';
 import { usePrefersReducedMotion } from '@/lib/hooks';
 
@@ -130,6 +131,13 @@ export function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
                 Télécharger l’application
               </p>
               <StoreButtons className="mt-4" />
+            </div>
+
+            <div className="mt-8">
+              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-600">
+                Langue du site
+              </p>
+              <LanguageSwitcher courante="fr" variante="complet" className="mt-4" />
             </div>
 
             <ThemeToggle variant="switch" className="mt-8" />

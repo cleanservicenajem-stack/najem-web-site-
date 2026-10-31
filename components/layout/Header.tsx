@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { MobileMenu } from '@/components/layout/MobileMenu';
 import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
+import { LanguageMenu } from '@/components/layout/LanguageMenu';
 import { cn } from '@/lib/utils';
 
 /** Navigation desktop : l'accueil est porté par le logo. */
@@ -41,12 +42,12 @@ export function Header() {
             : 'bg-transparent',
         )}
       >
-        <div className="container-page flex h-[var(--header-height)] items-center justify-between gap-6">
+        <div className="container-page flex h-[var(--header-height)] items-center justify-between gap-4 sm:gap-6 lg:gap-4 xl:gap-6">
           <LogoLink size={38} priority tone="auto" className="lg:hidden" />
           <LogoLink size={44} priority tone="auto" className="hidden lg:inline-flex" />
 
           <nav aria-label="Navigation principale" className="hidden lg:block">
-            <ul className="flex items-center gap-1">
+            <ul className="flex items-center gap-0.5 xl:gap-1">
               {desktopNav.map((item) => {
                 const active = isActive(item.href);
                 return (
@@ -55,7 +56,7 @@ export function Header() {
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'group relative inline-flex h-10 items-center rounded-full px-3.5 text-[0.9rem] font-medium transition-colors duration-300',
+                        'group relative inline-flex h-10 items-center rounded-full px-3 text-[0.9rem] font-medium transition-colors duration-300 xl:px-3.5',
                         active ? 'text-brand-700' : 'text-navy-800/85 hover:text-brand-700',
                       )}
                     >
@@ -63,7 +64,7 @@ export function Header() {
                       <span
                         aria-hidden="true"
                         className={cn(
-                          'absolute bottom-1.5 left-3.5 right-3.5 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)]',
+                          'absolute bottom-1.5 left-3 right-3 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)] xl:left-3.5 xl:right-3.5',
                           active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
                         )}
                       />
@@ -75,11 +76,18 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <LanguageSwitcher courante="fr" />
+            {/* Choix de la langue : en accès direct quand la place le permet,
+                en menu compact sur les écrans moyens où la navigation complète
+                occupe l'en-tête. Sous 360 px, il reste dans le menu mobile. */}
+            <LanguageSwitcher
+              courante="fr"
+              className="hidden min-[22.5rem]:flex lg:hidden xl:flex"
+            />
+            <LanguageMenu courante="fr" className="hidden lg:block xl:hidden" />
 
-            {/* Sur mobile, le thème se règle depuis le menu : la place va au
-                choix de la langue. */}
-            <ThemeToggle className="hidden sm:flex" />
+            {/* Sur mobile et tablette, le thème se règle depuis le menu : la
+                place va au choix de la langue. */}
+            <ThemeToggle className="hidden lg:flex" />
 
             <Button
               href="/application"

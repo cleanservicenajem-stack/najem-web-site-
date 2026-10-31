@@ -21,6 +21,13 @@ export const libellesLangues: Record<Langue, { court: string; complet: string }>
   en: { court: 'EN', complet: 'English' },
 };
 
+/** Nom du choix de langue, dans chaque langue (lecteurs d'écran, infobulles). */
+export const libelleChoixLangue: Record<Langue, string> = {
+  fr: 'Langue du site',
+  ar: 'لغة الموقع',
+  en: 'Site language',
+};
+
 /** Accueil de chaque langue. */
 export const accueilParLangue: Record<Langue, string> = {
   fr: '/',

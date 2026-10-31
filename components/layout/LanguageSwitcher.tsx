@@ -1,11 +1,11 @@
-import { accueilParLangue, langues, libellesLangues, type Langue } from '@/config/i18n';
+import {
+  accueilParLangue,
+  langues,
+  libelleChoixLangue,
+  libellesLangues,
+  type Langue,
+} from '@/config/i18n';
 import { cn } from '@/lib/utils';
-
-const etiquettes: Record<Langue, string> = {
-  fr: 'Langue du site',
-  ar: 'لغة الموقع',
-  en: 'Site language',
-};
 
 type LanguageSwitcherProps = {
   courante: Langue;
@@ -30,7 +30,7 @@ export function LanguageSwitcher({
   className,
 }: LanguageSwitcherProps) {
   return (
-    <nav aria-label={etiquettes[courante]} className={cn('flex items-center', className)}>
+    <nav aria-label={libelleChoixLangue[courante]} className={cn('flex items-center', className)}>
       <ul
         className={cn(
           'flex items-center gap-0.5 rounded-full border p-1',
