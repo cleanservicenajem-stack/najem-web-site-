@@ -192,7 +192,7 @@ export function Hero({
             >
               <FloatingPhone amplitude={9} duration={8}>
                 <PhoneFrame
-                  src="/images/app/app-screen-1.png"
+                  src="/images/app/ecran-2026-10-1.png"
                   alt={textes?.ecran ?? 'Écran d’accueil de l’application Najem Clean Service'}
                   width={286}
                   priority

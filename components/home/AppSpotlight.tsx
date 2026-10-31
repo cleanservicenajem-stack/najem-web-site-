@@ -117,7 +117,7 @@ export function AppSpotlight({ textes, boutiques }: AppSpotlightProps) {
                     chevauche toujours le premier, incliné vers l’extérieur. */}
                 <div className="hidden translate-y-6 -rotate-6 opacity-90 rtl:rotate-6 sm:block">
                   <PhoneFrame
-                    src="/images/app/app-screen-3.png"
+                    src="/images/app/ecran-2026-10-3.png"
                     alt={
                       textes?.ecrans.mesReservations ??
                       'Écran « Nos prestations » et abonnement de l’application Najem Clean Service'
@@ -129,7 +129,7 @@ export function AppSpotlight({ textes, boutiques }: AppSpotlightProps) {
 
                 <FloatingPhone amplitude={8} duration={9} className="-ms-8 sm:-ms-10">
                   <PhoneFrame
-                    src="/images/app/app-screen-2.png"
+                    src="/images/app/ecran-2026-10-2.png"
                     alt={
                       textes?.ecrans.reservation ??
                       'Écran de réservation de l’application Najem Clean Service : choix de la prestation'

@@ -233,7 +233,7 @@ export default async function ApplicationTraduite({ params }: Props) {
               <div className="relative flex items-end justify-center">
                 <div className="hidden translate-y-8 -rotate-6 opacity-95 sm:block rtl:rotate-6">
                   <PhoneFrame
-                    src="/images/app/app-screen-2.png"
+                    src="/images/app/ecran-2026-10-2.png"
                     alt={t.ecrans.reservation}
                     width={196}
                     sizes="196px"
@@ -241,7 +241,7 @@ export default async function ApplicationTraduite({ params }: Props) {
                 </div>
                 <FloatingPhone amplitude={7} duration={9} className="-ms-10 sm:-ms-14">
                   <PhoneFrame
-                    src="/images/app/app-screen-3.png"
+                    src="/images/app/ecran-2026-10-3.png"
                     alt={t.ecrans.mesReservations}
                     width={242}
                     sizes="(max-width: 640px) 58vw, 242px"
