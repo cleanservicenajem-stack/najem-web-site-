@@ -34,6 +34,12 @@ export type TextesCommuns = {
     categories: Record<string, { titre: string; precision: string }>;
     formules: Record<string, string>;
   };
+  /**
+   * Options de la grille, par libellé français exact (config/tarifs.ts et
+   * administration). Une option ajoutée plus tard sans traduction garde son
+   * libellé français.
+   */
+  options: Record<string, string>;
   /** Nom de chaque prestation, par slug (config/services.ts). */
   services: Record<string, { titre: string; titreCourt: string }>;
   /** Villes desservies, par slug (config/site.ts → serviceAreas). */
@@ -78,6 +84,17 @@ const anglais: TextesCommuns = {
       'tres-grand-express': 'Express cleaning',
       'tres-grand-prestige': 'Prestige cleaning',
     },
+  },
+  options: {
+    'Repassage express (30 min)': 'Express ironing (30 min)',
+    'Repassage complet (1 h)': 'Full ironing (1 h)',
+    'Four et frigo très sales': 'Very dirty oven and fridge',
+    'Terrasse ou balcon': 'Terrace or balcony',
+    'Heure supplémentaire': 'Extra hour',
+    'Shampouineuse canapé et tapis': 'Sofa and carpet shampooing',
+    Repassage: 'Ironing',
+    'Petit repassage': 'Small ironing load',
+    'Grand repassage': 'Large ironing load',
   },
   services: {
     'nettoyage-regulier': { titre: 'Regular cleaning', titreCourt: 'Regular' },
@@ -154,6 +171,17 @@ const arabe: TextesCommuns = {
       'tres-grand-express': 'تنظيف سريع',
       'tres-grand-prestige': 'تنظيف فاخر',
     },
+  },
+  options: {
+    'Repassage express (30 min)': 'كي سريع (30 دقيقة)',
+    'Repassage complet (1 h)': 'كي كامل (ساعة)',
+    'Four et frigo très sales': 'فرن وثلاجة متسخان جدا',
+    'Terrasse ou balcon': 'تراس أو شرفة',
+    'Heure supplémentaire': 'ساعة إضافية',
+    'Shampouineuse canapé et tapis': 'غسل الأرائك والزرابي بالآلة',
+    Repassage: 'الكي',
+    'Petit repassage': 'كي كمية صغيرة',
+    'Grand repassage': 'كي كمية كبيرة',
   },
   services: {
     'nettoyage-regulier': { titre: 'التنظيف المنتظم', titreCourt: 'منتظم' },

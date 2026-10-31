@@ -31,6 +31,16 @@ export const traduireDuree = (texte: string, commun: TextesCommuns): string => {
   return duree ? commun.duree(duree.heures, duree.minutes) : '';
 };
 
+/** Libellé d'option traduit ; le libellé français s'il n'a pas de traduction. */
+export const traduireOption = (libelle: string, commun: TextesCommuns): string =>
+  commun.options[libelle.trim()] ?? libelle;
+
+/** « +150 DH » → « +150 درهم » ; le texte d'origine s'il est illisible. */
+export const traduirePrixOption = (prix: string, commun: TextesCommuns): string => {
+  const valeur = montant(prix);
+  return valeur === null ? prix : `+${commun.prix(valeur)}`;
+};
+
 export type LigneTraduite = {
   id: string;
   /** Identifiant de la catégorie (config/tarifs.ts). */
