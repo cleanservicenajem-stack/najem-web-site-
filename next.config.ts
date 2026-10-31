@@ -58,6 +58,13 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Le domaine nu servait les pages en double : une seule adresse pour Google.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'najemcleanservice.ma' }],
+        destination: 'https://www.najemcleanservice.ma/:path*',
+        permanent: true,
+      },
       { source: '/accueil', destination: '/', permanent: true },
       { source: '/app', destination: '/application', permanent: true },
       { source: '/about', destination: '/a-propos', permanent: true },
