@@ -28,7 +28,83 @@ function FieldError({ id, message }: { id: string; message?: string }) {
   );
 }
 
-export function ContactForm() {
+type ObjetContact = keyof typeof subjectLabels;
+
+type ChampContact = 'firstName' | 'lastName' | 'email' | 'phone' | 'subject' | 'message' | 'consent';
+
+/**
+ * Messages des pages traduites (/ar, /en). La validation et l'action serveur
+ * répondent en français : ces textes les remplacent à l'affichage, choisis
+ * d'après le champ en erreur et l'état renvoyé par l'action.
+ */
+export type MessagesFormulaireContact = {
+  /** Langue des messages (« ar », « en »), pour les règles de pluriel. */
+  langue: string;
+  succes: string;
+  champsACorriger: string;
+  /**
+   * Trop de demandes : une phrase par catégorie de pluriel
+   * (Intl.PluralRules) ; `{minutes}` y est remplacé par le délai d'attente.
+   */
+  tropDeDemandes: Partial<Record<Intl.LDMLPluralRule, string>> & { other: string };
+  /** Tout autre refus du serveur (envoi impossible). */
+  envoiImpossible: string;
+  /** Un message par champ, valable quelle que soit la règle non respectée. */
+  champs: Record<ChampContact, string>;
+};
+
+/**
+ * Textes du formulaire. Le français est la valeur par défaut ; les pages
+ * traduites passent les leurs. Rien que des données (pas de fonction) : la
+ * page, composant serveur, les transmet à ce composant client.
+ */
+export type TextesFormulaireContact = {
+  /** Libellé du champ piège, invisible. */
+  champPiege: string;
+  prenom: string;
+  nom: string;
+  email: string;
+  telephone: string;
+  /** « (facultatif) », après « Téléphone ». */
+  facultatif: string;
+  objet: string;
+  choisirObjet: string;
+  /** Libellés de la liste « Objet » ; les valeurs envoyées ne changent pas. */
+  objets: Record<ObjetContact, string>;
+  message: string;
+  aideMessage: string;
+  consentement: string;
+  envoiEnCours: string;
+  envoyer: string;
+  /** « Les champs marqués d’un * sont obligatoires. », de part et d'autre de l'astérisque. */
+  obligatoires: { avant: string; apres: string };
+  /** Texte sous le message de confirmation. */
+  apresEnvoi: string;
+  /** Absents en français : les messages d'origine s'affichent tels quels. */
+  messages?: MessagesFormulaireContact;
+};
+
+const textesFrancais: TextesFormulaireContact = {
+  champPiege: 'Laissez ce champ vide',
+  prenom: 'Prénom',
+  nom: 'Nom',
+  email: 'E-mail',
+  telephone: 'Téléphone',
+  facultatif: '(facultatif)',
+  objet: 'Objet',
+  choisirObjet: 'Choisissez un objet',
+  objets: subjectLabels,
+  message: 'Message',
+  aideMessage: 'Précisez votre besoin : type de logement, prestation envisagée, disponibilités.',
+  consentement: 'J’accepte que ces informations soient utilisées pour traiter ma demande.',
+  envoiEnCours: 'Envoi en cours…',
+  envoyer: 'Envoyer le message',
+  obligatoires: { avant: 'Les champs marqués d’un ', apres: ' sont obligatoires.' },
+  apresEnvoi:
+    'Nous revenons vers vous à l’adresse indiquée. Pour une demande liée à une réservation en cours, l’application reste le canal le plus direct.',
+};
+
+export function ContactForm({ textes = textesFrancais }: { textes?: TextesFormulaireContact }) {
   const [state, formAction, isPending] = useActionState<ContactFormState, FormData>(
     submitContactForm,
     initialContactState,
@@ -81,6 +157,29 @@ export function ContactForm() {
   // React réinitialise le formulaire après l'action : les champs repartent de
   // ces valeurs, renvoyées par le serveur en cas de refus.
   const values = state.values;
+  const { messages } = textes;
+
+  /** Erreur d'un champ ; dans une page traduite, le message prévu pour ce champ. */
+  const erreurDe = (champ: ChampContact): string | undefined => {
+    const message = errors[champ];
+    return message && messages ? messages.champs[champ] : message;
+  };
+
+  /** Message renvoyé par l'action ; dans une page traduite, celui du cas reconnu. */
+  const messageServeur = (): string | undefined => {
+    if (!messages) return state.message;
+    if (state.status === 'success') return messages.succes;
+    if (state.fieldErrors) return messages.champsACorriger;
+
+    const attente = /(\d+)\s*minute/.exec(state.message ?? '');
+    if (!attente) return messages.envoiImpossible;
+
+    const minutes = Number(attente[1]);
+    const phrase =
+      messages.tropDeDemandes[new Intl.PluralRules(messages.langue).select(minutes)] ??
+      messages.tropDeDemandes.other;
+    return phrase.replace('{minutes}', String(minutes));
+  };
 
   if (state.status === 'success') {
     return (
@@ -96,11 +195,10 @@ export function ContactForm() {
           <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
         </span>
         <p className="mt-5 font-display text-[1.2rem] font-semibold text-navy-800">
-          {state.message}
+          {messageServeur()}
         </p>
         <p className="mx-auto mt-2.5 max-w-md text-[0.925rem] leading-relaxed text-ink-soft">
-          Nous revenons vers vous à l’adresse indiquée. Pour une demande liée à une réservation en
-          cours, l’application reste le canal le plus direct.
+          {textes.apresEnvoi}
         </p>
       </motion.div>
     );
@@ -119,7 +217,7 @@ export function ContactForm() {
           « société » est reconnu par le remplissage automatique de Chrome, qui
           le complète tout seul et fait écarter une demande bien réelle. */}
       <div aria-hidden="true" className="pointer-events-none absolute left-[-9999px] h-0 w-0 overflow-hidden">
-        <label htmlFor="reference">Laissez ce champ vide</label>
+        <label htmlFor="reference">{textes.champPiege}</label>
         <input
           id="reference"
           name="reference"
@@ -134,7 +232,7 @@ export function ContactForm() {
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="firstName" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-            Prénom <span className="text-brand-600">*</span>
+            {`${textes.prenom} `}<span className="text-brand-600">*</span>
           </label>
           <input
             id="firstName"
@@ -147,12 +245,12 @@ export function ContactForm() {
             aria-describedby={errors.firstName ? 'firstName-error' : undefined}
             className={fieldClass(Boolean(errors.firstName))}
           />
-          <FieldError id="firstName-error" message={errors.firstName} />
+          <FieldError id="firstName-error" message={erreurDe('firstName')} />
         </div>
 
         <div>
           <label htmlFor="lastName" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-            Nom <span className="text-brand-600">*</span>
+            {`${textes.nom} `}<span className="text-brand-600">*</span>
           </label>
           <input
             id="lastName"
@@ -165,33 +263,35 @@ export function ContactForm() {
             aria-describedby={errors.lastName ? 'lastName-error' : undefined}
             className={fieldClass(Boolean(errors.lastName))}
           />
-          <FieldError id="lastName-error" message={errors.lastName} />
+          <FieldError id="lastName-error" message={erreurDe('lastName')} />
         </div>
       </div>
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="email" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-            E-mail <span className="text-brand-600">*</span>
+            {`${textes.email} `}<span className="text-brand-600">*</span>
           </label>
+          {/* `dir="auto"` : une adresse ou un numéro reste lisible dans une page en arabe. */}
           <input
             id="email"
             name="email"
             type="email"
             autoComplete="email"
             inputMode="email"
+            dir="auto"
             required
             defaultValue={values?.email ?? ''}
             aria-invalid={Boolean(errors.email)}
             aria-describedby={errors.email ? 'email-error' : undefined}
             className={fieldClass(Boolean(errors.email))}
           />
-          <FieldError id="email-error" message={errors.email} />
+          <FieldError id="email-error" message={erreurDe('email')} />
         </div>
 
         <div>
           <label htmlFor="phone" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-            Téléphone <span className="text-ink-soft">(facultatif)</span>
+            {`${textes.telephone} `}<span className="text-ink-soft">{textes.facultatif}</span>
           </label>
           <input
             id="phone"
@@ -199,18 +299,19 @@ export function ContactForm() {
             type="tel"
             autoComplete="tel"
             inputMode="tel"
+            dir="auto"
             defaultValue={values?.phone ?? ''}
             aria-invalid={Boolean(errors.phone)}
             aria-describedby={errors.phone ? 'phone-error' : undefined}
             className={fieldClass(Boolean(errors.phone))}
           />
-          <FieldError id="phone-error" message={errors.phone} />
+          <FieldError id="phone-error" message={erreurDe('phone')} />
         </div>
       </div>
 
       <div>
         <label htmlFor="subject" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-          Objet <span className="text-brand-600">*</span>
+          {`${textes.objet} `}<span className="text-brand-600">*</span>
         </label>
         <select
           key={state.token ?? 'initial'}
@@ -220,23 +321,23 @@ export function ContactForm() {
           defaultValue={values?.subject ?? ''}
           aria-invalid={Boolean(errors.subject)}
           aria-describedby={errors.subject ? 'subject-error' : undefined}
-          className={cn(fieldClass(Boolean(errors.subject)), 'appearance-none pr-10')}
+          className={cn(fieldClass(Boolean(errors.subject)), 'appearance-none pe-10')}
         >
           <option value="" disabled>
-            Choisissez un objet
+            {textes.choisirObjet}
           </option>
           {Object.entries(subjectLabels).map(([value, label]) => (
             <option key={value} value={value}>
-              {label}
+              {textes.objets[value as ObjetContact] ?? label}
             </option>
           ))}
         </select>
-        <FieldError id="subject-error" message={errors.subject} />
+        <FieldError id="subject-error" message={erreurDe('subject')} />
       </div>
 
       <div>
         <label htmlFor="message" className="mb-2 block text-[0.875rem] font-medium text-navy-800">
-          Message <span className="text-brand-600">*</span>
+          {`${textes.message} `}<span className="text-brand-600">*</span>
         </label>
         <textarea
           id="message"
@@ -249,10 +350,10 @@ export function ContactForm() {
           className={cn(fieldClass(Boolean(errors.message)), 'resize-y')}
         />
         {errors.message ? (
-          <FieldError id="message-error" message={errors.message} />
+          <FieldError id="message-error" message={erreurDe('message')} />
         ) : (
           <p id="message-hint" className="mt-1.5 text-[0.8rem] text-ink-soft">
-            Précisez votre besoin : type de logement, prestation envisagée, disponibilités.
+            {textes.aideMessage}
           </p>
         )}
       </div>
@@ -268,11 +369,11 @@ export function ContactForm() {
             className="mt-0.5 h-4 w-4 rounded border-[var(--border)] text-brand-600 focus:ring-brand-300"
           />
           <span>
-            J’accepte que ces informations soient utilisées pour traiter ma demande.{' '}
+            {textes.consentement}{' '}
             <span className="text-brand-600">*</span>
           </span>
         </label>
-        <FieldError id="consent-error" message={errors.consent} />
+        <FieldError id="consent-error" message={erreurDe('consent')} />
       </div>
 
       <AnimatePresence>
@@ -288,7 +389,7 @@ export function ContactForm() {
             className="flex items-start gap-3 rounded-xl border border-danger-line bg-danger-surface p-4 text-[0.9rem] text-danger-ink outline-none"
           >
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-            {state.message}
+            {messageServeur()}
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -302,18 +403,21 @@ export function ContactForm() {
           {isPending ? (
             <>
               <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
-              Envoi en cours…
+              {textes.envoiEnCours}
             </>
           ) : (
             <>
-              Envoyer le message
-              <Send className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+              {textes.envoyer}
+              <Send
+                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 rtl:-scale-x-100 rtl:group-hover:-translate-x-0.5"
+                aria-hidden="true"
+              />
             </>
           )}
         </button>
 
         <p className="text-[0.8rem] text-ink-soft">
-          Les champs marqués d’un <span className="text-brand-600">*</span> sont obligatoires.
+          {textes.obligatoires.avant}<span className="text-brand-600">*</span>{textes.obligatoires.apres}
         </p>
       </div>
     </form>
