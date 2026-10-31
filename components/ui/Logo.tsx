@@ -171,14 +171,20 @@ export function Logo({
   );
 }
 
-type LogoLinkProps = LogoProps & { href?: string; onClick?: () => void };
+type LogoLinkProps = LogoProps & { href?: string; onClick?: () => void; label?: string };
 
-export function LogoLink({ href = '/', className, onClick, ...props }: LogoLinkProps) {
+export function LogoLink({
+  href = '/',
+  className,
+  onClick,
+  label = `${siteConfig.name} — retour à l'accueil`,
+  ...props
+}: LogoLinkProps) {
   return (
     <Link
       href={href}
       onClick={onClick}
-      aria-label={`${siteConfig.name} — retour à l'accueil`}
+      aria-label={label}
       className={cn(
         'inline-flex shrink-0 rounded-lg transition-opacity duration-300 hover:opacity-85',
         className,

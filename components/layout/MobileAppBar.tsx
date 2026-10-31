@@ -7,6 +7,8 @@ import { useState } from 'react';
 import { siteConfig } from '@/config/site';
 import { readSessionFlag, usePrefersReducedMotion, useScrolledPast, writeSessionFlag } from '@/lib/hooks';
 import { EASE_OUT } from '@/lib/motion';
+import { cheminEn, type Langue } from '@/config/i18n';
+import { textesChrome } from '@/content/i18n/chrome';
 
 const DISMISS_KEY = 'najem:app-bar-dismissed';
 
@@ -25,8 +27,9 @@ const detectPlatform = (): Platform => {
  * le premier écran, se referme définitivement pour la session, et laisse
  * toujours l'accès aux deux stores.
  */
-export function MobileAppBar() {
+export function MobileAppBar({ langue = 'fr' }: { langue?: Langue }) {
   const pathname = usePathname();
+  const t = textesChrome[langue].barreApp;
   const reduceMotion = usePrefersReducedMotion();
   const visible = useScrolledPast(720);
   const [dismissed, setDismissed] = useState(() => readSessionFlag(DISMISS_KEY));
@@ -37,13 +40,13 @@ export function MobileAppBar() {
     writeSessionFlag(DISMISS_KEY);
   };
 
-  const onAppPage = pathname === '/application';
+  const onAppPage = pathname === cheminEn(langue, '/application');
   const show = visible && !dismissed && !onAppPage;
 
   const primary = platform === 'android' ? siteConfig.apps.android : siteConfig.apps.ios;
   const secondary = platform === 'android' ? siteConfig.apps.ios : siteConfig.apps.android;
   // Verbe court : la barre doit rester lisible dès 320px de large.
-  const primaryLabel = platform === 'android' ? 'Installer' : 'Obtenir';
+  const primaryLabel = platform === 'android' ? t.installer : t.obtenir;
 
   return (
     <AnimatePresence>
@@ -56,7 +59,7 @@ export function MobileAppBar() {
           className="fixed inset-x-3 bottom-3 z-40 lg:hidden"
           style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
         >
-          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--border)] bg-surface/95 p-2 pl-3.5 shadow-[0_20px_50px_-24px_rgba(6,36,66,0.55)] backdrop-blur-lg">
+          <div className="flex items-center gap-2.5 rounded-2xl border border-[var(--border)] bg-surface/95 p-2 ps-3.5 shadow-[0_20px_50px_-24px_rgba(6,36,66,0.55)] backdrop-blur-lg">
             <div className="min-w-0 flex-1">
               <p className="truncate font-display text-[0.82rem] font-semibold leading-tight text-navy-800">
                 {siteConfig.name}
@@ -67,7 +70,7 @@ export function MobileAppBar() {
                 rel="noopener noreferrer"
                 className="text-[0.7rem] text-ink-soft underline decoration-hairline underline-offset-2"
               >
-                Aussi sur {secondary.label}
+                {t.aussiSur} {secondary.label}
               </a>
             </div>
 
@@ -75,7 +78,7 @@ export function MobileAppBar() {
               href={primary.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`Télécharger l’application sur ${primary.label} (nouvelle fenêtre)`}
+              aria-label={t.telechargerSur(primary.label)}
               className="shrink-0 rounded-xl bg-[image:var(--gradient-brand)] px-3.5 py-2 text-[0.8rem] font-semibold text-white"
             >
               {primaryLabel}
@@ -84,7 +87,7 @@ export function MobileAppBar() {
             <button
               type="button"
               onClick={close}
-              aria-label="Masquer ce rappel"
+              aria-label={t.masquer}
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-ink-soft transition-colors hover:bg-paper"
             >
               <X className="h-4 w-4" aria-hidden="true" />

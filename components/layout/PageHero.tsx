@@ -9,6 +9,8 @@ type PageHeroProps = {
   title: string;
   lead?: ReactNode;
   crumbs: Crumb[];
+  /** Nom du fil d'Ariane pour les lecteurs d'écran (pages traduites). */
+  libelleFil?: string;
   children?: ReactNode;
   className?: string;
 };
@@ -17,7 +19,15 @@ type PageHeroProps = {
  * En-tête commun aux pages intérieures : le fond remonte derrière le header
  * transparent, ce qui évite toute rupture visuelle en haut de page.
  */
-export function PageHero({ eyebrow, title, lead, crumbs, children, className }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  lead,
+  crumbs,
+  libelleFil,
+  children,
+  className,
+}: PageHeroProps) {
   return (
     <section
       className={cn(
@@ -31,7 +41,7 @@ export function PageHero({ eyebrow, title, lead, crumbs, children, className }: 
       />
 
       <Container className="relative">
-        <Breadcrumbs items={crumbs} />
+        <Breadcrumbs items={crumbs} label={libelleFil} />
 
         <div className="mt-8 max-w-3xl">
           {eyebrow ? (

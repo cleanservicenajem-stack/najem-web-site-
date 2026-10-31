@@ -48,7 +48,7 @@ export async function GET() {
 - Site officiel : ${siteConfig.url}
 - Application iOS (App Store) : ${siteConfig.apps.ios.url}
 - Application Android (Google Play) : ${siteConfig.apps.android.url}
-- Langue du site : français. L'accueil existe aussi en arabe (${absoluteUrl('/ar')}) et en anglais (${absoluteUrl('/en')}).
+- Langues du site : français ; les pages principales existent aussi en arabe (${absoluteUrl('/ar')}) et en anglais (${absoluteUrl('/en')}).
 - Zones desservies : ${zones}
 
 ## Comment fonctionne le service
@@ -65,8 +65,8 @@ ${services}
 ## Pages principales
 
 - [Accueil](${absoluteUrl('/')})
-- [Accueil en arabe](${absoluteUrl('/ar')})
-- [Accueil en anglais](${absoluteUrl('/en')})
+- [Version arabe du site](${absoluteUrl('/ar')})
+- [Version anglaise du site](${absoluteUrl('/en')})
 - [Services](${absoluteUrl('/services')})
 - [Tarifs](${absoluteUrl('/tarifs')})
 - [Femme de ménage à Casablanca](${absoluteUrl('/femme-de-menage-casablanca')})

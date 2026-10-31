@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, Check, MapPin } from 'lucide-react';
 import { enabledServices, getServiceBySlug } from '@/config/services';
-import { serviceAreaSuffix } from '@/config/local-seo';
+import { alentoursTexte, serviceAreaSuffix } from '@/config/local-seo';
 import { getServiceAffiche, getServicesAffiches } from '@/lib/content';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
@@ -56,6 +56,7 @@ export default async function ServicePage({ params }: PageProps) {
   // Chaîne vide tant qu'aucune ville n'est confirmée : la section entière
   // disparaît alors, plutôt que d'annoncer une couverture inconnue.
   const zones = serviceAreaSuffix();
+  const alentours = alentoursTexte();
   const others = (await getServicesAffiches(
     enabledServices.filter((item) => item.slug !== service.slug),
   )).slice(0, 4);
@@ -91,9 +92,9 @@ export default async function ServicePage({ params }: PageProps) {
                       Zones d’intervention
                     </h2>
                     <p className="mt-3 max-w-2xl text-[0.95rem] leading-relaxed text-ink-soft">
-                      Cette prestation est disponible{zones}, dans l’ensemble de la ville. La
-                      disponibilité d’un créneau à votre adresse est confirmée dans l’application,
-                      au moment de la réservation.
+                      Cette prestation est disponible{zones}
+                      {alentours ? ` (${alentours})` : ''}. La disponibilité d’un créneau à votre
+                      adresse est confirmée dans l’application, au moment de la réservation.
                     </p>
                   </div>
                 </Reveal>

@@ -4,7 +4,9 @@ import { AnimatePresence, motion } from 'motion/react';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
-import { mainNav } from '@/config/navigation';
+import { navigationPrincipale } from '@/config/navigation';
+import { accueilParLangue, type Langue } from '@/config/i18n';
+import { textesChrome } from '@/content/i18n/chrome';
 import { EASE_OUT } from '@/lib/motion';
 import { LogoLink } from '@/components/ui/Logo';
 import { StoreButtons } from '@/components/ui/StoreButtons';
@@ -17,9 +19,17 @@ type MobileMenuProps = {
   open: boolean;
   onClose: () => void;
   pathname: string;
+  langue?: Langue;
 };
 
-export function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
+export function MobileMenu({ open, onClose, pathname, langue = 'fr' }: MobileMenuProps) {
+  const t = textesChrome[langue];
+  const accueil = accueilParLangue[langue];
+  // L'espacement des lettres casse la liaison des lettres arabes.
+  const titrePetit =
+    langue === 'ar'
+      ? 'text-[0.85rem] font-semibold text-brand-600'
+      : 'text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-600';
   const reduceMotion = usePrefersReducedMotion();
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -75,7 +85,7 @@ export function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
           id="menu-mobile"
           role="dialog"
           aria-modal="true"
-          aria-label="Menu principal"
+          aria-label={t.menuPrincipal}
           initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
           exit={reduceMotion ? { opacity: 0 } : { opacity: 0, y: -12 }}
@@ -83,28 +93,30 @@ export function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
           className="fixed inset-0 z-[55] flex flex-col bg-surface lg:hidden"
         >
           <div className="flex h-[var(--header-height)] items-center justify-between px-5">
-            <LogoLink size={36} tone="auto" onClick={onClose} />
+            <LogoLink href={accueil} label={t.retourAccueil} size={36} tone="auto" onClick={onClose} />
             <button
               ref={closeRef}
               type="button"
               onClick={onClose}
-              aria-label="Fermer le menu"
+              aria-label={t.fermerMenu}
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] text-navy-700 transition-colors duration-300 hover:bg-paper"
             >
               <X className="h-5 w-5" aria-hidden="true" />
             </button>
           </div>
 
-          <nav aria-label="Navigation mobile" className="flex-1 overflow-y-auto px-6 pb-8">
+          <nav aria-label={t.navigationMobile} className="flex-1 overflow-y-auto px-6 pb-8">
             <ul className="divide-y divide-[var(--border)] border-t border-[var(--border)]">
-              {mainNav.map((item, index) => {
+              {navigationPrincipale[langue].map((item, index) => {
                 const isActive =
-                  item.href === '/' ? pathname === '/' : pathname.startsWith(item.href.split('#')[0] ?? '');
+                  item.href === accueil
+                    ? pathname === accueil
+                    : pathname.startsWith(item.href.split('#')[0] ?? '');
 
                 return (
                   <motion.li
                     key={item.href}
-                    initial={reduceMotion ? false : { opacity: 0, x: -12 }}
+                    initial={reduceMotion ? false : { opacity: 0, x: langue === 'ar' ? 12 : -12 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.35, delay: 0.05 + index * 0.045, ease: EASE_OUT }}
                   >
@@ -127,20 +139,16 @@ export function MobileMenu({ open, onClose, pathname }: MobileMenuProps) {
             </ul>
 
             <div className="mt-10">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-600">
-                Télécharger l’application
-              </p>
-              <StoreButtons className="mt-4" />
+              <p className={titrePetit}>{t.telechargerApplication}</p>
+              <StoreButtons className="mt-4" textes={t.boutiques} />
             </div>
 
             <div className="mt-8">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-600">
-                Langue du site
-              </p>
-              <LanguageSwitcher courante="fr" variante="complet" className="mt-4" />
+              <p className={titrePetit}>{t.langueDuSite}</p>
+              <LanguageSwitcher courante={langue} variante="complet" className="mt-4" />
             </div>
 
-            <ThemeToggle variant="switch" className="mt-8" />
+            <ThemeToggle variant="switch" className="mt-8" textes={t.theme} />
           </nav>
         </motion.div>
       ) : null}

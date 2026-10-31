@@ -5,9 +5,18 @@ import { cn } from '@/lib/utils';
 export type Crumb = { name: string; path: string };
 
 /** Fil d'Ariane visible — doublé par un `BreadcrumbList` en JSON-LD. */
-export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: string }) {
+export function Breadcrumbs({
+  items,
+  className,
+  label = 'Fil d’Ariane',
+}: {
+  items: Crumb[];
+  className?: string;
+  /** Nom du fil d'Ariane pour les lecteurs d'écran ; le français par défaut. */
+  label?: string;
+}) {
   return (
-    <nav aria-label="Fil d’Ariane" className={cn('text-sm', className)}>
+    <nav aria-label={label} className={cn('text-sm', className)}>
       <ol className="flex flex-wrap items-center gap-1.5 text-ink-soft">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
@@ -25,7 +34,7 @@ export function Breadcrumbs({ items, className }: { items: Crumb[]; className?: 
                   >
                     {item.name}
                   </Link>
-                  <ChevronRight className="h-3.5 w-3.5 text-hairline" aria-hidden="true" />
+                  <ChevronRight className="h-3.5 w-3.5 text-hairline rtl:-scale-x-100" aria-hidden="true" />
                 </>
               )}
             </li>

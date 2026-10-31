@@ -327,7 +327,7 @@ const moteursGeneratifs: GroupeEditable = {
       aide: 'N’annoncez une ville que si elle est réellement couverte : une zone inexacte se retourne contre vous.',
       type: 'paragraphe',
       repli:
-        'Casablanca, dans l’ensemble de la ville. La disponibilité d’un créneau à une adresse donnée est confirmée dans l’application au moment de la réservation.',
+        'Casablanca et ses alentours : Bouskoura, Dar Bouazza, Aïn Harrouda et Tit Mellil. La disponibilité d’un créneau à une adresse donnée est confirmée dans l’application au moment de la réservation.',
       longueurMax: 250,
     },
     {

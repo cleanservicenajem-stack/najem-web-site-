@@ -102,16 +102,22 @@ export const siteConfig = {
   social: [] as SocialLink[],
 
   /**
-   * Zones desservies. Casablanca est couverte dans son ensemble : aucun
-   * quartier n'est distingué, et aucun ne doit l'être tant que la couverture
-   * réelle n'a pas été vérifiée quartier par quartier.
+   * Zones desservies : Casablanca, couverte dans son ensemble, et ses
+   * alentours confirmés par Najem (31 octobre 2026). Casablanca reste en
+   * premier : c'est la ville principale, citée seule dans les titres.
    *
    * Ce tableau alimente le pied de page et la propriété `areaServed` des
    * données structurées. Il n'engendre aucune page « Nettoyage <ville> » :
    * `config/local-seo.ts` garde ce verrou fermé, une page par zone étant
    * précisément ce que Google qualifie de doorway page.
    */
-  serviceAreas: [{ name: 'Casablanca', slug: 'casablanca' }] as ServiceArea[],
+  serviceAreas: [
+    { name: 'Casablanca', slug: 'casablanca' },
+    { name: 'Bouskoura', slug: 'bouskoura' },
+    { name: 'Dar Bouazza', slug: 'dar-bouazza' },
+    { name: 'Aïn Harrouda', slug: 'ain-harrouda' },
+    { name: 'Tit Mellil', slug: 'tit-mellil' },
+  ] as ServiceArea[],
 
   /** Zone d'activité déclarée par défaut dans les données structurées. */
   primaryMarket: {

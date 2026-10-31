@@ -5,7 +5,9 @@ import { usePathname } from 'next/navigation';
 import { Menu, Smartphone } from 'lucide-react';
 import { useState } from 'react';
 import { useScrolledPast } from '@/lib/hooks';
-import { mainNav } from '@/config/navigation';
+import { navigationPrincipale } from '@/config/navigation';
+import { accueilParLangue, cheminEn, type Langue } from '@/config/i18n';
+import { textesChrome } from '@/content/i18n/chrome';
 import { LogoLink } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -14,11 +16,12 @@ import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { LanguageMenu } from '@/components/layout/LanguageMenu';
 import { cn } from '@/lib/utils';
 
-/** Navigation desktop : l'accueil est porté par le logo. */
-const desktopNav = mainNav.filter((item) => item.href !== '/');
-
-export function Header() {
+export function Header({ langue = 'fr' }: { langue?: Langue }) {
   const pathname = usePathname();
+  const t = textesChrome[langue];
+  const accueil = accueilParLangue[langue];
+  /** Navigation desktop : l'accueil est porté par le logo. */
+  const desktopNav = navigationPrincipale[langue].filter((item) => item.href !== accueil);
   const scrolled = useScrolledPast(12);
   // Le menu mémorise la page depuis laquelle il a été ouvert : dès que la
   // navigation aboutit sur une autre page, il se referme de lui-même.
@@ -28,7 +31,7 @@ export function Header() {
   const isActive = (href: string) => {
     // Une ancre de la page d'accueil n'est jamais marquée comme page courante.
     if (href.includes('#')) return false;
-    if (href === '/') return pathname === '/';
+    if (href === accueil) return pathname === accueil;
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
@@ -43,10 +46,24 @@ export function Header() {
         )}
       >
         <div className="container-page flex h-[var(--header-height)] items-center justify-between gap-4 sm:gap-6 lg:gap-4 xl:gap-6">
-          <LogoLink size={38} priority tone="auto" className="lg:hidden" />
-          <LogoLink size={44} priority tone="auto" className="hidden lg:inline-flex" />
+          <LogoLink
+            href={accueil}
+            label={t.retourAccueil}
+            size={38}
+            priority
+            tone="auto"
+            className="lg:hidden"
+          />
+          <LogoLink
+            href={accueil}
+            label={t.retourAccueil}
+            size={44}
+            priority
+            tone="auto"
+            className="hidden lg:inline-flex"
+          />
 
-          <nav aria-label="Navigation principale" className="hidden lg:block">
+          <nav aria-label={t.navigationPrincipale} className="hidden lg:block">
             <ul className="flex items-center gap-0.5 xl:gap-1">
               {desktopNav.map((item) => {
                 const active = isActive(item.href);
@@ -64,7 +81,7 @@ export function Header() {
                       <span
                         aria-hidden="true"
                         className={cn(
-                          'absolute bottom-1.5 left-3 right-3 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)] xl:left-3.5 xl:right-3.5',
+                          'absolute bottom-1.5 left-3 right-3 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)] rtl:origin-right xl:left-3.5 xl:right-3.5',
                           active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
                         )}
                       />
@@ -80,28 +97,28 @@ export function Header() {
                 en menu compact sur les écrans moyens où la navigation complète
                 occupe l'en-tête. Sous 360 px, il reste dans le menu mobile. */}
             <LanguageSwitcher
-              courante="fr"
+              courante={langue}
               className="hidden min-[22.5rem]:flex lg:hidden xl:flex"
             />
-            <LanguageMenu courante="fr" className="hidden lg:block xl:hidden" />
+            <LanguageMenu courante={langue} className="hidden lg:block xl:hidden" />
 
             {/* Sur mobile et tablette, le thème se règle depuis le menu : la
                 place va au choix de la langue. */}
-            <ThemeToggle className="hidden lg:flex" />
+            <ThemeToggle className="hidden lg:flex" textes={t.theme} />
 
             <Button
-              href="/application"
+              href={cheminEn(langue, '/application')}
               size="sm"
               className="hidden sm:inline-flex"
               icon={<Smartphone className="h-4 w-4" aria-hidden="true" />}
             >
-              Télécharger l’application
+              {t.telechargerApplication}
             </Button>
 
             <button
               type="button"
               onClick={() => setMenu({ open: true, path: pathname })}
-              aria-label="Ouvrir le menu"
+              aria-label={t.ouvrirMenu}
               aria-expanded={menuOpen}
               aria-controls="menu-mobile"
               className="flex h-11 w-11 items-center justify-center rounded-full border border-[var(--border)] bg-surface/70 text-navy-800 transition-colors duration-300 hover:bg-surface lg:hidden"
@@ -124,6 +141,7 @@ export function Header() {
         open={menuOpen}
         onClose={() => setMenu({ open: false, path: pathname })}
         pathname={pathname}
+        langue={langue}
       />
     </>
   );

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import type { FaqItem } from '@/config/faq';
 import { absoluteUrl, siteConfig } from '@/config/site';
+import { alentoursTexte } from '@/config/local-seo';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { Accordion } from '@/components/ui/Accordion';
@@ -94,9 +95,9 @@ const questions = (options: OptionSituee[]): FaqItem[] => {
     {
       id: 'canape-zones',
       category: 'pratique',
-      question: 'Intervenez-vous dans tout Casablanca ?',
+      question: 'Intervenez-vous dans tout Casablanca et ses alentours ?',
       answer: [
-        `Oui, ${siteConfig.name} intervient dans l’ensemble de Casablanca. La disponibilité d’un créneau à votre adresse est confirmée dans l’application, au moment de la réservation.`,
+        `Oui, ${siteConfig.name} intervient dans l’ensemble de Casablanca et dans ses alentours : ${alentoursTexte()}. La disponibilité d’un créneau à votre adresse est confirmée dans l’application, au moment de la réservation.`,
       ],
     },
   );
@@ -272,7 +273,7 @@ export default async function NettoyageCanapeTapisPage() {
               <p className="mt-4 text-[1rem] leading-relaxed text-ink-soft">
                 Le canapé et les tapis font partie de l’entretien spécialisé de {siteConfig.name},
                 avec les vitres, le repassage et la désinfection : des soins dédiés, à préciser
-                dans votre demande, partout à Casablanca.
+                dans votre demande, partout à Casablanca et dans ses alentours.
               </p>
               <div className="mt-6 flex flex-wrap gap-6">
                 <ArrowLink href="/services/entretien-specialise">L’entretien spécialisé</ArrowLink>

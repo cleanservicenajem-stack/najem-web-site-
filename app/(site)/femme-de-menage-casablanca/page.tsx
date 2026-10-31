@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { ArrowRight, Check, MapPin } from 'lucide-react';
 import type { FaqItem } from '@/config/faq';
 import { absoluteUrl, siteConfig } from '@/config/site';
+import { alentoursTexte } from '@/config/local-seo';
 import { getServiceBySlug } from '@/config/services';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
@@ -98,9 +99,9 @@ const questions = (grille: CategorieAffichee[]): FaqItem[] => {
     {
       id: 'femme-menage-quartiers',
       category: 'pratique',
-      question: 'Intervenez-vous dans tout Casablanca ?',
+      question: 'Intervenez-vous dans tout Casablanca et ses alentours ?',
       answer: [
-        `Oui, ${siteConfig.name} intervient dans l’ensemble de Casablanca. La disponibilité d’un créneau à votre adresse est confirmée dans l’application, au moment de la réservation.`,
+        `Oui, ${siteConfig.name} intervient dans l’ensemble de Casablanca et dans ses alentours : ${alentoursTexte()}. La disponibilité d’un créneau à votre adresse est confirmée dans l’application, au moment de la réservation.`,
       ],
     },
     {
@@ -189,7 +190,7 @@ export default async function FemmeDeMenageCasablancaPage() {
             Réservez votre femme de ménage en quelques minutes depuis l’application{' '}
             {siteConfig.name}
             {prix ? ` : ménage express dès ${formaterDh(prix.min)}` : ''}, ponctuel ou en
-            abonnement, partout à Casablanca.
+            abonnement, partout à Casablanca et dans ses alentours.
           </p>
         }
       >
@@ -382,13 +383,14 @@ export default async function FemmeDeMenageCasablancaPage() {
                 className="flex items-center gap-3 font-display text-[clamp(1.5rem,1.1rem+1.6vw,2.1rem)] font-bold leading-tight text-navy-900"
               >
                 <MapPin className="h-6 w-6 shrink-0 text-brand-500" aria-hidden="true" />
-                Partout à Casablanca
+                Partout à Casablanca et ses alentours
               </h2>
               <p className="mt-4 text-[1rem] leading-relaxed text-ink-soft">
                 {siteConfig.name} intervient dans l’ensemble de Casablanca, du centre-ville aux
                 quartiers résidentiels : {quartiersCasablanca.join(', ')} et tous les autres
-                quartiers de la ville. La disponibilité d’un créneau à votre adresse est confirmée
-                dans l’application, au moment de la réservation.
+                quartiers de la ville, ainsi qu’aux alentours : {alentoursTexte()}. La
+                disponibilité d’un créneau à votre adresse est confirmée dans l’application, au
+                moment de la réservation.
               </p>
             </Reveal>
 

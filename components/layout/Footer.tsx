@@ -1,15 +1,20 @@
 import Link from 'next/link';
 import { Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
-import { footerNav } from '@/config/navigation';
+import { navigationPied } from '@/config/navigation';
+import type { Langue } from '@/config/i18n';
 import { siteConfig } from '@/config/site';
+import { textesChrome } from '@/content/i18n/chrome';
 import { getContact, whatsappHref } from '@/lib/content';
 import { Logo } from '@/components/ui/Logo';
 import { StoreButtons } from '@/components/ui/StoreButtons';
 import { Container } from '@/components/ui/Container';
 import { SocialIcon } from '@/components/ui/SocialIcon';
 
-export async function Footer() {
+export async function Footer({ langue = 'fr' }: { langue?: Langue }) {
+  const t = textesChrome[langue];
   const year = new Date().getFullYear();
+  // L'espacement des lettres casse la liaison des lettres arabes.
+  const latin = langue !== 'ar';
   const { social, serviceAreas } = siteConfig;
   const contact = await getContact();
   const whatsapp = await whatsappHref();
@@ -26,23 +31,32 @@ export async function Footer() {
         <div className="grid gap-12 py-16 md:py-20 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <Logo variant="stacked" tone="dark" size={112} />
-            <p className="mt-6 max-w-sm text-[0.95rem] leading-relaxed">
-              {siteConfig.positioning} Choisissez votre prestation, sélectionnez un créneau, et
-              suivez votre demande depuis votre compte.
-            </p>
+            <p className="mt-6 max-w-sm text-[0.95rem] leading-relaxed">{t.pied.presentation}</p>
 
             <div className="mt-8">
-              <p className="text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-200">
-                Télécharger
+              <p
+                className={
+                  latin
+                    ? 'text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-brand-200'
+                    : 'text-[0.85rem] font-semibold text-brand-200'
+                }
+              >
+                {t.pied.telecharger}
               </p>
-              <StoreButtons tone="light" className="mt-4" />
+              <StoreButtons tone="light" className="mt-4" textes={t.boutiques} />
             </div>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-4">
-            {footerNav.map((group) => (
+            {navigationPied[langue].map((group) => (
               <nav key={group.title} aria-label={group.title}>
-                <p className="font-display text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-white">
+                <p
+                  className={
+                    latin
+                      ? 'font-display text-[0.8rem] font-semibold uppercase tracking-[0.16em] text-white'
+                      : 'font-display text-[0.95rem] font-semibold text-white'
+                  }
+                >
                   {group.title}
                 </p>
                 <ul className="mt-5 space-y-3 text-[0.925rem]">
@@ -106,13 +120,16 @@ export async function Footer() {
 
         <div className="flex flex-col gap-4 border-t border-white/10 pb-6 pt-8 text-[0.85rem] md:flex-row md:items-center md:justify-between">
           <p>
-            © {year} {siteConfig.name}. Tous droits réservés.
+            © {year} {siteConfig.name}. {t.pied.droits}
           </p>
 
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {serviceAreas.length > 0 ? (
               <p className="text-brand-100/60">
-                Zones desservies : {serviceAreas.map((area) => area.name).join(', ')}
+                {t.pied.zonesDesservies} :{' '}
+                {serviceAreas
+                  .map((area) => t.villes?.[area.slug] ?? area.name)
+                  .join(langue === 'ar' ? '، ' : ', ')}
               </p>
             ) : null}
 

@@ -31,7 +31,7 @@ export default async function ServicesPage() {
       <PageHero
         eyebrow="Prestations"
         title="Les services de nettoyage Najem Clean Service à Casablanca"
-        lead="De l’entretien courant à l’intervention plus complète, pour les particuliers comme pour les professionnels. Toutes les prestations sont disponibles dans l’ensemble de Casablanca et se réservent depuis l’application."
+        lead="De l’entretien courant à l’intervention plus complète, pour les particuliers comme pour les professionnels. Toutes les prestations sont disponibles à Casablanca et dans ses alentours, et se réservent depuis l’application."
         crumbs={crumbs}
       >
         <StoreButtons />

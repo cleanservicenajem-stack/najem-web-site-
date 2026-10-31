@@ -375,3 +375,18 @@
 [dir='rtl'] .rtl-flip {
   transform: scaleX(-1);
 }
+
+/*
+ * Pages en arabe (/ar). Ces règles sont hors des couches Tailwind pour primer
+ * sur les utilitaires : l'espacement des lettres casse la liaison des lettres
+ * arabes, et les interlignes serrés des titres latins font se chevaucher les
+ * lignes en arabe. Sans effet sur les pages en français et en anglais.
+ */
+:lang(ar),
+:lang(ar) * {
+  letter-spacing: 0;
+}
+
+:lang(ar) :is(h1, h2, h3, h4) {
+  line-height: 1.35;
+}

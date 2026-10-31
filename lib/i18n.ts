@@ -1,6 +1,18 @@
+import { notFound } from 'next/navigation';
 import { categoriesTarifs } from '@/config/tarifs';
-import type { DictionnaireAccueil } from '@/content/i18n/types';
+import { estLangueTraduite, type LangueTraduite } from '@/config/i18n';
+import type { TextesCommuns } from '@/content/i18n/commun';
 import { montant, type CategorieAffichee } from '@/lib/tarifs';
+
+/**
+ * Langue d'une page traduite, lue dans l'adresse (/ar/…, /en/…). Toute autre
+ * valeur aboutit à une page introuvable.
+ */
+export const lireLangue = async (params: Promise<{ langue: string }>): Promise<LangueTraduite> => {
+  const { langue } = await params;
+  if (estLangueTraduite(langue)) return langue;
+  return notFound();
+};
 
 /** Remplace les repères `{cle}` d'un texte traduit. */
 export const remplacer = (texte: string, valeurs: Record<string, string>): string =>
@@ -13,17 +25,28 @@ export const lireDuree = (texte: string): { heures: number; minutes: number } | 
   return { heures: Number(trouve[1]), minutes: trouve[2] ? Number(trouve[2]) : 0 };
 };
 
+/** Durée de l'administration (« 1 h 30 ») traduite ; vide si elle est illisible. */
+export const traduireDuree = (texte: string, commun: TextesCommuns): string => {
+  const duree = lireDuree(texte);
+  return duree ? commun.duree(duree.heures, duree.minutes) : '';
+};
+
 export type LigneTraduite = {
   id: string;
+  /** Identifiant de la catégorie (config/tarifs.ts). */
+  categorieId: string;
   categorie: string;
   formule: string;
   detail: string;
   prix: string;
+  /** Montant en dirhams, pour les calculs et les données structurées. */
+  valeur: number;
+  abonnement: boolean;
 };
 
 export type GrilleTraduite = {
   lignes: LigneTraduite[];
-  /** Prix lisibles, en dirhams. */
+  /** Prix des formules (hors abonnements), en dirhams. */
   prixMin: number | null;
   prixMax: number | null;
   /** Une phrase par abonnement : « Studio… : 890 DH / mois (3 × … + 1 × …) ». */
@@ -37,29 +60,31 @@ export type GrilleTraduite = {
  */
 export const traduireGrille = (
   grille: CategorieAffichee[],
-  dico: DictionnaireAccueil,
+  commun: TextesCommuns,
 ): GrilleTraduite => {
   const lignes: LigneTraduite[] = [];
   const abonnements: string[] = [];
   const prix: number[] = [];
 
   for (const categorie of grille) {
-    const nomCategorie = dico.grille.categories[categorie.id]?.titre;
+    const nomCategorie = commun.grille.categories[categorie.id]?.titre;
     if (!nomCategorie) continue;
 
     for (const formule of categorie.formules) {
       const valeur = montant(formule.prix);
-      const nom = dico.grille.formules[formule.id];
+      const nom = commun.grille.formules[formule.id];
       if (valeur === null || !nom) continue;
 
-      const duree = lireDuree(formule.duree);
       prix.push(valeur);
       lignes.push({
         id: formule.id,
+        categorieId: categorie.id,
         categorie: nomCategorie,
         formule: nom,
-        detail: duree ? dico.duree(duree.heures, duree.minutes) : '',
-        prix: dico.prix(valeur),
+        detail: traduireDuree(formule.duree, commun),
+        prix: commun.prix(valeur),
+        valeur,
+        abonnement: false,
       });
     }
 
@@ -69,21 +94,24 @@ export const traduireGrille = (
 
     if (abonnement && prixMensuel !== null && inclus) {
       const elements = inclus.flatMap(({ formule, quantite }) => {
-        const nom = dico.grille.formules[formule];
-        return nom ? [dico.quantite(quantite, nom)] : [];
+        const nom = commun.grille.formules[formule];
+        return nom ? [commun.quantite(quantite, nom)] : [];
       });
 
       if (elements.length === inclus.length) {
-        const contenu = dico.abonnementContenu(elements);
+        const contenu = commun.abonnementContenu(elements);
         lignes.push({
           id: abonnement.id,
+          categorieId: categorie.id,
           categorie: nomCategorie,
-          formule: dico.tarifs.abonnement,
+          formule: commun.abonnement,
           detail: contenu,
-          prix: `${dico.prix(prixMensuel)} ${dico.tarifs.parMois}`,
+          prix: `${commun.prix(prixMensuel)} ${commun.parMois}`,
+          valeur: prixMensuel,
+          abonnement: true,
         });
         abonnements.push(
-          `${nomCategorie}: ${dico.prix(prixMensuel)} ${dico.tarifs.parMois} (${contenu}).`,
+          `${nomCategorie}: ${commun.prix(prixMensuel)} ${commun.parMois} (${contenu}).`,
         );
       }
     }

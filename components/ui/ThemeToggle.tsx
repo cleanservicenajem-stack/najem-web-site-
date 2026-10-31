@@ -19,11 +19,19 @@ import { cn } from '@/lib/utils';
 type ThemeToggleProps = {
   variant?: 'icon' | 'switch';
   className?: string;
+  /** Libellés traduits ; le français par défaut. */
+  textes?: { activerClair: string; activerSombre: string; themeSombre: string };
 };
 
-export function ThemeToggle({ variant = 'icon', className }: ThemeToggleProps) {
+const textesFrancais = {
+  activerClair: 'Activer le thème clair',
+  activerSombre: 'Activer le thème sombre',
+  themeSombre: 'Thème sombre',
+};
+
+export function ThemeToggle({ variant = 'icon', className, textes = textesFrancais }: ThemeToggleProps) {
   const isDark = useTheme() === 'dark';
-  const action = isDark ? 'Activer le thème clair' : 'Activer le thème sombre';
+  const action = isDark ? textes.activerClair : textes.activerSombre;
 
   const toggle = () => setThemePreference(isDark ? 'light' : 'dark');
 
@@ -36,14 +44,14 @@ export function ThemeToggle({ variant = 'icon', className }: ThemeToggleProps) {
         aria-label={action}
         onClick={toggle}
         className={cn(
-          'flex w-full items-center justify-between gap-4 rounded-2xl border border-[var(--border)] bg-surface px-4 py-3.5 text-left transition-colors duration-300 hover:border-brand-line-strong',
+          'flex w-full items-center justify-between gap-4 rounded-2xl border border-[var(--border)] bg-surface px-4 py-3.5 text-start transition-colors duration-300 hover:border-brand-line-strong',
           className,
         )}
       >
         <span className="flex items-center gap-3">
           <SwapIcons isDark={isDark} className="h-5 w-5 text-brand-600" />
           <span className="font-display text-[0.95rem] font-semibold text-navy-800">
-            Thème sombre
+            {textes.themeSombre}
           </span>
         </span>
 

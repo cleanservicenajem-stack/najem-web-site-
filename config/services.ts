@@ -78,7 +78,7 @@ export const services: Service[] = [
     // TODO (client) : préciser ici la durée indicative d'un passage et les
     // formules de fréquence réellement proposées, une fois arbitrées.
     body: [
-      "L'entretien courant est ce qui demande le plus de constance : c'est aussi ce qui se reporte le plus facilement. Le nettoyage régulier existe pour retirer cette charge de votre organisation hebdomadaire. Il est disponible partout à Casablanca, au rythme que vous fixez.",
+      "L'entretien courant est ce qui demande le plus de constance : c'est aussi ce qui se reporte le plus facilement. Le nettoyage régulier existe pour retirer cette charge de votre organisation hebdomadaire. Il est disponible partout à Casablanca et dans ses alentours, au rythme que vous fixez.",
       "Vous indiquez votre logement et vos disponibilités dans l'application, puis vous reprogrammez les passages suivants en quelques secondes depuis votre compte. Les demandes particulières — pièce à traiter en priorité, produits à éviter, accès au logement — se transmettent au moment de la réservation.",
     ],
     includes: [
@@ -110,7 +110,7 @@ export const services: Service[] = [
     // TODO (client) : préciser la durée indicative de l'intervention et le
     // délai de réservation minimum.
     body: [
-      "Tout le monde n'a pas besoin d'un passage hebdomadaire. Certaines semaines demandent seulement un coup de propre au bon moment, et c'est exactement ce que couvre le nettoyage ponctuel. Cette intervention se réserve dans toute la ville de Casablanca.",
+      "Tout le monde n'a pas besoin d'un passage hebdomadaire. Certaines semaines demandent seulement un coup de propre au bon moment, et c'est exactement ce que couvre le nettoyage ponctuel. Cette intervention se réserve dans tout Casablanca et ses alentours.",
       "La réservation suit le même parcours que les autres prestations : vous choisissez le service, vous sélectionnez un créneau, vous validez. Rien ne se reconduit automatiquement.",
     ],
     includes: [
@@ -140,7 +140,7 @@ export const services: Service[] = [
     // TODO (client) : préciser la durée indicative selon la surface, et si la
     // prestation couvre l'intérieur des placards fixes et les vitres.
     body: [
-      "Un logement vide se nettoie différemment d'un logement habité : les surfaces sont entièrement accessibles, et ce sont souvent les zones habituellement masquées par les meubles qui demandent le plus d'attention. La prestation couvre l'ensemble de Casablanca, à l'entrée comme à la sortie d'un logement.",
+      "Un logement vide se nettoie différemment d'un logement habité : les surfaces sont entièrement accessibles, et ce sont souvent les zones habituellement masquées par les meubles qui demandent le plus d'attention. La prestation couvre Casablanca et ses alentours, à l'entrée comme à la sortie d'un logement.",
       "Cette prestation se réserve depuis l'application en précisant s'il s'agit d'une sortie ou d'une entrée dans les lieux, ainsi que les particularités du logement.",
     ],
     includes: [
@@ -167,7 +167,7 @@ export const services: Service[] = [
     // TODO (client) : préciser la durée indicative et ce qui distingue
     // concrètement un grand nettoyage d'un passage régulier.
     body: [
-      "Il arrive qu'un logement demande plus qu'un entretien de surface : changement de saison, période chargée, ou simplement l'envie de repartir sur une base propre. Le grand nettoyage se réserve partout à Casablanca, pour un appartement comme pour une maison.",
+      "Il arrive qu'un logement demande plus qu'un entretien de surface : changement de saison, période chargée, ou simplement l'envie de repartir sur une base propre. Le grand nettoyage se réserve partout à Casablanca et dans ses alentours, pour un appartement comme pour une maison.",
       "Le grand nettoyage se concentre sur les détails habituellement laissés de côté. Précisez à la réservation les zones qui comptent le plus pour vous, elles seront traitées en priorité.",
     ],
     includes: [
@@ -221,7 +221,7 @@ export const services: Service[] = [
     // TODO (client) : préciser le délai d'intervention entre deux occupations
     // et les conditions pour un volume récurrent (plusieurs biens).
     body: [
-      "Un bien loué à la nuitée ne s'entretient pas comme un logement occupé à l'année : la contrainte n'est pas seulement la propreté, c'est le délai entre deux occupations. Najem Clean Service intervient à Casablanca, dans toute la ville.",
+      "Un bien loué à la nuitée ne s'entretient pas comme un logement occupé à l'année : la contrainte n'est pas seulement la propreté, c'est le délai entre deux occupations. Najem Clean Service intervient dans tout Casablanca et ses alentours.",
       "Décrivez le bien et son rythme au moment de la réservation. Les passages suivants se reprogramment depuis votre compte, et chaque intervention reste suivie au même endroit.",
     ],
     includes: [

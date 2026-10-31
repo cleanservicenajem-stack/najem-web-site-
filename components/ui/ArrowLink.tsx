@@ -25,13 +25,13 @@ export function ArrowLink({ href, children, className, tone = 'light' }: ArrowLi
         <span
           aria-hidden="true"
           className={cn(
-            'absolute -bottom-0.5 left-0 h-px w-0 transition-all duration-400 ease-[var(--ease-out-soft)] group-hover:w-full',
+            'absolute -bottom-0.5 start-0 h-px w-0 transition-all duration-400 ease-[var(--ease-out-soft)] group-hover:w-full',
             tone === 'light' ? 'bg-brand-500' : 'bg-white/70',
           )}
         />
       </span>
       <ArrowRight
-        className="h-4 w-4 transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover:translate-x-1"
+        className="h-4 w-4 transition-transform duration-300 ease-[var(--ease-out-soft)] group-hover:translate-x-1 rtl:-scale-x-100 rtl:group-hover:-translate-x-1"
         aria-hidden="true"
       />
     </Link>

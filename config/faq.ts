@@ -98,6 +98,7 @@ export const faqItems: FaqItem[] = [
     id: 'zones',
     question: 'Quelles sont les zones desservies ?',
     answer: [
+      'Najem Clean Service intervient à Casablanca et dans ses alentours : Bouskoura, Dar Bouazza, Aïn Harrouda et Tit Mellil.',
       "La disponibilité dépend de votre adresse et des professionnels disponibles sur le créneau demandé. L'application indique si une intervention est possible chez vous au moment de la réservation.",
     ],
     category: 'service',

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import type { Langue } from '@/config/i18n';
+import { analyserChemin, ogLocaleParLangue, versionsDe, type Langue } from '@/config/i18n';
 import { absoluteUrl, siteConfig } from '@/config/site';
 
 const isIndexable =
@@ -31,11 +31,11 @@ type CreateMetadataInput = {
   titreComplet?: boolean;
   /**
    * Versions de la page dans chaque langue (chemins), pour les balises
-   * hreflang. Seules les pages réellement traduites en déclarent plusieurs ;
-   * par défaut, la page n'existe qu'en français.
+   * hreflang. Par défaut, elles sont déduites du chemin : les trois langues
+   * pour une page traduite (config/i18n.ts), sinon le seul français.
    */
   langues?: Partial<Record<Langue, string>>;
-  /** Locale Open Graph, par exemple « ar_MA » pour une page en arabe. */
+  /** Locale Open Graph ; par défaut, celle de la langue du chemin. */
   ogLocale?: string;
 };
 
@@ -59,7 +59,8 @@ export const createMetadata = ({
     : defaultOgImage;
 
   // `x-default` désigne la version française, langue principale du site.
-  const versions = langues ?? { fr: path };
+  const versions = langues ?? versionsDe(path);
+  const localeOg = ogLocale ?? ogLocaleParLangue[analyserChemin(path).langue];
   const versionFrancaise = versions.fr ? absoluteUrl(versions.fr) : url;
   const languages: Record<string, string> = {
     ...Object.fromEntries(
@@ -98,7 +99,7 @@ export const createMetadata = ({
       description,
       url,
       siteName: siteConfig.name,
-      locale: ogLocale ?? siteConfig.locale.ogLocale,
+      locale: localeOg,
       images: [ogImage],
       ...(publishedTime ? { publishedTime } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),

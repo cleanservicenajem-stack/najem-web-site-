@@ -1,50 +1,56 @@
+'use client';
+
+import { usePathname } from 'next/navigation';
 import {
-  accueilParLangue,
   langues,
   libelleChoixLangue,
   libellesLangues,
+  lienVersLangue,
   type Langue,
 } from '@/config/i18n';
+import { Drapeau } from '@/components/ui/Drapeau';
 import { cn } from '@/lib/utils';
 
 type LanguageSwitcherProps = {
   courante: Langue;
-  /** `court` : FR · ع · EN (en-tête) ; `complet` : Français · العربية · English. */
+  /** `court` : les drapeaux seuls (en-tête) ; `complet` : drapeau et nom de la langue. */
   variante?: 'court' | 'complet';
-  /** Sur fond sombre (pied de page). */
-  ton?: 'clair' | 'sombre';
   className?: string;
 };
 
 /**
- * Sélecteur de langue.
+ * Sélecteur de langue par drapeaux : France (français), Maroc (arabe),
+ * Royaume-Uni (anglais).
  *
- * Les liens sont de vrais liens, sans navigation côté client : passer d'une
- * langue à l'autre recharge la page, ce qui garantit que la langue et le sens
- * de lecture (gauche-droite ou droite-gauche) du document suivent.
+ * Chaque drapeau mène à la même page dans l'autre langue quand elle est
+ * traduite, sinon à l'accueil de cette langue. Ce sont de vrais liens, sans
+ * navigation côté client : la page se recharge, ce qui garantit que la langue
+ * et le sens de lecture (gauche-droite ou droite-gauche) du document suivent.
  */
-export function LanguageSwitcher({
-  courante,
-  variante = 'court',
-  ton = 'clair',
-  className,
-}: LanguageSwitcherProps) {
+export function LanguageSwitcher({ courante, variante = 'court', className }: LanguageSwitcherProps) {
+  const chemin = usePathname() ?? '/';
+
   return (
     <nav aria-label={libelleChoixLangue[courante]} className={cn('flex items-center', className)}>
       <ul
         className={cn(
-          'flex items-center gap-0.5 rounded-full border p-1',
-          ton === 'clair'
-            ? 'border-[var(--border)] bg-surface/70'
-            : 'border-white/15 bg-white/5',
+          'flex items-center gap-0.5 border border-[var(--border)] bg-surface/70 p-1',
+          // Version longue (menu mobile) : elle passe à la ligne sur petit écran.
+          variante === 'complet' ? 'flex-wrap rounded-[1.4rem]' : 'rounded-full',
         )}
       >
         {langues.map((langue) => {
-          const { court, complet } = libellesLangues[langue];
-          const texte = variante === 'complet' ? complet : court;
+          const { complet } = libellesLangues[langue];
           const classes = cn(
-            'inline-flex h-9 min-w-9 items-center justify-center rounded-full px-2.5 text-[0.8rem] font-semibold transition-colors duration-300',
-            langue === 'ar' && 'text-[0.95rem]',
+            'inline-flex h-9 items-center justify-center gap-2 rounded-full transition-colors duration-300',
+            variante === 'complet' ? 'px-2.5 text-[0.85rem] font-medium' : 'w-9',
+          );
+          const contenu = (
+            <>
+              <Drapeau langue={langue} />
+              {/* En-tête : le nom reste lisible par les lecteurs d'écran. */}
+              <span className={variante === 'complet' ? undefined : 'sr-only'}>{complet}</span>
+            </>
           );
 
           return (
@@ -59,29 +65,23 @@ export function LanguageSwitcher({
                   aria-current="true"
                   lang={langue}
                   title={complet}
-                  className={cn(
-                    classes,
-                    ton === 'clair' ? 'bg-brand-tint text-brand-700' : 'bg-white/15 text-white',
-                  )}
+                  className={cn(classes, 'bg-brand-tint text-brand-700')}
                 >
-                  {texte}
+                  {contenu}
                 </span>
               ) : (
                 // Lien classique (pas <Link>) : rechargement voulu au changement de langue.
                 <a
-                  href={accueilParLangue[langue]}
+                  href={lienVersLangue(langue, chemin)}
                   hrefLang={langue}
                   lang={langue}
                   title={complet}
-                  aria-label={complet}
                   className={cn(
                     classes,
-                    ton === 'clair'
-                      ? 'text-navy-800/80 hover:text-brand-700'
-                      : 'text-brand-100/75 hover:text-white',
+                    'text-navy-800/80 hover:bg-brand-tint/60 hover:text-brand-700',
                   )}
                 >
-                  {texte}
+                  {contenu}
                 </a>
               )}
             </li>
