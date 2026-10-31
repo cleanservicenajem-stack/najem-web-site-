@@ -41,7 +41,7 @@ export function Accordion({ items, defaultOpen = null, className }: AccordionPro
                 aria-expanded={isOpen}
                 aria-controls={panelId}
                 onClick={() => setOpenIndex(isOpen ? null : index)}
-                className="flex w-full items-start justify-between gap-6 py-5 text-left transition-colors duration-300 hover:text-brand-600 md:py-6"
+                className="flex w-full items-start justify-between gap-6 py-5 text-start transition-colors duration-300 hover:text-brand-600 md:py-6"
               >
                 <span className="font-display text-[1.0625rem] font-semibold leading-snug text-navy-800 transition-colors duration-300 group-hover:text-brand-700 md:text-[1.15rem]">
                   {item.question}
@@ -72,7 +72,7 @@ export function Accordion({ items, defaultOpen = null, className }: AccordionPro
                   transition={{ duration: 0.38, ease: EASE_OUT }}
                   className="overflow-hidden"
                 >
-                  <div className="max-w-2xl space-y-3 pb-6 pr-10 text-[0.975rem] leading-relaxed text-ink-soft">
+                  <div className="max-w-2xl space-y-3 pb-6 pe-10 text-[0.975rem] leading-relaxed text-ink-soft">
                     {item.answer.map((paragraph) => (
                       <p key={paragraph.slice(0, 24)}>{paragraph}</p>
                     ))}

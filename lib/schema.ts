@@ -105,7 +105,8 @@ export const websiteSchema = (): JsonLd => ({
   url: siteConfig.url,
   name: siteConfig.name,
   description: siteConfig.description,
-  inLanguage: 'fr',
+  // Le site est en français ; son accueil existe aussi en arabe et en anglais.
+  inLanguage: ['fr', 'ar', 'en'],
   publisher: { '@id': ORGANIZATION_ID },
 });
 
@@ -114,11 +115,14 @@ export const webPageSchema = ({
   name,
   description,
   primaryImage,
+  langue = 'fr',
 }: {
   path: string;
   name: string;
   description: string;
   primaryImage?: string;
+  /** Langue du contenu de la page (« fr », « ar », « en »). */
+  langue?: string;
 }): JsonLd =>
   cleanUndefined({
     '@type': 'WebPage',
@@ -126,7 +130,7 @@ export const webPageSchema = ({
     url: absoluteUrl(path),
     name,
     description,
-    inLanguage: 'fr',
+    inLanguage: langue,
     isPartOf: { '@id': WEBSITE_ID },
     about: { '@id': ORGANIZATION_ID },
     primaryImageOfPage: primaryImage ? absoluteUrl(primaryImage) : undefined,

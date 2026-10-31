@@ -13,9 +13,15 @@ import { homeFaqItems } from '@/config/faq';
 import { createMetadata } from '@/lib/seo';
 import { webPageSchema } from '@/lib/schema';
 import { getSeo, getTexte } from '@/lib/content';
+import { versionsAccueil } from '@/config/i18n';
 
 export async function generateMetadata(): Promise<Metadata> {
-  return createMetadata({ ...(await getSeo('accueil')), path: '/', titreComplet: true });
+  return createMetadata({
+    ...(await getSeo('accueil')),
+    path: '/',
+    titreComplet: true,
+    langues: versionsAccueil,
+  });
 }
 
 export default async function HomePage() {

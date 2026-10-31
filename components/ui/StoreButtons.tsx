@@ -26,10 +26,21 @@ export function GooglePlayGlyph({ className }: { className?: string }) {
   );
 }
 
+/**
+ * Libellés des badges. Le français est la valeur par défaut ; les pages
+ * traduites (/ar, /en) passent les leurs.
+ */
+export type TextesBoutiques = {
+  ios: { haut: string; bas: string; aria: string };
+  android: { haut: string; bas: string; aria: string };
+  nouvelleFenetre: string;
+};
+
 type StoreButtonProps = {
   store: 'ios' | 'android';
   tone?: 'dark' | 'light';
   className?: string;
+  textes?: TextesBoutiques;
 };
 
 const labels = {
@@ -45,9 +56,15 @@ const labels = {
   },
 } as const;
 
-export function StoreButton({ store, tone = 'dark', className }: StoreButtonProps) {
+export function StoreButton({ store, tone = 'dark', className, textes }: StoreButtonProps) {
   const app = store === 'ios' ? siteConfig.apps.ios : siteConfig.apps.android;
-  const label = labels[store];
+  const traduit = textes?.[store];
+  const label = traduit
+    ? { top: traduit.haut, bottom: traduit.bas, aria: traduit.aria }
+    : labels[store];
+  const ariaLabel = textes
+    ? `${label.aria} — ${siteConfig.name} (${textes.nouvelleFenetre})`
+    : `${label.aria} — application ${siteConfig.name} (nouvelle fenêtre)`;
 
   return (
     <a
@@ -55,7 +72,7 @@ export function StoreButton({ store, tone = 'dark', className }: StoreButtonProp
       target="_blank"
       rel="noopener noreferrer"
       data-store={store}
-      aria-label={`${label.aria} — application ${siteConfig.name} (nouvelle fenêtre)`}
+      aria-label={ariaLabel}
       className={cn(
         'group inline-flex h-[3.25rem] items-center gap-3 rounded-xl px-4 transition-all duration-300 ease-[var(--ease-out-soft)] hover:-translate-y-0.5',
         // Le badge se pose toujours en contraste de son fond : pastille sombre
@@ -91,14 +108,16 @@ export function StoreButton({ store, tone = 'dark', className }: StoreButtonProp
 export function StoreButtons({
   tone = 'dark',
   className,
+  textes,
 }: {
   tone?: 'dark' | 'light';
   className?: string;
+  textes?: TextesBoutiques;
 }) {
   return (
     <div className={cn('flex flex-wrap items-center gap-3', className)}>
-      <StoreButton store="ios" tone={tone} />
-      <StoreButton store="android" tone={tone} />
+      <StoreButton store="ios" tone={tone} textes={textes} />
+      <StoreButton store="android" tone={tone} textes={textes} />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import { LogoLink } from '@/components/ui/Logo';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { MobileMenu } from '@/components/layout/MobileMenu';
+import { LanguageSwitcher } from '@/components/layout/LanguageSwitcher';
 import { cn } from '@/lib/utils';
 
 /** Navigation desktop : l'accueil est porté par le logo. */
@@ -74,7 +75,11 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <ThemeToggle />
+            <LanguageSwitcher courante="fr" />
+
+            {/* Sur mobile, le thème se règle depuis le menu : la place va au
+                choix de la langue. */}
+            <ThemeToggle className="hidden sm:flex" />
 
             <Button
               href="/application"

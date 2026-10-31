@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import type { Langue } from '@/config/i18n';
 import { absoluteUrl, siteConfig } from '@/config/site';
 
 const isIndexable =
@@ -28,6 +29,14 @@ type CreateMetadataInput = {
    * il court-circuite le gabarit `%s | Najem Clean Service`.
    */
   titreComplet?: boolean;
+  /**
+   * Versions de la page dans chaque langue (chemins), pour les balises
+   * hreflang. Seules les pages réellement traduites en déclarent plusieurs ;
+   * par défaut, la page n'existe qu'en français.
+   */
+  langues?: Partial<Record<Langue, string>>;
+  /** Locale Open Graph, par exemple « ar_MA » pour une page en arabe. */
+  ogLocale?: string;
 };
 
 export const createMetadata = ({
@@ -41,11 +50,25 @@ export const createMetadata = ({
   modifiedTime,
   keywords,
   titreComplet = false,
+  langues,
+  ogLocale,
 }: CreateMetadataInput): Metadata => {
   const url = absoluteUrl(path);
   const ogImage = image
     ? { url: image, width: 1200, height: 630, alt: title }
     : defaultOgImage;
+
+  // `x-default` désigne la version française, langue principale du site.
+  const versions = langues ?? { fr: path };
+  const versionFrancaise = versions.fr ? absoluteUrl(versions.fr) : url;
+  const languages: Record<string, string> = {
+    ...Object.fromEntries(
+      Object.entries(versions)
+        .filter((entree): entree is [string, string] => typeof entree[1] === 'string')
+        .map(([langue, chemin]) => [langue, absoluteUrl(chemin)]),
+    ),
+    'x-default': versionFrancaise,
+  };
 
   return {
     title: titreComplet ? { absolute: title } : title,
@@ -53,10 +76,7 @@ export const createMetadata = ({
     keywords,
     alternates: {
       canonical: url,
-      languages: {
-        'fr-FR': url,
-        'x-default': url,
-      },
+      languages,
     },
     robots:
       noindex || !isIndexable
@@ -78,7 +98,7 @@ export const createMetadata = ({
       description,
       url,
       siteName: siteConfig.name,
-      locale: siteConfig.locale.ogLocale,
+      locale: ogLocale ?? siteConfig.locale.ogLocale,
       images: [ogImage],
       ...(publishedTime ? { publishedTime } : {}),
       ...(modifiedTime ? { modifiedTime } : {}),

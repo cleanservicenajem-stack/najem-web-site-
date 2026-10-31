@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next';
+import { accueilParLangue } from '@/config/i18n';
 import { enabledServices } from '@/config/services';
 import { absoluteUrl } from '@/config/site';
 import { publishedPosts } from '@/lib/blog';
@@ -11,8 +12,19 @@ import { publishedPosts } from '@/lib/blog';
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
 
+  // L'accueil existe en trois langues : chaque version déclare les deux autres.
+  const versionsAccueil = {
+    languages: {
+      fr: absoluteUrl(accueilParLangue.fr),
+      ar: absoluteUrl(accueilParLangue.ar),
+      en: absoluteUrl(accueilParLangue.en),
+    },
+  };
+
   const staticPages: Omit<MetadataRoute.Sitemap[number], 'lastModified'>[] = [
-    { url: absoluteUrl('/'), changeFrequency: 'weekly', priority: 1 },
+    { url: absoluteUrl('/'), changeFrequency: 'weekly', priority: 1, alternates: versionsAccueil },
+    { url: absoluteUrl('/ar'), changeFrequency: 'monthly', priority: 0.7, alternates: versionsAccueil },
+    { url: absoluteUrl('/en'), changeFrequency: 'monthly', priority: 0.7, alternates: versionsAccueil },
     { url: absoluteUrl('/services'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/tarifs'), changeFrequency: 'monthly', priority: 0.9 },
     { url: absoluteUrl('/femme-de-menage-casablanca'), changeFrequency: 'monthly', priority: 0.9 },

@@ -52,7 +52,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false, address: false, email: false },
   alternates: {
     canonical: siteConfig.url,
-    languages: { 'fr-FR': siteConfig.url, 'x-default': siteConfig.url },
+    languages: { fr: siteConfig.url, 'x-default': siteConfig.url },
   },
   openGraph: {
     type: 'website',
