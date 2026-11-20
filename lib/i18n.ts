@@ -102,32 +102,34 @@ export const traduireGrille = (
       });
     }
 
-    const abonnement = categorie.abonnement;
-    const prixMensuel = abonnement ? montant(abonnement.prix) : null;
-    const inclus = categoriesTarifs.find((item) => item.id === categorie.id)?.abonnement?.inclus;
+    const config = categoriesTarifs.find((item) => item.id === categorie.id);
 
-    if (abonnement && prixMensuel !== null && inclus) {
+    for (const abonnement of categorie.abonnements) {
+      const prixMensuel = montant(abonnement.prix);
+      const inclus = config?.abonnements.find((item) => item.id === abonnement.id)?.inclus;
+      if (prixMensuel === null || !inclus) continue;
+
       const elements = inclus.flatMap(({ formule, quantite }) => {
         const nom = commun.grille.formules[formule];
         return nom ? [commun.quantite(quantite, nom)] : [];
       });
+      if (elements.length !== inclus.length) continue;
 
-      if (elements.length === inclus.length) {
-        const contenu = commun.abonnementContenu(elements);
-        lignes.push({
-          id: abonnement.id,
-          categorieId: categorie.id,
-          categorie: nomCategorie,
-          formule: `${commun.abonnement} (Abonnement mensuel)`,
-          detail: contenu,
-          prix: `${commun.prix(prixMensuel)} ${commun.parMois}`,
-          valeur: prixMensuel,
-          abonnement: true,
-        });
-        abonnements.push(
-          `${nomCategorie}: ${commun.prix(prixMensuel)} ${commun.parMois} (${contenu}).`,
-        );
-      }
+      const contenu = commun.abonnementContenu(elements);
+      const nomAbonnement = commun.abonnementPassages(abonnement.passages);
+      lignes.push({
+        id: abonnement.id,
+        categorieId: categorie.id,
+        categorie: nomCategorie,
+        formule: `${nomAbonnement} (Abonnement ${abonnement.passages} passages / mois)`,
+        detail: contenu,
+        prix: `${commun.prix(prixMensuel)} ${commun.parMois}`,
+        valeur: prixMensuel,
+        abonnement: true,
+      });
+      abonnements.push(
+        `${nomCategorie}, ${nomAbonnement.toLowerCase()}: ${commun.prix(prixMensuel)} ${commun.parMois} (${contenu}).`,
+      );
     }
   }
 

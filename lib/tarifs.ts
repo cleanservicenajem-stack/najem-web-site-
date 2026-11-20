@@ -23,6 +23,7 @@ export type FormuleAffichee = {
 
 export type AbonnementAffiche = {
   id: string;
+  passages: number;
   prix: string;
   contenu: string;
   /** Économie mensuelle par rapport aux mêmes formules réservées à l'unité. */
@@ -31,7 +32,7 @@ export type AbonnementAffiche = {
 
 export type CategorieAffichee = Pick<CategorieTarif, 'id' | 'titre' | 'precision'> & {
   formules: FormuleAffichee[];
-  abonnement: AbonnementAffiche | null;
+  abonnements: AbonnementAffiche[];
 };
 
 /** « 1 490 DH » → 1490 ; `null` si aucun montant n'est lisible. */
@@ -92,36 +93,35 @@ export const getGrilleTarifaire = async (): Promise<CategorieAffichee[]> =>
         }),
       );
 
-      let abonnement: AbonnementAffiche | null = null;
+      const abonnements: AbonnementAffiche[] = await Promise.all(
+        categorie.abonnements.map(async ({ id, passages, inclus }) => {
+          const [prix, contenu] = await Promise.all([
+            getTexte(`tarifs.${id}.prix`),
+            getTexte(`tarifs.${id}.contenu`),
+          ]);
 
-      if (categorie.abonnement) {
-        const { id, inclus } = categorie.abonnement;
-        const [prix, contenu] = await Promise.all([
-          getTexte(`tarifs.${id}.prix`),
-          getTexte(`tarifs.${id}.contenu`),
-        ]);
+          const prixMensuel = montant(prix);
+          const prixAlUnite = inclus.reduce<number | null>((total, { formule, quantite }) => {
+            if (total === null) return null;
+            const prixFormule = montant(formules.find((item) => item.id === formule)?.prix ?? '');
+            return prixFormule === null ? null : total + prixFormule * quantite;
+          }, 0);
 
-        const prixMensuel = montant(prix);
-        const prixAlUnite = inclus.reduce<number | null>((total, { formule, quantite }) => {
-          if (total === null) return null;
-          const prixFormule = montant(formules.find((item) => item.id === formule)?.prix ?? '');
-          return prixFormule === null ? null : total + prixFormule * quantite;
-        }, 0);
+          const economie =
+            prixMensuel !== null && prixAlUnite !== null && prixAlUnite > prixMensuel
+              ? prixAlUnite - prixMensuel
+              : null;
 
-        const economie =
-          prixMensuel !== null && prixAlUnite !== null && prixAlUnite > prixMensuel
-            ? prixAlUnite - prixMensuel
-            : null;
-
-        abonnement = { id, prix, contenu, economie };
-      }
+          return { id, passages, prix, contenu, economie };
+        }),
+      );
 
       return {
         id: categorie.id,
         titre: categorie.titre,
         precision: categorie.precision,
         formules,
-        abonnement,
+        abonnements,
       };
     }),
   );

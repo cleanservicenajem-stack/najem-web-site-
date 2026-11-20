@@ -79,7 +79,9 @@ const questions = (grille: CategorieAffichee[]): FaqItem[] => {
     });
   }
 
-  const abonnements = grille.filter((categorie) => categorie.abonnement !== null);
+  const abonnements = grille.flatMap((categorie) =>
+    categorie.abonnements.map((abonnement) => ({ categorie, abonnement })),
+  );
   if (abonnements.length > 0) {
     items.push({
       id: 'femme-menage-reguliere',
@@ -88,8 +90,8 @@ const questions = (grille: CategorieAffichee[]): FaqItem[] => {
       answer: [
         'Oui, avec l’abonnement mensuel, qui regroupe plusieurs ménages chaque mois à un prix inférieur aux mêmes ménages réservés un par un.',
         ...abonnements.map(
-          (categorie) =>
-            `${categorie.titre} : ${categorie.abonnement?.prix} par mois, pour ${categorie.abonnement?.contenu}.`,
+          ({ categorie, abonnement }) =>
+            `${categorie.titre}, ${abonnement.passages} passages : ${abonnement.prix} par mois, pour ${abonnement.contenu}.`,
         ),
       ],
     });
@@ -305,22 +307,20 @@ export default async function FemmeDeMenageCasablancaPage() {
                           </td>
                         </tr>
                       )),
-                    ...(categorie.abonnement && montant(categorie.abonnement.prix) !== null
-                      ? [
-                          <tr key={categorie.abonnement.id}>
-                            <td className="px-6 py-4 text-ink-soft">{categorie.titre}</td>
-                            <td className="px-6 py-4 font-medium text-navy-800">
-                              Abonnement mensuel
-                            </td>
-                            <td className="px-6 py-4 text-ink-soft">
-                              {categorie.abonnement.contenu}
-                            </td>
-                            <td className="px-6 py-4 text-right font-semibold text-brand-600">
-                              {categorie.abonnement.prix} / mois
-                            </td>
-                          </tr>,
-                        ]
-                      : []),
+                    ...categorie.abonnements
+                      .filter((abonnement) => montant(abonnement.prix) !== null)
+                      .map((abonnement) => (
+                        <tr key={abonnement.id}>
+                          <td className="px-6 py-4 text-ink-soft">{categorie.titre}</td>
+                          <td className="px-6 py-4 font-medium text-navy-800">
+                            Abonnement {abonnement.passages} passages / mois
+                          </td>
+                          <td className="px-6 py-4 text-ink-soft">{abonnement.contenu}</td>
+                          <td className="px-6 py-4 text-right font-semibold text-brand-600">
+                            {abonnement.prix} / mois
+                          </td>
+                        </tr>
+                      )),
                   ])}
                 </tbody>
               </table>

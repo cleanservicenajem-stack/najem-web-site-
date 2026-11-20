@@ -227,7 +227,7 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
     label: 'Tarifs',
     titre: 'Tarifs ménage à domicile Casablanca',
     description:
-      'Ménage à domicile à Casablanca à partir de 200 DH : express, complet, grand ménage ou prestige, et abonnement mensuel dès 890 DH. Tous nos prix.',
+      'Ménage à domicile à Casablanca à partir de 200 DH : express, complet ou prestige, et abonnement mensuel dès 810 DH. Tous nos prix.',
   },
   {
     chemin: 'application',
@@ -405,24 +405,22 @@ const tarifs: GroupeEditable = {
           facultatif: true,
         },
       ]),
-      ...(categorie.abonnement
-        ? [
-            {
-              cle: `tarifs.${categorie.abonnement.id}.prix`,
-              label: `${categorie.titre} · Abonnement mensuel — prix par mois`,
-              type: 'texte' as const,
-              repli: categorie.abonnement.prix,
-              longueurMax: 30,
-            },
-            {
-              cle: `tarifs.${categorie.abonnement.id}.contenu`,
-              label: `${categorie.titre} · Abonnement mensuel — contenu`,
-              type: 'texte' as const,
-              repli: categorie.abonnement.contenu,
-              longueurMax: 160,
-            },
-          ]
-        : []),
+      ...categorie.abonnements.flatMap((abonnement) => [
+        {
+          cle: `tarifs.${abonnement.id}.prix`,
+          label: `${categorie.titre} · Abonnement ${abonnement.passages} passages — prix par mois`,
+          type: 'texte' as const,
+          repli: abonnement.prix,
+          longueurMax: 30,
+        },
+        {
+          cle: `tarifs.${abonnement.id}.contenu`,
+          label: `${categorie.titre} · Abonnement ${abonnement.passages} passages — contenu`,
+          type: 'texte' as const,
+          repli: abonnement.contenu,
+          longueurMax: 160,
+        },
+      ]),
     ]),
   ],
 };

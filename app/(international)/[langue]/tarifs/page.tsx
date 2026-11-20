@@ -55,6 +55,9 @@ type FormuleTraduite = {
 };
 
 type AbonnementTraduit = {
+  id: string;
+  /** « Plan: 4 visits a month ». */
+  nom: string;
   contenu: string;
   /** Prix mensuel formaté, sans « / mois ». */
   prix: string;
@@ -67,7 +70,7 @@ type CategorieTraduite = {
   titre: string;
   precision: string;
   formules: FormuleTraduite[];
-  abonnement: AbonnementTraduit | null;
+  abonnements: AbonnementTraduit[];
 };
 
 /**
@@ -109,21 +112,25 @@ const traduireCategories = (
       ];
     });
 
-    const ligneAbonnement = lignes.find((item) => item.abonnement);
-    const abonnement: AbonnementTraduit | null =
-      categorie.abonnement && ligneAbonnement
-        ? {
-            contenu: ligneAbonnement.detail,
-            prix: commun.prix(ligneAbonnement.valeur),
-            valeur: ligneAbonnement.valeur,
-            economie: categorie.abonnement.economie,
-          }
-        : null;
+    const abonnements = categorie.abonnements.flatMap((abonnement): AbonnementTraduit[] => {
+      const ligne = lignes.find((item) => item.abonnement && item.id === abonnement.id);
+      if (!ligne) return [];
+      return [
+        {
+          id: abonnement.id,
+          nom: commun.abonnementPassages(abonnement.passages),
+          contenu: ligne.detail,
+          prix: commun.prix(ligne.valeur),
+          valeur: ligne.valeur,
+          economie: abonnement.economie,
+        },
+      ];
+    });
 
-    if (formules.length === 0 && abonnement === null) return [];
+    if (formules.length === 0 && abonnements.length === 0) return [];
 
     return [
-      { id: categorie.id, titre: noms.titre, precision: noms.precision, formules, abonnement },
+      { id: categorie.id, titre: noms.titre, precision: noms.precision, formules, abonnements },
     ];
   });
 };
@@ -245,14 +252,14 @@ const catalogueSchema = (categories: CategorieTraduite[], langue: LangueTraduite
       });
     }
 
-    if (categorie.abonnement) {
+    for (const abonnement of categorie.abonnements) {
       offres.push({
         '@type': 'Offer',
-        name: `${commun.abonnement} — ${categorie.titre}`,
-        description: categorie.abonnement.contenu,
+        name: `${abonnement.nom} — ${categorie.titre}`,
+        description: abonnement.contenu,
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
-          price: String(categorie.abonnement.valeur),
+          price: String(abonnement.valeur),
           priceCurrency: 'MAD',
           unitText: t.uniteMois,
         },
@@ -388,32 +395,32 @@ export default async function TarifsTraduits({ params }: Props) {
               ))}
             </Stagger>
 
-            {categorie.abonnement ? (
-              <Reveal className="mt-6">
+            {categorie.abonnements.map((abonnement) => (
+              <Reveal key={abonnement.id} className="mt-6">
                 <div className="flex flex-col gap-5 rounded-3xl border border-brand-line bg-[image:var(--gradient-brand-soft)] p-7 md:flex-row md:items-center md:justify-between md:p-8">
                   <div>
                     <p className="inline-flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-brand-600">
                       <Sparkles className="h-4 w-4" aria-hidden="true" />
-                      {commun.abonnement}
+                      {abonnement.nom}
                     </p>
                     <p className="mt-2 text-[1.05rem] font-medium text-navy-800">
-                      {categorie.abonnement.contenu}
+                      {abonnement.contenu}
                     </p>
-                    {categorie.abonnement.economie ? (
+                    {abonnement.economie ? (
                       <p className="mt-1.5 text-[0.95rem] text-ink-soft">
-                        {t.economie(commun.prix(categorie.abonnement.economie))}
+                        {t.economie(commun.prix(abonnement.economie))}
                       </p>
                     ) : null}
                   </div>
                   <p className="shrink-0">
                     <span className="font-display text-[2rem] font-bold leading-none text-navy-900">
-                      {categorie.abonnement.prix}
+                      {abonnement.prix}
                     </span>
                     <span className="ms-1.5 text-ink-soft">{commun.parMois}</span>
                   </p>
                 </div>
               </Reveal>
-            ) : null}
+            ))}
           </Container>
         </section>
       ))}

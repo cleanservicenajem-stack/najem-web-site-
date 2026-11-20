@@ -56,7 +56,9 @@ const formuleDeDepart = (
 
 const questionsTarifs = (grille: CategorieAffichee[]): FaqItem[] => {
   const depart = formuleDeDepart(grille);
-  const abonnements = grille.filter((categorie) => categorie.abonnement !== null);
+  const abonnements = grille.flatMap((categorie) =>
+    categorie.abonnements.map((abonnement) => ({ categorie, abonnement })),
+  );
 
   const items: FaqItem[] = [];
 
@@ -76,7 +78,7 @@ const questionsTarifs = (grille: CategorieAffichee[]): FaqItem[] => {
     category: 'pratique',
     question: 'Quelle différence entre le ménage express et les autres formules ?',
     answer: [
-      'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet, le grand ménage et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
+      'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
     ],
   });
 
@@ -86,8 +88,8 @@ const questionsTarifs = (grille: CategorieAffichee[]): FaqItem[] => {
       category: 'pratique',
       question: 'Combien coûte l’abonnement mensuel ?',
       answer: abonnements.map(
-        (categorie) =>
-          `${categorie.titre} : ${categorie.abonnement?.prix} par mois, pour ${categorie.abonnement?.contenu}.`,
+        ({ categorie, abonnement }) =>
+          `${categorie.titre}, ${abonnement.passages} passages : ${abonnement.prix} par mois, pour ${abonnement.contenu}.`,
       ),
     });
   }
@@ -131,12 +133,12 @@ const catalogueSchema = (grille: CategorieAffichee[]): JsonLd => {
       });
     }
 
-    const abonnement = categorie.abonnement;
-    const prixMensuel = abonnement ? montant(abonnement.prix) : null;
-    if (abonnement && prixMensuel !== null) {
+    for (const abonnement of categorie.abonnements) {
+      const prixMensuel = montant(abonnement.prix);
+      if (prixMensuel === null) continue;
       offres.push({
         '@type': 'Offer',
-        name: `Abonnement mensuel — ${categorie.titre}`,
+        name: `Abonnement ${abonnement.passages} passages / mois — ${categorie.titre}`,
         description: abonnement.contenu,
         priceSpecification: {
           '@type': 'UnitPriceSpecification',
@@ -256,33 +258,33 @@ export default async function TarifsPage() {
               ))}
             </Stagger>
 
-            {categorie.abonnement ? (
-              <Reveal className="mt-6">
+            {categorie.abonnements.map((abonnement) => (
+              <Reveal key={abonnement.id} className="mt-6">
                 <div className="flex flex-col gap-5 rounded-3xl border border-brand-line bg-[image:var(--gradient-brand-soft)] p-7 md:flex-row md:items-center md:justify-between md:p-8">
                   <div>
                     <p className="inline-flex items-center gap-2 text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-brand-600">
                       <Sparkles className="h-4 w-4" aria-hidden="true" />
-                      Abonnement mensuel
+                      Abonnement {abonnement.passages} passages / mois
                     </p>
                     <p className="mt-2 text-[1.05rem] font-medium text-navy-800">
-                      {categorie.abonnement.contenu}
+                      {abonnement.contenu}
                     </p>
-                    {categorie.abonnement.economie ? (
+                    {abonnement.economie ? (
                       <p className="mt-1.5 text-[0.95rem] text-ink-soft">
-                        Soit {formaterDh(categorie.abonnement.economie)} d’économie par mois par
-                        rapport aux mêmes ménages réservés un par un.
+                        Soit {formaterDh(abonnement.economie)} d’économie par mois par rapport aux
+                        mêmes ménages réservés un par un.
                       </p>
                     ) : null}
                   </div>
                   <p className="shrink-0">
                     <span className="font-display text-[2rem] font-bold leading-none text-navy-900">
-                      {categorie.abonnement.prix}
+                      {abonnement.prix}
                     </span>
                     <span className="ml-1.5 text-ink-soft">/ mois</span>
                   </p>
                 </div>
               </Reveal>
-            ) : null}
+            ))}
           </Container>
         </section>
       ))}
