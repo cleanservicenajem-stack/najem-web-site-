@@ -23,6 +23,8 @@ export type TextesCommuns = {
   abonnementContenu: (elements: string[]) => string;
   /** « Abonnement mensuel ». */
   abonnement: string;
+  /** « Abonnement 4 passages / mois ». */
+  abonnementPassages: (passages: number) => string;
   /** « / mois ». */
   parMois: string;
   /** Suffixe d'un lien vers une page restée en français : « (in French) ». */
@@ -63,6 +65,7 @@ const anglais: TextesCommuns = {
   quantite: (nombre, nom) => `${nombre} × ${nom.toLowerCase()}`,
   abonnementContenu: (elements) => `${elements.join(' + ')} each month`,
   abonnement: 'Monthly plan',
+  abonnementPassages: (passages) => `Plan: ${passages} visits a month`,
   parMois: '/ month',
   enFrancais: ' (in French)',
   boutiques: {
@@ -73,15 +76,19 @@ const anglais: TextesCommuns = {
   grille: {
     categories: {
       studio: { titre: 'Studio and small apartment', precision: 'Up to 2 rooms' },
+      appartement: { titre: 'Apartment', precision: 'Up to 3 bedrooms' },
       grand: { titre: 'Large apartment and villa', precision: 'Up to 5 bedrooms' },
-      'tres-grand': { titre: 'Very large home', precision: 'Large villas and high-end homes' },
+      'tres-grand': { titre: 'Very large home', precision: 'More than 5 bedrooms' },
     },
     formules: {
       'studio-express': 'Express cleaning',
       'studio-complet': 'Full cleaning',
+      'appartement-express': 'Express cleaning',
+      'appartement-complet': 'Full cleaning',
       'grand-express': 'Express cleaning',
-      'grand-menage': 'Deep cleaning',
+      'grand-menage': 'Full cleaning',
       'tres-grand-express': 'Express cleaning',
+      'tres-grand-complet': 'Full cleaning',
       'tres-grand-prestige': 'Prestige cleaning',
     },
   },
@@ -95,6 +102,10 @@ const anglais: TextesCommuns = {
     Repassage: 'Ironing',
     'Petit repassage': 'Small ironing load',
     'Grand repassage': 'Large ironing load',
+    'Shampouineuse canapé ou tapis (1 élément)': 'Sofa or carpet shampooing (1 item)',
+    'Petite terrasse': 'Small terrace',
+    'Grande terrasse': 'Large terrace',
+    'Lavage de linge': 'Laundry',
   },
   services: {
     'nettoyage-regulier': { titre: 'Regular cleaning', titreCourt: 'Regular' },
@@ -150,6 +161,7 @@ const arabe: TextesCommuns = {
   quantite: (nombre, nom) => `${nombre} × ${nom}`,
   abonnementContenu: (elements) => `${elements.join(' + ')} كل شهر`,
   abonnement: 'اشتراك شهري',
+  abonnementPassages: (passages) => `اشتراك ${passages} زيارات في الشهر`,
   parMois: 'في الشهر',
   enFrancais: ' (بالفرنسية)',
   boutiques: {
@@ -160,15 +172,19 @@ const arabe: TextesCommuns = {
   grille: {
     categories: {
       studio: { titre: 'استوديو وشقة صغيرة', precision: 'حتى غرفتين' },
+      appartement: { titre: 'شقة', precision: 'حتى 3 غرف نوم' },
       grand: { titre: 'شقة كبيرة وفيلا', precision: 'حتى 5 غرف نوم' },
-      'tres-grand': { titre: 'مسكن كبير جدا', precision: 'الفيلات الكبيرة والمساكن الراقية' },
+      'tres-grand': { titre: 'مسكن كبير جدا', precision: 'أكثر من 5 غرف نوم' },
     },
     formules: {
       'studio-express': 'تنظيف سريع',
       'studio-complet': 'تنظيف شامل',
+      'appartement-express': 'تنظيف سريع',
+      'appartement-complet': 'تنظيف شامل',
       'grand-express': 'تنظيف سريع',
-      'grand-menage': 'تنظيف عميق',
+      'grand-menage': 'تنظيف شامل',
       'tres-grand-express': 'تنظيف سريع',
+      'tres-grand-complet': 'تنظيف شامل',
       'tres-grand-prestige': 'تنظيف فاخر',
     },
   },
@@ -182,6 +198,10 @@ const arabe: TextesCommuns = {
     Repassage: 'الكي',
     'Petit repassage': 'كي كمية صغيرة',
     'Grand repassage': 'كي كمية كبيرة',
+    'Shampouineuse canapé ou tapis (1 élément)': 'غسل أريكة أو زربية بالآلة (قطعة واحدة)',
+    'Petite terrasse': 'تراس صغير',
+    'Grande terrasse': 'تراس كبير',
+    'Lavage de linge': 'غسل الملابس',
   },
   services: {
     'nettoyage-regulier': { titre: 'التنظيف المنتظم', titreCourt: 'منتظم' },

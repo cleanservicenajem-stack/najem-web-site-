@@ -1,10 +1,11 @@
 /**
  * Grille tarifaire affichée sur /tarifs.
  *
- * Source : l'application Najem Clean Service, écrans « Gestion Services » et
- * « Abonnements », relevés le 30 octobre 2026. Seules les formules actives
- * dans l'application figurent ici : « Intervention urgente » y est désactivée,
- * elle n'est donc pas affichée. Les trois abonnements sont actifs.
+ * Source : grille unifiée de l'application Najem Clean Service du 20 novembre
+ * 2026 (RECAP-PRIX-2026-11-20, l'application fait foi). Seules les formules
+ * actives dans l'application figurent ici : « Intervention urgente » et
+ * l'abonnement 8 passages des très grands logements y sont désactivés, ils ne
+ * sont donc pas affichés.
  *
  * Ces valeurs ne servent que de repli : chaque prix, durée et liste d'options
  * reste modifiable depuis l'administration (groupe « Tarifs »).
@@ -28,6 +29,8 @@ export type Formule = {
 
 export type Abonnement = {
   id: string;
+  /** Nombre d'interventions comprises chaque mois (4 ou 8). */
+  passages: number;
   /** Repli du prix mensuel, par exemple « 890 DH ». */
   prix: string;
   /** Repli du contenu, par exemple « 3 ménages express + 1 ménage complet par mois ». */
@@ -41,8 +44,16 @@ export type CategorieTarif = {
   titre: string;
   precision: string;
   formules: Formule[];
-  abonnement?: Abonnement;
+  /** Abonnements mensuels de la catégorie, du plus petit au plus grand. */
+  abonnements: Abonnement[];
 };
+
+const OPTIONS_STUDIO =
+  'Repassage express (30 min) : +80 DH ; Repassage complet (1 h) : +150 DH ; Four et frigo très sales : +80 DH ; Terrasse ou balcon : +80 DH ; Heure supplémentaire : +150 DH ; Shampouineuse canapé ou tapis (1 élément) : +190 DH ; Lavage de linge : +80 DH';
+
+/** Options des logements de plus d'une chambre ; seul le lavage de linge change de prix. */
+const optionsLogement = (lavageLinge: string) =>
+  `Repassage express (30 min) : +80 DH ; Repassage complet (1 h) : +150 DH ; Four et frigo très sales : +80 DH ; Petite terrasse : +80 DH ; Grande terrasse : +150 DH ; Heure supplémentaire : +150 DH ; Shampouineuse canapé ou tapis (1 élément) : +190 DH ; Lavage de linge : ${lavageLinge}`;
 
 export const categoriesTarifs: CategorieTarif[] = [
   {
@@ -57,29 +68,86 @@ export const categoriesTarifs: CategorieTarif[] = [
           'Un coup de fraîcheur rapide et efficace pour les studios et les petits appartements.',
         prix: '200 DH',
         duree: '1 h',
-        options:
-          'Repassage express (30 min) : +80 DH ; Repassage complet (1 h) : +150 DH ; Four et frigo très sales : +80 DH ; Terrasse ou balcon : +80 DH ; Heure supplémentaire : +150 DH ; Shampouineuse canapé et tapis : +150 DH',
+        options: OPTIONS_STUDIO,
       },
       {
         id: 'studio-complet',
         nom: 'Ménage complet',
         description:
           'Un ménage en profondeur pour les studios et les petits appartements, pour un intérieur impeccable.',
-        prix: '350 DH',
+        prix: '300 DH',
         duree: '2 h',
-        options:
-          'Shampouineuse canapé et tapis : +150 DH ; Repassage : +80 DH ; Terrasse ou balcon : +80 DH ; Heure supplémentaire : +120 DH',
+        options: OPTIONS_STUDIO,
       },
     ],
-    abonnement: {
-      id: 'abonnement-studio',
-      prix: '890 DH',
-      contenu: '3 ménages express et 1 ménage complet chaque mois',
-      inclus: [
-        { formule: 'studio-express', quantite: 3 },
-        { formule: 'studio-complet', quantite: 1 },
-      ],
-    },
+    abonnements: [
+      {
+        id: 'abonnement-studio-4',
+        passages: 4,
+        prix: '810 DH',
+        contenu: '3 ménages express et 1 ménage complet chaque mois',
+        inclus: [
+          { formule: 'studio-express', quantite: 3 },
+          { formule: 'studio-complet', quantite: 1 },
+        ],
+      },
+      {
+        id: 'abonnement-studio-8',
+        passages: 8,
+        prix: '1 590 DH',
+        contenu: '6 ménages express et 2 ménages complets chaque mois',
+        inclus: [
+          { formule: 'studio-express', quantite: 6 },
+          { formule: 'studio-complet', quantite: 2 },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'appartement',
+    titre: 'Appartement',
+    precision: 'Jusqu’à 3 chambres',
+    formules: [
+      {
+        id: 'appartement-express',
+        nom: 'Ménage express',
+        description: 'Un entretien rapide et efficace pour les appartements jusqu’à 3 chambres.',
+        prix: '250 DH',
+        duree: '1 h 15',
+        options: optionsLogement('+150 DH'),
+      },
+      {
+        id: 'appartement-complet',
+        nom: 'Ménage complet',
+        description:
+          'Un ménage en profondeur pour les appartements jusqu’à 3 chambres, pour un intérieur impeccable.',
+        prix: '380 DH',
+        duree: '2 h 30',
+        options: optionsLogement('+150 DH'),
+      },
+    ],
+    abonnements: [
+      {
+        id: 'abonnement-appartement-4',
+        passages: 4,
+        prix: '990 DH',
+        contenu: '3 ménages express et 1 ménage complet chaque mois',
+        inclus: [
+          { formule: 'appartement-express', quantite: 3 },
+          { formule: 'appartement-complet', quantite: 1 },
+        ],
+      },
+      {
+        id: 'abonnement-appartement-8',
+        passages: 8,
+        prix: '1 990 DH',
+        contenu: '6 ménages express et 2 ménages complets chaque mois',
+        inclus: [
+          { formule: 'appartement-express', quantite: 6 },
+          { formule: 'appartement-complet', quantite: 2 },
+        ],
+      },
+    ],
   },
   {
     id: 'grand',
@@ -93,34 +161,45 @@ export const categoriesTarifs: CategorieTarif[] = [
           'Un ménage rapide et efficace pour les grands espaces, idéal entre deux réservations.',
         prix: '300 DH',
         duree: '1 h 30',
-        options:
-          'Shampouineuse canapé et tapis : +150 DH ; Repassage : +80 DH ; Heure supplémentaire : +150 DH ; Terrasse ou balcon : +80 DH ; Four et frigo très sales : +50 DH',
+        options: optionsLogement('+200 DH'),
       },
       {
         id: 'grand-menage',
-        nom: 'Grand ménage',
+        nom: 'Ménage complet',
         description:
           'Un ménage complet pour les grands appartements et les villas jusqu’à 5 chambres.',
         prix: '450 DH',
         duree: '3 h',
-        options:
-          'Heure supplémentaire : +150 DH ; Shampouineuse canapé et tapis : +150 DH ; Petit repassage : +80 DH ; Grand repassage : +150 DH ; Terrasse ou balcon : +80 DH',
+        options: optionsLogement('+200 DH'),
       },
     ],
-    abonnement: {
-      id: 'abonnement-grand',
-      prix: '1 090 DH',
-      contenu: '3 ménages express et 1 grand ménage chaque mois',
-      inclus: [
-        { formule: 'grand-express', quantite: 3 },
-        { formule: 'grand-menage', quantite: 1 },
-      ],
-    },
+    abonnements: [
+      {
+        id: 'abonnement-grand-4',
+        passages: 4,
+        prix: '1 190 DH',
+        contenu: '3 ménages express et 1 ménage complet chaque mois',
+        inclus: [
+          { formule: 'grand-express', quantite: 3 },
+          { formule: 'grand-menage', quantite: 1 },
+        ],
+      },
+      {
+        id: 'abonnement-grand-8',
+        passages: 8,
+        prix: '2 390 DH',
+        contenu: '6 ménages express et 2 ménages complets chaque mois',
+        inclus: [
+          { formule: 'grand-express', quantite: 6 },
+          { formule: 'grand-menage', quantite: 2 },
+        ],
+      },
+    ],
   },
   {
     id: 'tres-grand',
     titre: 'Très grand logement',
-    precision: 'Grandes villas et logements haut standing',
+    precision: 'Plus de 5 chambres',
     formules: [
       {
         id: 'tres-grand-express',
@@ -128,7 +207,15 @@ export const categoriesTarifs: CategorieTarif[] = [
         description: 'Un entretien rapide pour les très grandes propriétés.',
         prix: '350 DH',
         duree: '2 h',
-        options: '',
+        options: optionsLogement('+200 DH'),
+      },
+      {
+        id: 'tres-grand-complet',
+        nom: 'Ménage complet',
+        description: 'Un ménage en profondeur pour les villas de plus de 5 chambres.',
+        prix: '600 DH',
+        duree: '4 h',
+        options: optionsLogement('+200 DH'),
       },
       {
         id: 'tres-grand-prestige',
@@ -137,18 +224,20 @@ export const categoriesTarifs: CategorieTarif[] = [
           'Notre formule la plus complète, pensée pour les grandes villas et les logements haut standing.',
         prix: '700 DH',
         duree: '4 h 30',
-        options:
-          'Shampouineuse canapé et tapis : +200 DH ; Repassage : +150 DH ; Terrasse ou balcon : +150 DH ; Heure supplémentaire : +150 DH',
+        options: optionsLogement('+200 DH'),
       },
     ],
-    abonnement: {
-      id: 'abonnement-tres-grand',
-      prix: '1 490 DH',
-      contenu: '3 ménages express et 1 ménage prestige chaque mois',
-      inclus: [
-        { formule: 'tres-grand-express', quantite: 3 },
-        { formule: 'tres-grand-prestige', quantite: 1 },
-      ],
-    },
+    abonnements: [
+      {
+        id: 'abonnement-tres-grand-4',
+        passages: 4,
+        prix: '1 590 DH',
+        contenu: '3 ménages express et 1 ménage prestige chaque mois',
+        inclus: [
+          { formule: 'tres-grand-express', quantite: 3 },
+          { formule: 'tres-grand-prestige', quantite: 1 },
+        ],
+      },
+    ],
   },
 ];
