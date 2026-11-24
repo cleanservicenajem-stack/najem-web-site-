@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createMetadata({
     title: `Femme de ménage à Casablanca${depart} | Najem`,
     titreComplet: true,
-    description: `Réservez une femme de ménage à Casablanca en quelques minutes : ménage express${depart}, complet, grand ménage ou abonnement, depuis l’application Najem.`,
+    description: `Réservez une femme de ménage à Casablanca en quelques minutes : ménage express${depart}, complet, prestige ou abonnement, depuis l’application Najem.`,
     path: CHEMIN,
   });
 }
@@ -64,7 +64,7 @@ const questions = (grille: CategorieAffichee[]): FaqItem[] => {
   if (express) {
     const suite = [
       complet ? `le ménage complet ${complet.formule.prix} (${complet.formule.duree})` : null,
-      grand ? `le grand ménage ${grand.formule.prix} (${grand.formule.duree})` : null,
+      grand ? `le ménage complet pour un grand appartement ou une villa ${grand.formule.prix} (${grand.formule.duree})` : null,
       prestige ? `le ménage prestige ${prestige.formule.prix} (${prestige.formule.duree})` : null,
     ].filter((morceau): morceau is string => morceau !== null);
 
@@ -117,7 +117,7 @@ const questions = (grille: CategorieAffichee[]): FaqItem[] => {
       category: 'pratique',
       question: 'Quelle différence entre le ménage express et le ménage complet ?',
       answer: [
-        'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet, le grand ménage et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
+        'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
       ],
     },
   );
@@ -155,7 +155,7 @@ const serviceFemmeDeMenage = (grille: CategorieAffichee[]): JsonLd => {
 
 const etapes = [
   'Téléchargez l’application Najem Clean Service sur iPhone ou Android.',
-  'Choisissez la taille de votre logement et la formule : express, complet, grand ménage ou prestige.',
+  'Choisissez la taille de votre logement et la formule : express, complet ou prestige.',
   'Indiquez votre adresse, la date, le créneau et vos consignes éventuelles.',
   'Confirmez : le prix s’affiche avant la validation, et vous suivez votre demande depuis votre compte.',
 ];

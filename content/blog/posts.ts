@@ -31,16 +31,17 @@ export const blogCategories: BlogCategory[] = [
 export const blogPosts: BlogPost[] = [
   {
     // Article publié : chaque prix vient de la grille de l'application
-    // (config/tarifs.ts, relevée le 30 octobre 2026). Le mettre à jour, avec
+    // (config/tarifs.ts, grille unifiée du 20 novembre 2026). Le mettre à jour, avec
     // `dateModified`, à chaque changement de tarif.
     slug: 'prix-femme-de-menage-casablanca',
     title: 'Prix d’une femme de ménage à Casablanca en 2026',
     description:
       'Combien coûte une femme de ménage à Casablanca en 2026 ? Prix selon la taille du logement, formules, abonnement et options : les tarifs Najem expliqués.',
     keyAnswer:
-      'À Casablanca, un ménage à domicile chez Najem Clean Service coûte à partir de 200 DH : c’est le prix d’un ménage express d’une heure dans un studio ou un petit appartement. Comptez 350 DH pour un ménage complet de 2 h, 450 DH pour un grand ménage de 3 h et 700 DH pour un ménage prestige de 4 h 30. L’abonnement mensuel démarre à 890 DH.',
+      'À Casablanca, un ménage à domicile chez Najem Clean Service coûte à partir de 200 DH : c’est le prix d’un ménage express d’une heure dans un studio ou un petit appartement. Selon la taille du logement, comptez de 300 à 600 DH pour un ménage complet (de 2 h à 4 h) et 700 DH pour un ménage prestige de 4 h 30. L’abonnement mensuel démarre à 810 DH.',
     category: 'conseils-pratiques',
     datePublished: '2026-10-30',
+    dateModified: '2026-11-22',
     author: 'Najem Clean Service',
     readingMinutes: 4,
     cover: {
@@ -57,19 +58,28 @@ export const blogPosts: BlogPost[] = [
       {
         type: 'ul',
         items: [
-          'La taille du logement : un studio ou un petit appartement, un grand appartement ou une villa jusqu’à 5 chambres, ou un très grand logement.',
+          'La taille du logement, comptée en chambres : un studio, un appartement jusqu’à 3 chambres, un grand appartement ou une villa jusqu’à 5 chambres, ou un logement de plus de 5 chambres.',
           'La formule : un ménage express pour l’entretien courant, ou une formule plus complète qui va plus en profondeur et dure plus longtemps.',
-          'Les options : repassage, terrasse ou balcon, four et frigo très sales, canapé et tapis, heure supplémentaire.',
+          'Les options : repassage, terrasse ou balcon, four et frigo très sales, canapé ou tapis, lavage de linge, heure supplémentaire.',
         ],
       },
       { type: 'h2', text: 'Les tarifs Najem Clean Service en 2026' },
-      { type: 'h3', text: 'Studio et petit appartement (jusqu’à 2 pièces)' },
+      { type: 'h3', text: 'Studio' },
       {
         type: 'ul',
         items: [
           'Ménage express : 200 DH pour 1 h.',
-          'Ménage complet : 350 DH pour 2 h.',
-          'Abonnement mensuel : 890 DH pour 3 ménages express et 1 ménage complet.',
+          'Ménage complet : 300 DH pour 2 h.',
+          'Abonnement mensuel : 810 DH pour 3 ménages express et 1 ménage complet (1 590 DH pour 8 passages).',
+        ],
+      },
+      { type: 'h3', text: 'Appartement (jusqu’à 3 chambres)' },
+      {
+        type: 'ul',
+        items: [
+          'Ménage express : 250 DH pour 1 h 15.',
+          'Ménage complet : 380 DH pour 2 h 30.',
+          'Abonnement mensuel : 990 DH pour 3 ménages express et 1 ménage complet (1 990 DH pour 8 passages).',
         ],
       },
       { type: 'h3', text: 'Grand appartement et villa (jusqu’à 5 chambres)' },
@@ -77,28 +87,29 @@ export const blogPosts: BlogPost[] = [
         type: 'ul',
         items: [
           'Ménage express : 300 DH pour 1 h 30.',
-          'Grand ménage : 450 DH pour 3 h.',
-          'Abonnement mensuel : 1 090 DH pour 3 ménages express et 1 grand ménage.',
+          'Ménage complet : 450 DH pour 3 h.',
+          'Abonnement mensuel : 1 190 DH pour 3 ménages express et 1 ménage complet (2 390 DH pour 8 passages).',
         ],
       },
-      { type: 'h3', text: 'Très grand logement (grandes villas et haut standing)' },
+      { type: 'h3', text: 'Plus de 5 chambres (grandes villas et haut standing)' },
       {
         type: 'ul',
         items: [
           'Ménage express : 350 DH pour 2 h.',
+          'Ménage complet : 600 DH pour 4 h.',
           'Ménage prestige : 700 DH pour 4 h 30.',
-          'Abonnement mensuel : 1 490 DH pour 3 ménages express et 1 ménage prestige.',
+          'Abonnement mensuel : 1 590 DH pour 3 ménages express et 1 ménage prestige.',
         ],
       },
       {
         type: 'note',
         title: 'Prix à jour',
-        text: 'Ces prix sont ceux de l’application au 30 octobre 2026. La page Tarifs du site et l’application font foi : le prix de votre ménage s’y affiche avant que vous confirmiez.',
+        text: 'Ces prix sont ceux de l’application au 22 novembre 2026. La page Tarifs du site et l’application font foi : le prix de votre ménage s’y affiche avant que vous confirmiez.',
       },
       { type: 'h2', text: 'À l’unité ou en abonnement : lequel revient le moins cher ?' },
       {
         type: 'p',
-        text: 'L’abonnement mensuel regroupe 3 ménages express et une formule plus complète. Pour un studio, les mêmes ménages réservés un par un coûtent 950 DH (3 × 200 DH + 350 DH), contre 890 DH en abonnement : 60 DH d’économie par mois. Pour un grand appartement ou une villa, 1 350 DH à l’unité contre 1 090 DH, soit 260 DH d’économie. Pour un très grand logement, 1 750 DH contre 1 490 DH, soit 260 DH.',
+        text: 'L’abonnement mensuel regroupe 3 ménages express et une formule plus complète. Pour un studio, les mêmes ménages réservés un par un coûtent 900 DH (3 × 200 DH + 300 DH), contre 810 DH en abonnement : 90 DH d’économie par mois. Pour un appartement jusqu’à 3 chambres, 1 130 DH à l’unité contre 990 DH, soit 140 DH d’économie. Pour un grand appartement ou une villa, 1 350 DH contre 1 190 DH, soit 160 DH. Pour plus de 5 chambres, 1 750 DH contre 1 590 DH, soit 160 DH.',
       },
       {
         type: 'p',
@@ -108,11 +119,12 @@ export const blogPosts: BlogPost[] = [
       {
         type: 'ul',
         items: [
-          'Repassage : de 80 à 150 DH selon la durée.',
-          'Shampouineuse canapé et tapis : 150 DH, 200 DH avec le ménage prestige.',
-          'Terrasse ou balcon : 80 DH, 150 DH avec le ménage prestige.',
-          'Four et frigo très sales : 50 à 80 DH.',
-          'Heure supplémentaire : 120 à 150 DH.',
+          'Repassage : 80 DH (express, 30 min) ou 150 DH (complet, 1 h).',
+          'Shampouineuse canapé ou tapis : 190 DH pour 1 élément (1 h).',
+          'Terrasse ou balcon : 80 DH dans un studio ; petite terrasse (moins de 10 m²) 80 DH et grande terrasse 150 DH à partir de l’appartement jusqu’à 3 chambres.',
+          'Four et frigo très sales : 80 DH.',
+          'Lavage de linge : 80 DH (studio), 150 DH (jusqu’à 3 chambres), 200 DH (jusqu’à 5 chambres et plus).',
+          'Heure supplémentaire : 150 DH.',
         ],
       },
       { type: 'h2', text: 'Comment connaître le prix exact de votre ménage' },
@@ -125,12 +137,12 @@ export const blogPosts: BlogPost[] = [
       {
         question: 'Quel est le prix d’un ménage d’une heure à Casablanca ?',
         answer:
-          'Chez Najem Clean Service, le ménage express d’une heure coûte 200 DH dans un studio ou un petit appartement. Pour un grand appartement ou une villa, le ménage express dure 1 h 30 et coûte 300 DH.',
+          'Chez Najem Clean Service, le ménage express d’une heure coûte 200 DH dans un studio. Pour un appartement jusqu’à 3 chambres, il dure 1 h 15 et coûte 250 DH ; pour un grand appartement ou une villa, 1 h 30 et 300 DH.',
       },
       {
         question: 'Combien coûte une femme de ménage chaque semaine ?',
         answer:
-          'Avec l’abonnement mensuel, qui regroupe 4 ménages par mois : 890 DH pour un studio ou un petit appartement, 1 090 DH pour un grand appartement ou une villa, 1 490 DH pour un très grand logement.',
+          'Avec l’abonnement mensuel, qui regroupe 4 ménages par mois : 810 DH pour un studio, 990 DH pour un appartement jusqu’à 3 chambres, 1 190 DH pour un grand appartement ou une villa, 1 590 DH pour plus de 5 chambres.',
       },
     ],
     related: ['grand-nettoyage-par-ou-commencer', 'preparer-son-logement-avant-une-intervention'],

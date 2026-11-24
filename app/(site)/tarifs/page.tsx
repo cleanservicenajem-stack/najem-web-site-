@@ -76,7 +76,7 @@ const questionsTarifs = (grille: CategorieAffichee[]): FaqItem[] => {
     category: 'pratique',
     question: 'Quelle différence entre le ménage express et les autres formules ?',
     answer: [
-      'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet, le grand ménage et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
+      'Le ménage express est un entretien rapide pour garder un intérieur propre. Le ménage complet et le ménage prestige vont plus en profondeur et durent plus longtemps : la durée de chaque formule est indiquée avec son prix.',
     ],
   });
 

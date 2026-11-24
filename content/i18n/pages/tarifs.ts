@@ -66,8 +66,11 @@ const anglais: TextesTarifs = {
   descriptions: {
     'studio-express': 'A quick, efficient freshen-up for studios and small apartments.',
     'studio-complet': 'A thorough clean for studios and small apartments, for a spotless home.',
+    'appartement-express': 'A quick, efficient freshen-up for apartments with up to 3 bedrooms.',
+    'appartement-complet': 'A thorough clean for apartments with up to 3 bedrooms.',
     'grand-express': 'A quick, efficient clean for large spaces, ideal between two bookings.',
     'grand-menage': 'A complete clean for large apartments and villas with up to 5 bedrooms.',
+    'tres-grand-complet': 'A thorough clean for very large properties.',
     'tres-grand-express': 'A quick maintenance clean for very large properties.',
     'tres-grand-prestige':
       'Our most complete package, designed for large villas and high-end homes.',
@@ -130,8 +133,11 @@ const arabe: TextesTarifs = {
   descriptions: {
     'studio-express': 'تجديد سريع وفعّال لنظافة الاستوديوهات والشقق الصغيرة.',
     'studio-complet': 'تنظيف دقيق للاستوديوهات والشقق الصغيرة، من أجل مسكن نظيف تماما.',
+    'appartement-express': 'تجديد سريع وفعّال لنظافة الشقق حتى 3 غرف نوم.',
+    'appartement-complet': 'تنظيف دقيق للشقق حتى 3 غرف نوم.',
     'grand-express': 'تنظيف سريع وفعّال للمساحات الكبيرة، مثالي بين حجزين.',
     'grand-menage': 'تنظيف كامل للشقق الكبيرة والفيلات حتى 5 غرف نوم.',
+    'tres-grand-complet': 'تنظيف دقيق للعقارات الكبيرة جدا.',
     'tres-grand-express': 'تنظيف روتيني سريع للعقارات الكبيرة جدا.',
     'tres-grand-prestige': 'باقتنا الأشمل، مصممة للفيلات الكبيرة والمساكن الراقية.',
   },

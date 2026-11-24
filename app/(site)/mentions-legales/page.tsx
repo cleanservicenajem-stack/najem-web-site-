@@ -29,7 +29,7 @@ export default async function LegalNoticePage() {
     <>
       <LegalPage
         title="Mentions légales"
-        lead="Informations relatives à l’éditeur et à l’hébergement du site najemcleanservice."
+        lead="Informations relatives à l’éditeur et à l’hébergement du site najemcleanservice.ma."
         crumbs={crumbs}
       >
         <LegalSection title="Éditeur du site">

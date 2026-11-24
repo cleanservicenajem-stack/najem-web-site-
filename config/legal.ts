@@ -30,16 +30,24 @@ export type LegalEntity = {
 };
 
 export const legalEntity: LegalEntity = {
-  legalName: null,
-  legalForm: null,
-  shareCapital: null,
-  registrationNumber: null,
-  taxId: null,
-  headOffice: null,
-  publicationDirector: null,
-  legalEmail: null,
-  host: null,
-  updatedAt: null,
+  legalName: 'NAJEM CLEAN SERVICE SARL',
+  legalForm: 'Société à responsabilité limitée (SARL), au capital de 10 000 DH',
+  shareCapital: '10 000 DH',
+  registrationNumber:
+    'RC n° 712433 (Tribunal de commerce de Casablanca) · ICE 003894123000083 · IF 71778005',
+  taxId: 'IF 71778005',
+  headOffice:
+    'Domiciliée chez MyLegal Offices, Oasis Offices Latitudes, Route de l’Oasis, Bureau 304, Maârif, Casablanca, Maroc',
+  // Décision de Houssam (24/11/2026) : directeur de la publication = Ilyas EL KANOUANI.
+  publicationDirector: 'Ilyas EL KANOUANI, cogérant',
+  legalEmail: 'najemcleanservice@gmail.com',
+  // À VÉRIFIER avant mise en ligne : adresse postale officielle de l’hébergeur.
+  host: {
+    name: 'Vercel Inc.',
+    address: '440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis',
+    url: 'https://vercel.com',
+  },
+  updatedAt: '2026-11-22',
 };
 
 export const legalIsComplete = Object.entries(legalEntity)

@@ -227,7 +227,7 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
     label: 'Tarifs',
     titre: 'Tarifs ménage à domicile Casablanca',
     description:
-      'Ménage à domicile à Casablanca à partir de 200 DH : express, complet, grand ménage ou prestige, et abonnement mensuel dès 890 DH. Tous nos prix.',
+      'Ménage à domicile à Casablanca à partir de 200 DH : express, complet ou prestige, et abonnement mensuel dès 810 DH. Tous nos prix.',
   },
   {
     chemin: 'application',
