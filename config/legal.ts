@@ -47,7 +47,7 @@ export const legalEntity: LegalEntity = {
     address: '440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis',
     url: 'https://vercel.com',
   },
-  updatedAt: '2026-11-22',
+  updatedAt: '2026-11-25',
 };
 
 export const legalIsComplete = Object.entries(legalEntity)
