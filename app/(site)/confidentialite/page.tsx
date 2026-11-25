@@ -44,8 +44,8 @@ export default async function PrivacyPage() {
 
         <LegalSection title="Données collectées sur ce site">
           <p>
-            Le site ne crée pas de compte utilisateur et ne demande aucune donnée en dehors du
-            formulaire de contact. Lorsqu’un formulaire est envoyé, les données suivantes sont
+            Le site ne crée pas de compte utilisateur. Il enregistre uniquement les données du
+            formulaire de contact. Lorsque ce formulaire est envoyé, les données suivantes sont
             traitées :
           </p>
           <ul className="space-y-2">
@@ -57,6 +57,14 @@ export default async function PrivacyPage() {
               adresse IP, utilisée uniquement de façon temporaire pour limiter les envois abusifs.
             </li>
           </ul>
+        </LegalSection>
+
+        <LegalSection title="Demande de devis pro">
+          <p>
+            Le formulaire de demande de devis pro n’enregistre rien sur le site. Le nom et la
+            demande saisis sont repris dans un message WhatsApp, que vous envoyez vous-même depuis
+            votre compte ; les conditions de WhatsApp s’appliquent alors.
+          </p>
         </LegalSection>
 
         <LegalSection title="Mesure d’audience">
