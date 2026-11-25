@@ -20,8 +20,14 @@ export function Header({ langue = 'fr' }: { langue?: Langue }) {
   const pathname = usePathname();
   const t = textesChrome[langue];
   const accueil = accueilParLangue[langue];
-  /** Navigation desktop : l'accueil est porté par le logo. */
-  const desktopNav = navigationPrincipale[langue].filter((item) => item.href !== accueil);
+  /**
+   * Navigation desktop : l'accueil est porté par le logo, et l'application par
+   * le bouton « Télécharger l'application », ce qui laisse la place aux autres
+   * liens. Le menu mobile les garde tous.
+   */
+  const desktopNav = navigationPrincipale[langue].filter(
+    (item) => item.href !== accueil && item.href !== cheminEn(langue, '/application'),
+  );
   const scrolled = useScrolledPast(12);
   // Le menu mémorise la page depuis laquelle il a été ouvert : dès que la
   // navigation aboutit sur une autre page, il se referme de lui-même.
@@ -73,7 +79,7 @@ export function Header({ langue = 'fr' }: { langue?: Langue }) {
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'group relative inline-flex h-10 items-center rounded-full px-3 text-[0.9rem] font-medium transition-colors duration-300 xl:px-3.5',
+                        'group relative inline-flex h-10 items-center whitespace-nowrap rounded-full px-3 text-[0.9rem] font-medium transition-colors duration-300 xl:px-3.5',
                         active ? 'text-brand-700' : 'text-navy-800/85 hover:text-brand-700',
                       )}
                     >

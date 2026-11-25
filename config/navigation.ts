@@ -12,6 +12,7 @@ export const mainNav: NavItem[] = [
   { label: 'Application', href: '/application', description: 'iOS et Android' },
   { label: 'À propos', href: '/a-propos', description: "L'entreprise et sa mission" },
   { label: 'FAQ', href: '/faq', description: 'Questions fréquentes' },
+  { label: 'Devis pro', href: '/devis-pro', description: 'Pour les professionnels' },
   { label: 'Contact', href: '/contact', description: 'Nous écrire' },
 ];
 
