@@ -44,9 +44,9 @@ export default async function PrivacyPage() {
 
         <LegalSection title="Données collectées sur ce site">
           <p>
-            Le site ne crée pas de compte utilisateur. Il enregistre uniquement les données du
-            formulaire de contact. Lorsque ce formulaire est envoyé, les données suivantes sont
-            traitées :
+            Le site ne crée pas de compte utilisateur. Hormis les photos jointes à une demande de
+            devis pro, il enregistre uniquement les données du formulaire de contact. Lorsque ce
+            formulaire est envoyé, les données suivantes sont traitées :
           </p>
           <ul className="space-y-2">
             <li>nom et prénom ;</li>
@@ -61,9 +61,18 @@ export default async function PrivacyPage() {
 
         <LegalSection title="Demande de devis pro">
           <p>
-            Le formulaire de demande de devis pro n’enregistre rien sur le site. Le nom et la
-            demande saisis sont repris dans un message WhatsApp, que vous envoyez vous-même depuis
-            votre compte ; les conditions de WhatsApp s’appliquent alors.
+            Les informations saisies dans ce formulaire (catégorie, nom, numéro d’entreprise,
+            quartier, détails sur vos locaux ou vos biens et précisions) ne sont pas
+            enregistrées sur le site : elles sont reprises dans un message WhatsApp, que vous
+            envoyez vous-même depuis votre compte ; les conditions de WhatsApp s’appliquent
+            alors.
+          </p>
+          <p>
+            Les photos que vous ajoutez sont réduites sur votre appareil, puis enregistrées chez
+            l’hébergeur de la base de données du site dès que vous touchez « Envoyer sur
+            WhatsApp », même si vous n’envoyez pas ensuite le message. Toute personne disposant
+            de leur lien peut les voir. Elles sont supprimées automatiquement après 90 jours, ou
+            plus tôt sur votre demande.
           </p>
         </LegalSection>
 

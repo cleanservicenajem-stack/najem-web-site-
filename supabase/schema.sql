@@ -123,3 +123,12 @@ revoke all on function public.purger_messages_expires() from anon, authenticated
 --     $job$ select public.purger_messages_expires(); $job$
 --   );
 -- ---------------------------------------------------------------------------
+
+-- ---------------------------------------------------------------------------
+-- Photos des demandes de devis pro : espace de stockage privé, JPEG de 2 Mo au
+-- plus. Aucune politique d'accès : seul le serveur (clé secrète) y accède. La
+-- suppression après 90 jours est faite par /api/devis-photos/nettoyage.
+-- ---------------------------------------------------------------------------
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values ('devis-photos', 'devis-photos', false, 2097152, array['image/jpeg'])
+on conflict (id) do nothing;
