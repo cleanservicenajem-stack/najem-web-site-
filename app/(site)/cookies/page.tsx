@@ -40,7 +40,7 @@ export default function CookiesPage() {
           ) : (
             <p>
               Aucun cookie de mesure d’audience, de publicité ou de réseau social n’est déposé sur
-              ce site. Aucun traceur tiers n’est chargé.
+              ce site. Aucun traceur publicitaire n’est chargé.
             </p>
           )}
 
@@ -57,6 +57,17 @@ export default function CookiesPage() {
               votre visite, et disparaît à la fermeture de l’onglet.
             </li>
           </ul>
+        </LegalSection>
+
+        <LegalSection title="Mesure d’audience">
+          <p>
+            Les visites sont comptées avec Vercel Web Analytics, l’outil de l’hébergeur du site. Il
+            ne dépose aucun cookie. Le détail des informations enregistrées figure dans la{' '}
+            <Link href="/confidentialite" className="text-brand-600 underline underline-offset-4">
+              politique de confidentialité
+            </Link>
+            .
+          </p>
         </LegalSection>
 
         <LegalSection title="Polices et images">

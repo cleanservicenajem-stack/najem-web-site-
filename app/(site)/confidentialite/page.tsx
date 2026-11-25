@@ -59,10 +59,26 @@ export default async function PrivacyPage() {
           </ul>
         </LegalSection>
 
+        <LegalSection title="Mesure d’audience">
+          <p>
+            Le site compte ses visites avec Vercel Web Analytics, l’outil de son hébergeur, sans
+            cookie. Pour chaque page consultée, les informations suivantes peuvent être
+            enregistrées : date et heure, adresse de la page, site de provenance, localisation
+            approximative (pays, région, ville), type d’appareil, système et navigateur.
+          </p>
+          <p>
+            Ces mesures sont anonymes : elles ne sont rattachées ni à votre nom ni à votre adresse
+            IP. Un visiteur est reconnu par une empreinte calculée à partir de sa requête, effacée
+            au bout de 24 heures. Elles servent uniquement à établir des statistiques de
+            fréquentation.
+          </p>
+        </LegalSection>
+
         <LegalSection title="Finalités">
           <p>
-            Ces données servent exclusivement à traiter votre demande et à y répondre. Elles ne
-            sont ni revendues, ni utilisées à des fins de prospection sans votre accord.
+            Les données du formulaire servent exclusivement à traiter votre demande et à y
+            répondre. Elles ne sont ni revendues, ni utilisées à des fins de prospection sans votre
+            accord.
           </p>
         </LegalSection>
 

@@ -1,3 +1,4 @@
+import { CompteurVisites } from '@/components/analytics/CompteurVisites';
 import { SiteChrome } from '@/components/layout/SiteChrome';
 import { directionParLangue, languesTraduites } from '@/config/i18n';
 import { lireLangue } from '@/lib/i18n';
@@ -33,6 +34,7 @@ export default async function LayoutTraduit({
         }}
       />
       <SiteChrome langue={langue}>{children}</SiteChrome>
+      <CompteurVisites />
     </div>
   );
 }
