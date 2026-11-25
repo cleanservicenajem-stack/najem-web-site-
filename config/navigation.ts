@@ -2,6 +2,8 @@ export type NavItem = {
   label: string;
   href: string;
   description?: string;
+  /** Libellé abrégé pour la barre du haut sur ordinateur, où la place manque. */
+  labelCourt?: string;
 };
 
 /** Navigation principale (header desktop + menu mobile). */
@@ -12,7 +14,12 @@ export const mainNav: NavItem[] = [
   { label: 'Application', href: '/application', description: 'iOS et Android' },
   { label: 'À propos', href: '/a-propos', description: "L'entreprise et sa mission" },
   { label: 'FAQ', href: '/faq', description: 'Questions fréquentes' },
-  { label: 'Devis pro', href: '/devis-pro', description: 'Pour les professionnels' },
+  {
+    label: 'Conciergeries et propriétaires multi-biens',
+    labelCourt: 'Conciergeries',
+    href: '/devis-pro',
+    description: 'Demande de devis pour les professionnels',
+  },
   { label: 'Contact', href: '/contact', description: 'Nous écrire' },
 ];
 
@@ -46,7 +53,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: 'FAQ', href: '/faq' },
       { label: 'Contact', href: '/contact' },
-      { label: 'Demande de devis pro', href: '/devis-pro' },
+      { label: 'Conciergeries et propriétaires multi-biens', href: '/devis-pro' },
     ],
   },
   {

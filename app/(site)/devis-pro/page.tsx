@@ -6,7 +6,7 @@ import { createMetadata } from '@/lib/seo';
 import { breadcrumbSchema, webPageSchema } from '@/lib/schema';
 
 /**
- * Page dédiée aux professionnels (« Demande de devis pro »).
+ * Page dédiée aux professionnels (« Conciergeries et propriétaires multi-biens »).
  *
  * Volontairement réduite (décisions du 25 novembre 2026) : le passage en compte
  * pro dans l'application et un formulaire avec choix de catégorie, qui part sur
@@ -21,11 +21,11 @@ const DESCRIPTION =
 
 const crumbs = [
   { name: 'Accueil', path: '/' },
-  { name: 'Demande de devis pro', path: CHEMIN },
+  { name: 'Conciergeries et multi-biens', path: CHEMIN },
 ];
 
 export const metadata: Metadata = createMetadata({
-  title: 'Devis pro à Casablanca : pros et conciergeries | Najem',
+  title: 'Conciergeries et propriétaires multi-biens à Casablanca | Najem',
   titreComplet: true,
   description: DESCRIPTION,
   path: CHEMIN,
@@ -36,7 +36,7 @@ export default function DevisProPage() {
     <>
       <PageHero
         eyebrow="Professionnels"
-        title="Faire une demande de devis pro"
+        title="Conciergeries et propriétaires multi-biens"
         crumbs={crumbs}
         lead={
           <p>
@@ -53,7 +53,7 @@ export default function DevisProPage() {
         data={[
           webPageSchema({
             path: CHEMIN,
-            name: 'Demande de devis pro — Najem Clean Service',
+            name: 'Conciergeries et propriétaires multi-biens — Najem Clean Service',
             description: DESCRIPTION,
           }),
           breadcrumbSchema(crumbs),

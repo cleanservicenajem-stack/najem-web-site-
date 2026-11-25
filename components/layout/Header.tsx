@@ -79,15 +79,15 @@ export function Header({ langue = 'fr' }: { langue?: Langue }) {
                       href={item.href}
                       aria-current={active ? 'page' : undefined}
                       className={cn(
-                        'group relative inline-flex h-10 items-center whitespace-nowrap rounded-full px-3 text-[0.9rem] font-medium transition-colors duration-300 xl:px-3.5',
+                        'group relative inline-flex h-10 items-center whitespace-nowrap rounded-full px-2 text-[0.9rem] font-medium transition-colors duration-300 xl:px-3.5',
                         active ? 'text-brand-700' : 'text-navy-800/85 hover:text-brand-700',
                       )}
                     >
-                      {item.label}
+                      {item.labelCourt ?? item.label}
                       <span
                         aria-hidden="true"
                         className={cn(
-                          'absolute bottom-1.5 left-3 right-3 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)] rtl:origin-right xl:left-3.5 xl:right-3.5',
+                          'absolute bottom-1.5 left-2 right-2 h-px origin-left bg-brand-500 transition-transform duration-400 ease-[var(--ease-out-soft)] rtl:origin-right xl:left-3.5 xl:right-3.5',
                           active ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100',
                         )}
                       />
