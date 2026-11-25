@@ -9,21 +9,22 @@ import { communs } from '@/content/i18n/commun';
  * Traduction de app/(site)/nettoyage-canape-tapis-casablanca/page.tsx : mêmes
  * sections, mêmes informations. Les prix ne sont jamais écrits ici : la page
  * les lit dans la grille de /tarifs (option « Shampouineuse canapé et tapis »)
- * et les passe en paramètres.
+ * et dans `shampouineuseSeule` (prestation réservée seule), puis les passe en
+ * paramètres : `seul` (un élément), `supplement`, `option` (en option d'un ménage).
  */
 export type TextesCanapeTapis = {
   meta: {
-    /** `prixMin` : prix le plus bas de l'option, formaté ; `null` s'il est illisible. */
-    titre: (prixMin: string | null) => string;
-    description: (prixMin: string | null) => string;
+    titre: (seul: string) => string;
+    /** `option` : prix le plus bas de l'option, formaté ; `null` s'il est illisible. */
+    description: (seul: string, option: string | null) => string;
   };
   /** Fil d'Ariane : noms des deux pages et nom accessible du fil. */
   fil: { accueil: string; page: string; libelle: string };
-  hero: { surtitre: string; titre: string; chapo: (prixMin: string | null) => string };
-  fonctionnement: { titre: string; paragraphes: string[] };
+  hero: { surtitre: string; titre: string; chapo: (seul: string, option: string | null) => string };
+  fonctionnement: { titre: string; paragraphes: (seul: string) => string[] };
   prix: {
     titre: string;
-    texte: string;
+    texte: (seul: string) => string;
     legende: string;
     colonnes: { logement: string; formule: string; menage: string; option: string };
     lien: string;
@@ -34,10 +35,13 @@ export type TextesCanapeTapis = {
     titre: string;
     prix: {
       question: string;
-      /** `max` vaut `null` quand l'option a le même prix pour toutes les formules. */
-      reponse: (min: string, max: string | null) => string;
+      /**
+       * `min` vaut `null` si l'option est illisible ; `max` vaut `null` quand
+       * elle a le même prix pour toutes les formules.
+       */
+      reponse: (seul: string, min: string | null, max: string | null) => string;
     };
-    seul: { question: string; reponse: string };
+    seul: { question: string; reponse: (seul: string, supplement: string) => string };
     /** `option` : nom traduit de l'option dans la grille. */
     reserver: { question: string; reponse: (option: string) => string };
     zones: { question: string; reponse: (alentours: string) => string };
@@ -49,28 +53,28 @@ const NOM = siteConfig.name;
 
 const anglais: TextesCanapeTapis = {
   meta: {
-    titre: (prixMin) =>
-      `Sofa and carpet cleaning in Casablanca${prixMin ? ` from ${prixMin}` : ''} | Najem`,
-    description: (prixMin) =>
-      `Sofa and carpet cleaning with a shampooer in Casablanca${prixMin ? ` from ${prixMin}` : ''}, as an option with your home cleaning. Book it in the ${NOM} app.`,
+    titre: (seul) => `Sofa and carpet cleaning in Casablanca from ${seul} | Najem`,
+    description: (seul, option) =>
+      `Sofa, carpet or mattress shampooing in Casablanca: ${seul} per item${option ? `, or ${option} as a home cleaning option` : ''}. Book in the Najem app.`,
   },
   fil: { accueil: 'Home', page: 'Sofa and carpet cleaning', libelle: 'Breadcrumb' },
   hero: {
     surtitre: 'Specialised cleaning in Casablanca',
     titre: 'Sofa and carpet cleaning at home in Casablanca',
-    chapo: (prixMin) =>
-      `Add shampooing for your sofa and carpets to your home cleaning${prixMin ? `, from ${prixMin}` : ''}, directly in the ${NOM} app.`,
+    chapo: (seul, option) =>
+      `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}. Book it in the ${NOM} app.`,
   },
   fonctionnement: {
     titre: 'How it works',
-    paragraphes: [
-      `Sofas and carpets collect the dust, smells and stains of everyday life. At ${NOM}, cleaning them with a shampooer is an option you add to your cleaning when you book: a single visit for your home and your soft furnishings.`,
-      'The price of the option is added to that of the package you choose and is shown before you confirm. For a request that only concerns a sofa, a carpet or another textile, describe it in the app or via the Contact page: whether it can be done is confirmed according to the request and the professionals available.',
+    paragraphes: (seul) => [
+      `Sofas, carpets and mattresses collect the dust, smells and stains of everyday life. At ${NOM}, you can book shampooing on its own, with the “Nettoyage shampouineuse pro” service at ${seul} per item. Sofas and carpets can also be added to your cleaning as an option: a single visit for your home and your soft furnishings.`,
+      'The price is shown in the app before you confirm. For a special request or another textile, write to us via the Contact page: whether it can be done is confirmed before the visit.',
     ],
   },
   prix: {
     titre: 'Sofa and carpet cleaning prices',
-    texte: 'The price of the option depends on the cleaning package you add it to.',
+    texte: (seul) =>
+      `Booked on its own, the service costs ${seul} per item. The table shows the price of the option for each cleaning package.`,
     legende: 'Price of the sofa and carpet shampooing option by cleaning package',
     colonnes: {
       logement: 'Home',
@@ -98,15 +102,19 @@ const anglais: TextesCanapeTapis = {
     titre: 'Frequently asked questions',
     prix: {
       question: 'How much does sofa cleaning cost in Casablanca?',
-      reponse: (min, max) =>
-        max
-          ? `At ${NOM}, the sofa and carpet shampooing option costs from ${min} to ${max} depending on the package, on top of the price of the cleaning.`
-          : `At ${NOM}, the sofa and carpet shampooing option costs ${min}, on top of the cleaning package you choose.`,
+      reponse: (seul, min, max) =>
+        `At ${NOM}, shampooing booked on its own costs ${seul} for one item (sofa, carpet or mattress) and takes about 1 hour.${
+          min
+            ? max
+              ? ` Added to a cleaning, the option costs from ${min} to ${max} per item depending on the package, on top of its price.`
+              : ` Added to a cleaning, the option costs ${min} per item, on top of the package price.`
+            : ''
+        }`,
     },
     seul: {
       question: 'Can I book cleaning for just a sofa or a carpet?',
-      reponse:
-        'Describe your request when you book in the app, or write to us via the Contact page. Whether it can be done is confirmed according to the request and the professionals available.',
+      reponse: (seul, supplement) =>
+        `Yes. In the app, choose the “Nettoyage shampouineuse pro” service: ${seul} for one item (1 hour), then ${supplement} and 1 more hour for each extra item.`,
     },
     reserver: {
       question: 'How do I add sofa and carpet cleaning?',
@@ -121,7 +129,7 @@ const anglais: TextesCanapeTapis = {
   },
   schema: {
     nomPage: `Sofa and carpet cleaning in Casablanca — ${NOM}`,
-    descriptionPage: `Sofa and carpet cleaning with a shampooer in Casablanca, as an option with ${NOM} home cleaning: prices, how it works and booking.`,
+    descriptionPage: `Sofa, carpet and mattress shampooing in Casablanca, on its own or as an option with ${NOM} home cleaning: prices, how it works and booking.`,
     nomService: 'Sofa and carpet cleaning at home in Casablanca',
     typeService: 'Sofa and carpet cleaning',
   },
@@ -129,28 +137,28 @@ const anglais: TextesCanapeTapis = {
 
 const arabe: TextesCanapeTapis = {
   meta: {
-    titre: (prixMin) =>
-      `تنظيف الأرائك والزرابي بالدار البيضاء${prixMin ? ` من ${prixMin}` : ''} | Najem`,
-    description: (prixMin) =>
-      `تنظيف الأرائك والزرابي بالآلة في الدار البيضاء${prixMin ? ` ابتداءً من ${prixMin}` : ''}، كخيار يُضاف إلى تنظيف منزلك. احجز من تطبيق ${NOM}.`,
+    titre: (seul) => `تنظيف الأرائك والزرابي بالدار البيضاء من ${seul} | Najem`,
+    description: (seul, option) =>
+      `غسل أريكة أو زربية أو مرتبة بالآلة في الدار البيضاء: ${seul} للقطعة${option ? `، أو ${option} كخيار مع تنظيف المنزل` : ''}. احجز من تطبيق ${NOM}.`,
   },
   fil: { accueil: 'الرئيسية', page: 'تنظيف الأرائك والزرابي', libelle: 'مسار التنقل' },
   hero: {
     surtitre: 'التنظيف المتخصص بالدار البيضاء',
     titre: 'تنظيف الأرائك والزرابي في منزلك بالدار البيضاء',
-    chapo: (prixMin) =>
-      `أضف غسل أريكتك وزرابيك بالآلة إلى تنظيف منزلك${prixMin ? `، ابتداءً من ${prixMin}` : ''}، مباشرة من تطبيق ${NOM}.`,
+    chapo: (seul, option) =>
+      `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}. الحجز من تطبيق ${NOM}.`,
   },
   fonctionnement: {
     titre: 'طريقة العمل',
-    paragraphes: [
-      `تحتفظ الأريكة والزرابي بغبار الحياة اليومية وروائحها وبقعها. لدى ${NOM}، غسلها بالآلة خيار تضيفه إلى تنظيف منزلك عند الحجز: زيارة واحدة للمسكن والمفروشات معا.`,
-      'يُضاف سعر هذا الخيار إلى سعر الباقة المختارة ويظهر قبل التأكيد. وإذا كان طلبك يخص أريكة أو زربية أو قطعة نسيج أخرى فقط، فصِفه في التطبيق أو عبر صفحة « اتصل بنا »: يُؤكَّد إمكان تنفيذه حسب الطلب والمحترفين المتاحين.',
+    paragraphes: (seul) => [
+      `تحتفظ الأريكة والزرابي والمرتبة بغبار الحياة اليومية وروائحها وبقعها. لدى ${NOM}، يمكنك حجز غسلها بالآلة وحده، عبر خدمة « Nettoyage shampouineuse pro » بسعر ${seul} للقطعة. ويمكن أيضا إضافة الأريكة والزرابي كخيار إلى تنظيف منزلك: زيارة واحدة للمسكن والمفروشات معا.`,
+      'يظهر السعر في التطبيق قبل التأكيد. ولأي طلب خاص أو قطعة نسيج أخرى، راسلنا عبر صفحة « اتصل بنا »: يُؤكَّد إمكان تنفيذه قبل الزيارة.',
     ],
   },
   prix: {
     titre: 'أسعار تنظيف الأرائك والزرابي',
-    texte: 'سعر هذا الخيار حسب باقة التنظيف التي تضيفه إليها.',
+    texte: (seul) =>
+      `عند حجزها وحدها، تكلف الخدمة ${seul} للقطعة. ويبين الجدول سعر الخيار حسب باقة التنظيف.`,
     legende: 'سعر خيار غسل الأرائك والزرابي بالآلة حسب باقة التنظيف',
     colonnes: {
       logement: 'المسكن',
@@ -178,15 +186,19 @@ const arabe: TextesCanapeTapis = {
     titre: 'الأسئلة الشائعة',
     prix: {
       question: 'كم يكلّف تنظيف الأريكة بالدار البيضاء؟',
-      reponse: (min, max) =>
-        max
-          ? `لدى ${NOM}، يكلّف خيار غسل الأرائك والزرابي بالآلة من ${min} إلى ${max} حسب الباقة، إضافة إلى سعر التنظيف.`
-          : `لدى ${NOM}، يكلّف خيار غسل الأرائك والزرابي بالآلة ${min}، إضافة إلى باقة التنظيف المختارة.`,
+      reponse: (seul, min, max) =>
+        `لدى ${NOM}، يكلّف الغسل بالآلة المحجوز وحده ${seul} لقطعة واحدة (أريكة أو زربية أو مرتبة)، ويستغرق حوالي ساعة.${
+          min
+            ? max
+              ? ` وعند إضافته إلى التنظيف، يكلّف الخيار من ${min} إلى ${max} للقطعة حسب الباقة، إضافة إلى سعرها.`
+              : ` وعند إضافته إلى التنظيف، يكلّف الخيار ${min} للقطعة، إضافة إلى سعر الباقة.`
+            : ''
+        }`,
     },
     seul: {
       question: 'هل يمكن حجز تنظيف أريكة أو زربية فقط؟',
-      reponse:
-        'صِف طلبك عند الحجز في التطبيق، أو راسلنا عبر صفحة « اتصل بنا ». يُؤكَّد إمكان تنفيذه حسب الطلب والمحترفين المتاحين.',
+      reponse: (seul, supplement) =>
+        `نعم. في التطبيق، اختر خدمة « Nettoyage shampouineuse pro »: ${seul} لقطعة واحدة (ساعة)، ثم ${supplement} وساعة إضافية عن كل قطعة أخرى.`,
     },
     reserver: {
       question: 'كيف أضيف تنظيف الأريكة والزرابي؟',
@@ -201,7 +213,7 @@ const arabe: TextesCanapeTapis = {
   },
   schema: {
     nomPage: `تنظيف الأرائك والزرابي بالدار البيضاء — ${NOM}`,
-    descriptionPage: `غسل الأرائك والزرابي بالآلة في الدار البيضاء، كخيار يُضاف إلى التنظيف المنزلي من ${NOM}: الأسعار وطريقة العمل والحجز.`,
+    descriptionPage: `غسل الأرائك والزرابي والمرتبات بالآلة في الدار البيضاء، وحده أو كخيار مع التنظيف المنزلي من ${NOM}: الأسعار وطريقة العمل والحجز.`,
     nomService: 'تنظيف الأرائك والزرابي في منزلك بالدار البيضاء',
     typeService: 'تنظيف الأرائك والزرابي',
   },

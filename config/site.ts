@@ -54,8 +54,8 @@ const siteUrl = (process.env.NEXT_PUBLIC_SITE_URL ?? DOMAINE_PRODUCTION).replace
 export const siteConfig = {
   name: 'Najem Clean Service',
   shortName: 'Najem',
-  /** Baseline officielle présente dans le logo. */
-  tagline: 'A Cleaner Brighter Tomorrow',
+  /** Slogan principal de la marque (déclaré aux moteurs de recherche). */
+  tagline: 'Votre maison propre, simplement.',
   /** Phrase de positionnement en français utilisée dans l'interface. */
   positioning:
     'Services de nettoyage à domicile à Casablanca, réservables depuis une application mobile.',
@@ -95,11 +95,16 @@ export const siteConfig = {
    * structurées (`sameAs`), ce qui aide Google à rattacher ces comptes à
    * l'entreprise. Un lien mort y ferait donc plus de mal que de bien.
    *
-   * À COMPLÉTER : les trois adresses ci-dessous attendent les URL réelles.
-   * Exemple de forme attendue :
-   *   { network: 'instagram', label: 'Instagram', href: 'https://www.instagram.com/<compte>/' }
+   * Instagram vérifié le 25 novembre 2026. TikTok et Facebook : à ajouter
+   * quand leurs adresses exactes seront confirmées.
    */
-  social: [] as SocialLink[],
+  social: [
+    {
+      network: 'instagram',
+      label: 'Instagram',
+      href: 'https://www.instagram.com/najem.cleanservice/',
+    },
+  ] as SocialLink[],
 
   /**
    * Zones desservies : Casablanca, couverte dans son ensemble, et ses

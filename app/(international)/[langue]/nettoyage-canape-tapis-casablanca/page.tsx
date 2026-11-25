@@ -3,6 +3,7 @@ import { Check } from 'lucide-react';
 import type { FaqItem } from '@/config/faq';
 import { cheminEn, type LangueTraduite } from '@/config/i18n';
 import { absoluteUrl, siteConfig } from '@/config/site';
+import { shampouineuseSeule } from '@/config/tarifs';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
 import { Accordion } from '@/components/ui/Accordion';
@@ -29,8 +30,8 @@ import {
  * « Nettoyage canapé et tapis à Casablanca » en arabe et en anglais :
  * traduction de app/(site)/nettoyage-canape-tapis-casablanca/page.tsx.
  *
- * Comme en français, les prix sont relus dans la grille de /tarifs (option
- * « Shampouineuse canapé et tapis », trouvée par ses mots français) ; seuls
+ * Comme en français, la prestation réservée seule vient de `shampouineuseSeule`
+ * et l'option de la grille de /tarifs (trouvée par ses mots français) ; seuls
  * les noms sont traduits, par `communs`.
  */
 
@@ -68,12 +69,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const langue = await lireLangue(params);
   const t = textesCanapeTapis[langue];
   const prix = prixOption(optionsContenant(await getGrilleTarifaire(), MOTS_OPTION));
-  const depart = prix ? communs[langue].prix(prix.min) : null;
+  const seul = communs[langue].prix(shampouineuseSeule.prix);
+  const option = prix ? communs[langue].prix(prix.min) : null;
 
   return createMetadata({
-    title: t.meta.titre(depart),
+    title: t.meta.titre(seul),
     titreComplet: true,
-    description: t.meta.description(depart),
+    description: t.meta.description(seul, option),
     path: cheminEn(langue, CHEMIN),
   });
 }
@@ -82,28 +84,28 @@ const questions = (langue: LangueTraduite, options: OptionSituee[]): FaqItem[] =
   const commun = communs[langue];
   const t = textesCanapeTapis[langue].questions;
   const prix = prixOption(options);
-  const items: FaqItem[] = [];
-
-  if (prix) {
-    items.push({
+  const seul = commun.prix(shampouineuseSeule.prix);
+  const items: FaqItem[] = [
+    {
       id: 'canape-prix',
       category: 'pratique',
       question: t.prix.question,
       answer: [
         t.prix.reponse(
-          commun.prix(prix.min),
-          prix.min === prix.max ? null : commun.prix(prix.max),
+          seul,
+          prix ? commun.prix(prix.min) : null,
+          prix && prix.min !== prix.max ? commun.prix(prix.max) : null,
         ),
       ],
-    });
-  }
+    },
+  ];
 
   items.push(
     {
       id: 'canape-seul',
       category: 'pratique',
       question: t.seul.question,
-      answer: [t.seul.reponse],
+      answer: [t.seul.reponse(seul, commun.prix(shampouineuseSeule.supplement))],
     },
     {
       id: 'canape-reserver',
@@ -122,10 +124,9 @@ const questions = (langue: LangueTraduite, options: OptionSituee[]): FaqItem[] =
   return items;
 };
 
-const serviceCanapeTapis = (langue: LangueTraduite, options: OptionSituee[]): JsonLd => {
+const serviceCanapeTapis = (langue: LangueTraduite): JsonLd => {
   const commun = communs[langue];
   const { schema } = textesCanapeTapis[langue];
-  const prix = prixOption(options);
   const url = absoluteUrl(cheminEn(langue, CHEMIN));
 
   return {
@@ -139,17 +140,11 @@ const serviceCanapeTapis = (langue: LangueTraduite, options: OptionSituee[]): Js
       '@type': 'City',
       name: commun.villes[area.slug] ?? area.name,
     })),
-    ...(prix
-      ? {
-          offers: {
-            '@type': 'AggregateOffer',
-            priceCurrency: 'MAD',
-            lowPrice: String(prix.min),
-            highPrice: String(prix.max),
-            offerCount: String(options.length),
-          },
-        }
-      : {}),
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'MAD',
+      price: String(shampouineuseSeule.prix),
+    },
   };
 };
 
@@ -161,7 +156,8 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
   const grille: CategorieAffichee[] = await getGrilleTarifaire();
   const options = optionsContenant(grille, MOTS_OPTION);
   const prix = prixOption(options);
-  const depart = prix ? commun.prix(prix.min) : null;
+  const seul = commun.prix(shampouineuseSeule.prix);
+  const option = prix ? commun.prix(prix.min) : null;
   const faq = questions(langue, options);
   const crumbs = filDAriane(langue);
   const specialise = commun.services['entretien-specialise']?.titre;
@@ -190,7 +186,7 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
         title={t.hero.titre}
         crumbs={crumbs}
         libelleFil={t.fil.libelle}
-        lead={<p>{t.hero.chapo(depart)}</p>}
+        lead={<p>{t.hero.chapo(seul, option)}</p>}
       >
         <StoreButtons textes={commun.boutiques} />
       </PageHero>
@@ -206,7 +202,7 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
                 {t.fonctionnement.titre}
               </h2>
               <div className="mt-6 space-y-5 text-[1.02rem] leading-relaxed text-ink">
-                {t.fonctionnement.paragraphes.map((paragraphe) => (
+                {t.fonctionnement.paragraphes(seul).map((paragraphe) => (
                   <p key={paragraphe}>{paragraphe}</p>
                 ))}
               </div>
@@ -226,7 +222,7 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
                 {t.prix.titre}
               </h2>
               <p className="mt-4 max-w-2xl text-[1rem] leading-relaxed text-ink-soft">
-                {t.prix.texte}
+                {t.prix.texte(seul)}
               </p>
             </Reveal>
 
@@ -342,7 +338,7 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
             langue,
           }),
           breadcrumbSchema(crumbs),
-          serviceCanapeTapis(langue, options),
+          serviceCanapeTapis(langue),
           faqSchema(faq),
         ]}
       />

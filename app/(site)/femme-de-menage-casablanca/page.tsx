@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createMetadata({
     title: `Femme de ménage à Casablanca${depart} | Najem`,
     titreComplet: true,
-    description: `Réservez une femme de ménage à Casablanca en quelques minutes : ménage express${depart}, complet, prestige ou abonnement, depuis l’application Najem.`,
+    description: `Agence de femme de ménage à Casablanca : ménage express${depart}, complet, prestige ou abonnement, à réserver dans l’application Najem.`,
     path: CHEMIN,
   });
 }

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import type { FaqItem } from '@/config/faq';
 import { absoluteUrl, siteConfig } from '@/config/site';
+import { shampouineuseSeule } from '@/config/tarifs';
 import { alentoursTexte } from '@/config/local-seo';
 import { PageHero } from '@/components/layout/PageHero';
 import { Container } from '@/components/ui/Container';
@@ -25,10 +26,10 @@ import {
 /**
  * Page d'atterrissage « Nettoyage canapé et tapis à Casablanca ».
  *
- * Dans l'application, le canapé et les tapis se traitent avec l'option
- * « Shampouineuse canapé et tapis », ajoutée à une formule de ménage. Les prix
- * affichés ici sont relus dans la grille de /tarifs : la page n'annonce aucun
- * tarif qui n'y figure pas.
+ * Dans l'application, le canapé et les tapis se réservent de deux façons : la
+ * prestation « Nettoyage shampouineuse pro », seule (`shampouineuseSeule`), ou
+ * l'option ajoutée à une formule de ménage, dont les prix sont relus dans la
+ * grille de /tarifs.
  */
 
 const CHEMIN = '/nettoyage-canape-tapis-casablanca';
@@ -40,6 +41,9 @@ const crumbs = [
 
 const MOTS_OPTION = ['canapé', 'tapis'];
 
+const PRIX_SEUL = formaterDh(shampouineuseSeule.prix);
+const PRIX_SUPPLEMENT = formaterDh(shampouineuseSeule.supplement);
+
 const prixOption = (options: OptionSituee[]): { min: number; max: number } | null => {
   if (options.length === 0) return null;
   const prix = options.map((option) => option.prix);
@@ -48,32 +52,33 @@ const prixOption = (options: OptionSituee[]): { min: number; max: number } | nul
 
 export async function generateMetadata(): Promise<Metadata> {
   const prix = prixOption(optionsContenant(await getGrilleTarifaire(), MOTS_OPTION));
-  const depart = prix ? ` dès ${formaterDh(prix.min)}` : '';
+  const option = prix ? `, ou ${formaterDh(prix.min)} en option d’un ménage` : '';
 
   return createMetadata({
-    title: `Nettoyage canapé et tapis à Casablanca${depart} | Najem`,
+    title: `Nettoyage canapé et tapis à Casablanca dès ${PRIX_SEUL} | Najem`,
     titreComplet: true,
-    description: `Nettoyage de canapé et de tapis à la shampouineuse à Casablanca${depart}, en option de votre ménage à domicile. Réservez dans l’application Najem Clean Service.`,
+    description: `Canapé, tapis ou matelas nettoyés à la shampouineuse à Casablanca : ${PRIX_SEUL} l’élément${option}. Réservez dans l’application Najem.`,
     path: CHEMIN,
   });
 }
 
 const questions = (options: OptionSituee[]): FaqItem[] => {
   const prix = prixOption(options);
-  const items: FaqItem[] = [];
-
-  if (prix) {
-    items.push({
+  const enOption = prix
+    ? prix.min === prix.max
+      ? ` Ajouté à un ménage, l’option coûte ${formaterDh(prix.min)} par élément, en plus du prix de la formule.`
+      : ` Ajouté à un ménage, l’option coûte de ${formaterDh(prix.min)} à ${formaterDh(prix.max)} par élément selon la formule, en plus de son prix.`
+    : '';
+  const items: FaqItem[] = [
+    {
       id: 'canape-prix',
       category: 'pratique',
       question: 'Combien coûte le nettoyage d’un canapé à Casablanca ?',
       answer: [
-        prix.min === prix.max
-          ? `Chez ${siteConfig.name}, l’option shampouineuse canapé et tapis coûte ${formaterDh(prix.min)}, en plus de la formule de ménage choisie.`
-          : `Chez ${siteConfig.name}, l’option shampouineuse canapé et tapis coûte de ${formaterDh(prix.min)} à ${formaterDh(prix.max)} selon la formule, en plus du prix du ménage.`,
+        `Chez ${siteConfig.name}, le nettoyage à la shampouineuse réservé seul coûte ${PRIX_SEUL} pour un élément (canapé, tapis ou matelas), pour ${shampouineuseSeule.duree}.${enOption}`,
       ],
-    });
-  }
+    },
+  ];
 
   items.push(
     {
@@ -81,7 +86,7 @@ const questions = (options: OptionSituee[]): FaqItem[] => {
       category: 'pratique',
       question: 'Peut-on réserver uniquement le nettoyage d’un canapé ou d’un tapis ?',
       answer: [
-        'Décrivez votre demande au moment de la réservation dans l’application, ou écrivez-nous depuis la page contact. La faisabilité est confirmée en fonction de la demande et des professionnels disponibles.',
+        `Oui. Dans l’application, choisissez la prestation « Nettoyage shampouineuse pro » : ${PRIX_SEUL} pour un élément (${shampouineuseSeule.duree}), puis ${PRIX_SUPPLEMENT} et ${shampouineuseSeule.duree} de plus par élément supplémentaire.`,
       ],
     },
     {
@@ -89,7 +94,7 @@ const questions = (options: OptionSituee[]): FaqItem[] => {
       category: 'pratique',
       question: 'Comment ajouter le nettoyage du canapé et des tapis ?',
       answer: [
-        'Dans l’application Najem Clean Service, choisissez votre formule de ménage, puis ajoutez l’option « Shampouineuse canapé et tapis ». Son prix s’ajoute à celui de la formule et s’affiche avant que vous confirmiez.',
+        'Dans l’application Najem Clean Service, choisissez votre formule de ménage, puis ajoutez l’option « Shampouineuse canapé ou tapis (1 élément) ». Son prix s’ajoute à celui de la formule et s’affiche avant que vous confirmiez.',
       ],
     },
     {
@@ -105,30 +110,20 @@ const questions = (options: OptionSituee[]): FaqItem[] => {
   return items;
 };
 
-const serviceCanapeTapis = (options: OptionSituee[]): JsonLd => {
-  const prix = prixOption(options);
-
-  return {
-    '@type': 'Service',
-    '@id': `${absoluteUrl(CHEMIN)}#service`,
-    name: 'Nettoyage de canapé et de tapis à domicile à Casablanca',
-    serviceType: 'Nettoyage de canapé et de tapis',
-    url: absoluteUrl(CHEMIN),
-    provider: { '@id': ORGANIZATION_ID },
-    areaServed: siteConfig.serviceAreas.map((area) => ({ '@type': 'City', name: area.name })),
-    ...(prix
-      ? {
-          offers: {
-            '@type': 'AggregateOffer',
-            priceCurrency: 'MAD',
-            lowPrice: String(prix.min),
-            highPrice: String(prix.max),
-            offerCount: String(options.length),
-          },
-        }
-      : {}),
-  };
-};
+const serviceCanapeTapis = (): JsonLd => ({
+  '@type': 'Service',
+  '@id': `${absoluteUrl(CHEMIN)}#service`,
+  name: 'Nettoyage de canapé et de tapis à domicile à Casablanca',
+  serviceType: 'Nettoyage de canapé et de tapis',
+  url: absoluteUrl(CHEMIN),
+  provider: { '@id': ORGANIZATION_ID },
+  areaServed: siteConfig.serviceAreas.map((area) => ({ '@type': 'City', name: area.name })),
+  offers: {
+    '@type': 'Offer',
+    priceCurrency: 'MAD',
+    price: String(shampouineuseSeule.prix),
+  },
+});
 
 const consignes = [
   'Le type de textile, si vous le connaissez : tissu, velours, microfibre, laine…',
@@ -151,10 +146,10 @@ export default async function NettoyageCanapeTapisPage() {
         crumbs={crumbs}
         lead={
           <p>
-            Ajoutez le nettoyage à la shampouineuse de votre canapé et de vos tapis à votre
-            ménage
-            {prix ? `, dès ${formaterDh(prix.min)}` : ''}, directement depuis l’application{' '}
-            {siteConfig.name}.
+            Faites nettoyer à la shampouineuse un canapé, un tapis ou un matelas :{' '}
+            {PRIX_SEUL} l’élément
+            {prix ? `, ou ${formaterDh(prix.min)} par élément en option de votre ménage` : ''}.
+            Réservation dans l’application {siteConfig.name}.
           </p>
         }
       >
@@ -173,17 +168,16 @@ export default async function NettoyageCanapeTapisPage() {
               </h2>
               <div className="mt-6 space-y-5 text-[1.02rem] leading-relaxed text-ink">
                 <p>
-                  Le canapé et les tapis concentrent la poussière, les odeurs et les taches du
-                  quotidien. Chez {siteConfig.name}, leur nettoyage à la shampouineuse est une
-                  option que vous ajoutez à votre ménage au moment de la réservation : un seul
-                  passage pour le logement et les textiles.
+                  Le canapé, les tapis et le matelas concentrent la poussière, les odeurs et les
+                  taches du quotidien. Chez {siteConfig.name}, leur nettoyage à la shampouineuse
+                  se réserve seul, avec la prestation « Nettoyage shampouineuse pro » à{' '}
+                  {PRIX_SEUL} l’élément. Le canapé et les tapis peuvent aussi s’ajouter en option
+                  à votre ménage : un seul passage pour le logement et les textiles.
                 </p>
                 <p>
-                  Le prix de l’option s’ajoute à celui de la formule choisie et s’affiche avant
-                  la confirmation. Pour une demande qui concerne uniquement un canapé, un tapis
-                  ou un autre textile, décrivez-la dans l’application ou depuis la page contact :
-                  la faisabilité est confirmée en fonction de la demande et des professionnels
-                  disponibles.
+                  Le prix s’affiche dans l’application avant la confirmation. Pour une demande
+                  particulière ou un autre textile, écrivez-nous depuis la page contact : la
+                  faisabilité est confirmée avant l’intervention.
                 </p>
               </div>
             </Reveal>
@@ -202,7 +196,8 @@ export default async function NettoyageCanapeTapisPage() {
                 Prix du nettoyage de canapé et de tapis
               </h2>
               <p className="mt-4 max-w-2xl text-[1rem] leading-relaxed text-ink-soft">
-                Le prix de l’option selon la formule de ménage à laquelle vous l’ajoutez.
+                Réservée seule, la prestation coûte {PRIX_SEUL} l’élément. Le tableau indique le
+                prix de l’option selon la formule de ménage à laquelle vous l’ajoutez.
               </p>
             </Reveal>
 
@@ -309,10 +304,10 @@ export default async function NettoyageCanapeTapisPage() {
             path: CHEMIN,
             name: 'Nettoyage de canapé et de tapis à Casablanca — Najem Clean Service',
             description:
-              'Nettoyage de canapé et de tapis à la shampouineuse à Casablanca, en option du ménage à domicile Najem Clean Service : prix, fonctionnement et réservation.',
+              'Nettoyage de canapé, de tapis et de matelas à la shampouineuse à Casablanca, seul ou en option du ménage Najem Clean Service : prix, fonctionnement et réservation.',
           }),
           breadcrumbSchema(crumbs),
-          serviceCanapeTapis(options),
+          serviceCanapeTapis(),
           faqSchema(faq),
         ]}
       />

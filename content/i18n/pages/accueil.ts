@@ -42,9 +42,9 @@ export type TextesAccueil = {
 
 const anglais: TextesAccueil = {
   seo: {
-    titre: 'Home Cleaning & Maid Service in Casablanca | Najem',
+    titre: 'Home Cleaning Services in Casablanca | Najem Clean Service',
     description: (prix) =>
-      `A vetted cleaner in Casablanca${prix ? ` from ${prix}` : ''}, booked in 2 minutes: one-off cleaning, monthly plan or deep cleaning. iPhone and Android app.`,
+      `Cleaning service and maid in Casablanca${prix ? ` from ${prix}` : ''}: one-off cleaning, monthly plan or deep cleaning. Book in the iPhone or Android app.`,
   },
   hero: {
     badge: 'Your clean home, made simple.',
@@ -167,9 +167,9 @@ const anglais: TextesAccueil = {
 
 const arabe: TextesAccueil = {
   seo: {
-    titre: 'تنظيف المنازل وعاملة نظافة بالدار البيضاء | Najem',
+    titre: 'شركة تنظيف المنازل بالدار البيضاء وعاملة نظافة | Najem',
     description: (prix) =>
-      `عاملة نظافة تم التحقق منها بالدار البيضاء${prix ? ` ابتداءً من ${prix}` : ''}، تحجزها في دقيقتين: تنظيف لمرة واحدة أو اشتراك شهري أو تنظيف عميق. تطبيق للآيفون والأندرويد.`,
+      `شركة نظافة بالدار البيضاء: عاملة نظافة تم التحقق منها${prix ? ` ابتداءً من ${prix}` : ''}، تنظيف لمرة واحدة أو اشتراك شهري أو تنظيف عميق. تطبيق للآيفون والأندرويد.`,
   },
   hero: {
     badge: 'منزلك نظيف، ببساطة.',

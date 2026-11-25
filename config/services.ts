@@ -160,7 +160,7 @@ export const services: Service[] = [
     shortTitle: 'Grand ménage',
     metaTitle: 'Grand ménage à domicile à Casablanca',
     metaDescription:
-      "Grand ménage à domicile à Casablanca : une remise à niveau complète, au-delà de l'entretien courant, appartement ou villa. Réservez dans l'app Najem.",
+      "Grand ménage à Casablanca : ménage complet dès 300 DH, prestige pour les grandes villas. Produits et matériel inclus, prix affiché avant de réserver.",
     benefit: 'Une remise à niveau complète du logement',
     summary:
       "Le grand nettoyage est une intervention plus complète que l'entretien courant. Il cible les zones qui ne sont pas traitées à chaque passage et sert souvent de point de départ avant de mettre en place un rythme régulier.",

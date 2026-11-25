@@ -47,6 +47,14 @@ export type CategorieTarif = {
   abonnement?: Abonnement;
 };
 
+/**
+ * Prestation « Nettoyage shampouineuse pro » (canapé, tapis ou matelas),
+ * réservable seule dans l'application : prix d'un élément, prix de chaque
+ * élément supplémentaire, durée par élément. Grille de l'application du
+ * 20 novembre 2026. Non modifiable depuis l'administration.
+ */
+export const shampouineuseSeule = { prix: 250, supplement: 190, duree: '1 h' } as const;
+
 export const categoriesTarifs: CategorieTarif[] = [
   {
     id: 'studio',
