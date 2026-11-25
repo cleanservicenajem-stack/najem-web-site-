@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { chemin: '/tarifs', changeFrequency: 'monthly', priority: 0.9 },
     { chemin: '/femme-de-menage-casablanca', changeFrequency: 'monthly', priority: 0.9 },
     { chemin: '/nettoyage-canape-tapis-casablanca', changeFrequency: 'monthly', priority: 0.8 },
+    { chemin: '/nettoyage-bureaux-casablanca', changeFrequency: 'monthly', priority: 0.8 },
     { chemin: '/application', changeFrequency: 'monthly', priority: 0.9 },
     { chemin: '/a-propos', changeFrequency: 'yearly', priority: 0.6 },
     { chemin: '/faq', changeFrequency: 'monthly', priority: 0.7 },

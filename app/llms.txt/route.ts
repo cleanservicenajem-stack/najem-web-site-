@@ -71,6 +71,7 @@ ${services}
 - [Tarifs](${absoluteUrl('/tarifs')})
 - [Femme de ménage à Casablanca](${absoluteUrl('/femme-de-menage-casablanca')})
 - [Nettoyage canapé et tapis à Casablanca](${absoluteUrl('/nettoyage-canape-tapis-casablanca')})
+- [Nettoyage de bureaux à Casablanca, sur devis](${absoluteUrl('/nettoyage-bureaux-casablanca')})
 - [Application mobile](${absoluteUrl('/application')})
 - [À propos](${absoluteUrl('/a-propos')})
 - [FAQ](${absoluteUrl('/faq')})
