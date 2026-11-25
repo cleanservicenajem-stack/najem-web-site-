@@ -25,7 +25,6 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: 'Femme de ménage à Casablanca', href: '/femme-de-menage-casablanca' },
       { label: 'Grand ménage', href: '/services/grand-nettoyage' },
       { label: 'Ménage Airbnb', href: '/services/professionnels' },
-      { label: 'Nettoyage de bureaux', href: '/nettoyage-bureaux-casablanca' },
       { label: 'Canapé et tapis', href: '/nettoyage-canape-tapis-casablanca' },
       { label: 'Après déménagement', href: '/services/nettoyage-apres-demenagement' },
     ],
@@ -46,6 +45,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
     items: [
       { label: 'FAQ', href: '/faq' },
       { label: 'Contact', href: '/contact' },
+      { label: 'Demande de devis pro', href: '/devis-pro' },
     ],
   },
   {
