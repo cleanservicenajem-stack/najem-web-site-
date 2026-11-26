@@ -145,7 +145,155 @@ export const blogPosts: BlogPost[] = [
           'Avec l’abonnement mensuel, qui regroupe 4 ménages par mois : 810 DH pour un studio, 990 DH pour un appartement jusqu’à 3 chambres, 1 190 DH pour un grand appartement ou une villa, 1 590 DH pour plus de 5 chambres.',
       },
     ],
-    related: ['grand-nettoyage-par-ou-commencer', 'preparer-son-logement-avant-une-intervention'],
+    related: ['grand-menage-casablanca'],
+  },
+  {
+    // Article publié : chaque prix vient de la grille de l'application
+    // (config/tarifs.ts, grille du 20 novembre 2026). Le mettre à jour, avec
+    // `dateModified`, à chaque changement de tarif.
+    slug: 'grand-menage-casablanca',
+    title: 'Grand ménage à Casablanca : prix, méthode et préparation',
+    description:
+      'Grand ménage à Casablanca : quand le prévoir, quelle formule choisir à partir de 300 DH, dans quel ordre nettoyer et comment préparer votre logement.',
+    keyAnswer:
+      'Pour un grand ménage à Casablanca, la formule la plus adaptée chez Najem Clean Service est le ménage complet : 300 DH (2 h) pour un studio, 380 DH (2 h 30) jusqu’à 3 chambres, 450 DH (3 h) jusqu’à 5 chambres et 600 DH (4 h) au-delà. Pour les logements de plus de 5 chambres, le ménage prestige coûte 700 DH (4 h 30). Produits et matériel sont inclus.',
+    category: 'entretien-maison',
+    datePublished: '2026-11-26',
+    author: 'Najem Clean Service',
+    readingMinutes: 4,
+    cover: {
+      src: '/images/blog/cover-entretien.png',
+      alt: 'Illustration abstraite aux couleurs de Najem Clean Service',
+    },
+    status: 'publie',
+    blocks: [
+      {
+        type: 'p',
+        text: 'Un grand ménage va plus loin que l’entretien de la semaine : il reprend le logement pièce par pièce, avec les zones que l’on repousse souvent. Voici quand le prévoir, ce qu’il coûte et comment bien s’y prendre.',
+      },
+      { type: 'h2', text: 'Quand prévoir un grand ménage' },
+      {
+        type: 'ul',
+        items: [
+          'Au changement de saison.',
+          'Avant le ramadan ou avant une fête.',
+          'Avant de recevoir de la famille ou des invités.',
+          'Au retour d’une longue absence.',
+          'Avant de passer à un entretien régulier, pour partir sur une base propre.',
+        ],
+      },
+      { type: 'h2', text: 'Quelle formule choisir, et à quel prix' },
+      {
+        type: 'p',
+        text: 'Dans l’application, la taille du logement se compte en chambres. Pour un grand ménage, choisissez le ménage complet :',
+      },
+      {
+        type: 'ul',
+        items: [
+          'Studio : 300 DH pour 2 h.',
+          'Appartement jusqu’à 3 chambres : 380 DH pour 2 h 30.',
+          'Grand appartement ou villa jusqu’à 5 chambres : 450 DH pour 3 h.',
+          'Plus de 5 chambres : 600 DH pour 4 h, ou 700 DH pour 4 h 30 avec le ménage prestige.',
+        ],
+      },
+      {
+        type: 'note',
+        title: 'Produits et matériel inclus',
+        text: 'Les produits et le matériel de nettoyage sont compris dans la prestation. La page Tarifs et l’application font foi : le prix s’affiche avant que vous confirmiez.',
+      },
+      { type: 'h2', text: 'Les options utiles pour un grand ménage' },
+      {
+        type: 'ul',
+        items: [
+          'Four et frigo très sales : 80 DH (30 min).',
+          'Heure supplémentaire : 150 DH, si le logement demande plus de temps.',
+          'Shampouineuse canapé ou tapis : 190 DH pour 1 élément (1 h).',
+          'Repassage : 80 DH (express, 30 min) ou 150 DH (complet, 1 h).',
+          'Terrasse ou balcon : 80 DH dans un studio ; petite terrasse (moins de 10 m²) 80 DH et grande terrasse 150 DH à partir de l’appartement jusqu’à 3 chambres.',
+        ],
+      },
+      { type: 'h2', text: 'Dans quel ordre nettoyer' },
+      {
+        type: 'p',
+        text: 'L’ordre évite de refaire deux fois le même travail. Ce sont les règles de la méthode Najem, que vous pouvez aussi appliquer chez vous :',
+      },
+      {
+        type: 'ol',
+        items: [
+          'Débarrasser, puis ranger, puis nettoyer.',
+          'Aller du haut vers le bas.',
+          'Commencer à sec, finir à l’humide.',
+          'Aller du plus propre au plus sale : les toilettes en dernier.',
+          'Avancer du fond de la pièce vers la sortie.',
+          'Laisser le produit agir environ 10 minutes avant de frotter.',
+        ],
+      },
+      { type: 'h2', text: 'Les zones à ne pas oublier' },
+      { type: 'h3', text: 'Cuisine' },
+      {
+        type: 'ul',
+        items: [
+          'Dessus des meubles hauts et hotte.',
+          'Crédence, plan de travail, évier et robinetterie.',
+          'Extérieur des appareils et poignées.',
+        ],
+      },
+      { type: 'h3', text: 'Salle de bain' },
+      {
+        type: 'ul',
+        items: [
+          'Parois de douche et joints.',
+          'Lavabo, robinetterie et miroir.',
+          'Toilettes, avec des gants et une microfibre réservés à cet usage.',
+        ],
+      },
+      { type: 'h3', text: 'Chambres et pièces de vie' },
+      {
+        type: 'ul',
+        items: [
+          'Plinthes et angles.',
+          'Sous les lits et derrière les meubles accessibles.',
+          'Poignées de portes et interrupteurs.',
+        ],
+      },
+      {
+        type: 'note',
+        title: 'Deux précautions',
+        text: 'Ne mélangez jamais l’eau de Javel avec un produit acide (vinaigre, anticalcaire) ou contenant de l’ammoniaque : le mélange dégage des gaz dangereux. Évitez la vapeur sur le parquet, le marbre, le tadelakt, le cuir, le stratifié et le vinyle.',
+      },
+      { type: 'h2', text: 'Comment préparer votre logement' },
+      {
+        type: 'ul',
+        items: [
+          'Dégagez les surfaces et le sol des objets qui gênent.',
+          'Mettez à l’abri les papiers et les objets de valeur.',
+          'Indiquez vos priorités et les surfaces fragiles.',
+          'Précisez l’accès : adresse exacte, étage, ascenseur, animaux.',
+        ],
+      },
+      { type: 'h2', text: 'Réserver votre grand ménage' },
+      {
+        type: 'p',
+        text: 'La réservation se fait dans l’application Najem Clean Service, sur iPhone et Android, au moins 3 heures à l’avance, pour une intervention entre 8 h et 18 h. Elle est confirmée après validation par l’équipe. Vous pouvez la déplacer ou l’annuler gratuitement jusqu’à 24 heures avant. Najem intervient à Casablanca et dans ses alentours ; pour la périphérie, les conditions sont confirmées à partir de votre adresse.',
+      },
+    ],
+    faq: [
+      {
+        question: 'Quel est le prix d’un grand ménage à Casablanca ?',
+        answer:
+          'Chez Najem Clean Service, le ménage complet coûte 300 DH pour un studio, 380 DH jusqu’à 3 chambres, 450 DH jusqu’à 5 chambres et 600 DH au-delà. Le ménage prestige, pour plus de 5 chambres, coûte 700 DH.',
+      },
+      {
+        question: 'Combien de temps dure un grand ménage ?',
+        answer:
+          'Le ménage complet dure de 2 h pour un studio à 4 h au-delà de 5 chambres, et le ménage prestige 4 h 30. Les options ajoutent de la durée, affichée dans l’application.',
+      },
+      {
+        question: 'Faut-il fournir les produits ?',
+        answer: 'Non : les produits et le matériel sont inclus dans la prestation.',
+      },
+    ],
+    related: ['prix-femme-de-menage-casablanca'],
   },
   {
     slug: 'garder-une-maison-propre-avec-peu-de-temps',
