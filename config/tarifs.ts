@@ -55,6 +55,16 @@ export type CategorieTarif = {
  */
 export const shampouineuseSeule = { prix: 250, supplement: 190, duree: '1 h' } as const;
 
+/** Recharges du porte-monnaie de l’application (montant payé, crédit reçu), en DH. */
+export const recharges = [
+  { paye: 500, credit: 600 },
+  { paye: 1000, credit: 1200 },
+  { paye: 2000, credit: 2500 },
+] as const;
+
+/** Carte de fidélité : nombre de prestations avant la suivante offerte. */
+export const prestationsFidelite = 10;
+
 export const categoriesTarifs: CategorieTarif[] = [
   {
     id: 'studio',

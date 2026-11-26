@@ -36,6 +36,16 @@ export type TextesTarifs = {
   descriptions: Record<string, string>;
   /** « Soit 60 DH d’économie par mois… » ; reçoit le montant formaté. */
   economie: (montant: string) => string;
+  /** Prestation seule, recharges et fidélité ; reçoit des montants formatés. */
+  complements: {
+    titre: string;
+    shampouineuse: { titre: string; seule: (prix: string) => string; supplement: (prix: string) => string };
+    recharges: {
+      titre: string;
+      ligne: (recharge: { paye: string; credit: string; bonus: string }) => string;
+    };
+    fidelite: { titre: string; texte: (prestations: number) => string };
+  };
   autres: { titre: string; texte: string; lien: string };
   questions: {
     titre: string;
@@ -77,11 +87,27 @@ const anglais: TextesTarifs = {
   },
   economie: (montant) =>
     `That’s ${montant} saved each month compared with booking the same cleanings one by one.`,
+  complements: {
+    titre: 'Single service, wallet top-ups and loyalty',
+    shampouineuse: {
+      titre: 'Shampooing on its own',
+      seule: (prix) => `Sofa, carpet or mattress: ${prix} per item (1 h).`,
+      supplement: (prix) => `Each extra item: ${prix} (1 h).`,
+    },
+    recharges: {
+      titre: 'Wallet top-ups',
+      ligne: ({ paye, credit, bonus }) => `Pay ${paye}, get ${credit} of credit (+${bonus}).`,
+    },
+    fidelite: {
+      titre: 'Loyalty card',
+      texte: (prestations) => `After ${prestations} cleanings, the next one is free.`,
+    },
+  },
   autres: {
-    titre: 'Cleaning after a move, for a concierge company or for your business?',
+    titre: 'Another need?',
     texte:
-      'Describe your request when you book in the app, or write to us from the contact page. Whether it can be done is confirmed based on your request and the professionals available.',
-    lien: 'Write to us',
+      'For a request that is not in the app, ask us for a quote. Businesses can switch to a professional account in the app.',
+    lien: 'Request a quote',
   },
   questions: {
     titre: 'Questions about prices',
@@ -143,11 +169,27 @@ const arabe: TextesTarifs = {
   },
   economie: (montant) =>
     `أي توفير ${montant} في الشهر مقارنة بحجز عمليات التنظيف نفسها كلٌّ على حدة.`,
+  complements: {
+    titre: 'خدمة مستقلة، وشحن المحفظة، وبطاقة الوفاء',
+    shampouineuse: {
+      titre: 'الغسل بالآلة وحده',
+      seule: (prix) => `أريكة أو زربية أو مرتبة: ${prix} للقطعة (ساعة واحدة).`,
+      supplement: (prix) => `كل قطعة إضافية: ${prix} (ساعة واحدة).`,
+    },
+    recharges: {
+      titre: 'شحن المحفظة',
+      ligne: ({ paye, credit, bonus }) => `ادفع ${paye} واحصل على رصيد ${credit} (+${bonus}).`,
+    },
+    fidelite: {
+      titre: 'بطاقة الوفاء',
+      texte: (prestations) => `بعد ${prestations} خدمات، تكون الخدمة التالية مجانية.`,
+    },
+  },
   autres: {
-    titre: 'تنظيف بعد الانتقال، أو لشركة كونسيرج، أو لحاجة مهنية؟',
+    titre: 'حاجة أخرى؟',
     texte:
-      'صِف طلبك عند الحجز في التطبيق، أو راسلنا من صفحة « اتصل بنا ». يتم تأكيد إمكانية التنفيذ حسب طلبك والمحترفين المتاحين.',
-    lien: 'راسلنا',
+      'إذا كان طلبك غير موجود في التطبيق، اطلب منا عرض سعر. ويمكن للمهنيين التحويل إلى حساب مهني داخل التطبيق.',
+    lien: 'طلب عرض سعر',
   },
   questions: {
     titre: 'أسئلة حول الأسعار',

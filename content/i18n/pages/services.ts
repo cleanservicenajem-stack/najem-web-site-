@@ -61,7 +61,7 @@ const anglais: TextesPagesServices = {
     meta: {
       titre: 'Home Cleaning Services in Casablanca',
       description:
-        'Home cleaning in Casablanca: express, full and deep cleaning, monthly plans, windows, ironing, carpets and sofas, for households and businesses.',
+        'Home cleaning in Casablanca: express, full and deep cleaning, monthly plans, ironing, carpets and sofas, for households and businesses.',
     },
     surtitre: 'Our services',
     titre: 'Cleaning services in Casablanca by Najem Clean Service',
@@ -120,7 +120,7 @@ const arabe: TextesPagesServices = {
     meta: {
       titre: 'خدمات تنظيف المنازل بالدار البيضاء',
       description:
-        'تنظيف المنازل بالدار البيضاء: تنظيف سريع وشامل وعميق، واشتراك شهري، والزجاج والكي والزرابي والأرائك، للأفراد والمهنيين.',
+        'تنظيف المنازل بالدار البيضاء: تنظيف سريع وشامل وعميق، واشتراك شهري، والكي والزرابي والأرائك، للأفراد والمهنيين.',
     },
     surtitre: 'خدماتنا',
     titre: `خدمات التنظيف التي تقدمها ${siteConfig.name} في الدار البيضاء`,

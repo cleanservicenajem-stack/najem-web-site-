@@ -61,7 +61,7 @@ const anglais: TextesAccueil = {
   presentation: {
     titre: 'Who are we?',
     texte:
-      'Najem Clean Service is a home cleaning team in Casablanca, for regular or one-off cleaning, deep cleaning, or move-in and move-out cleaning. Book and pay for your services, then receive your invoice directly in the app.',
+      'Najem Clean Service is a home cleaning team in Casablanca, for regular or one-off cleaning, or deep cleaning. Book and pay for your services, then receive your invoice directly in the app.',
     reperes: [
       { titre: 'A mobile app', texte: 'Available on iPhone and Android.' },
       { titre: 'Guided booking', texte: 'Service chosen, time slot selected, request sent.' },
@@ -186,7 +186,7 @@ const arabe: TextesAccueil = {
   presentation: {
     titre: 'من نحن؟',
     texte:
-      'Najem Clean Service فريق للتنظيف المنزلي بالدار البيضاء، للتنظيف المنتظم أو لمرة واحدة، أو للتنظيف العميق، أو للتنظيف عند الانتقال. احجز خدماتك وادفع ثمنها، ثم استلم فاتورتك مباشرة في التطبيق.',
+      'Najem Clean Service فريق للتنظيف المنزلي بالدار البيضاء، للتنظيف المنتظم أو لمرة واحدة، أو للتنظيف العميق. احجز خدماتك وادفع ثمنها، ثم استلم فاتورتك مباشرة في التطبيق.',
     reperes: [
       { titre: 'تطبيق على الهاتف', texte: 'متوفر على الآيفون والأندرويد.' },
       { titre: 'حجز موجَّه خطوة بخطوة', texte: 'تختار الخدمة، وتحدد الموعد، وترسل طلبك.' },

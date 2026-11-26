@@ -160,7 +160,6 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
   const option = prix ? commun.prix(prix.min) : null;
   const faq = questions(langue, options);
   const crumbs = filDAriane(langue);
-  const specialise = commun.services['entretien-specialise']?.titre;
 
   // Lignes du tableau : une ligne dont le logement ou la formule n'a pas de nom traduit n'est pas affichée.
   const lignes = options.flatMap((option) => {
@@ -296,11 +295,7 @@ export default async function NettoyageCanapeTapisTraduite({ params }: Props) {
               </h2>
               <p className="mt-4 text-[1rem] leading-relaxed text-ink-soft">{t.specialise.texte}</p>
               <div className="mt-6 flex flex-wrap gap-6">
-                {specialise ? (
-                  <ArrowLink href={cheminEn(langue, '/services/entretien-specialise')}>
-                    {specialise}
-                  </ArrowLink>
-                ) : null}
+                <ArrowLink href={cheminEn(langue, '/contact')}>{t.specialise.lienDevis}</ArrowLink>
                 <ArrowLink href={cheminEn(langue, '/femme-de-menage-casablanca')}>
                   {t.specialise.lienFemmeDeMenage}
                 </ArrowLink>

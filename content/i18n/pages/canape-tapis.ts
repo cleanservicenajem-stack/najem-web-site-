@@ -30,7 +30,8 @@ export type TextesCanapeTapis = {
     lien: string;
   };
   consignes: { titre: string; liste: string[] };
-  specialise: { titre: string; texte: string; lienFemmeDeMenage: string };
+  /** Renvoi vers la demande de devis. */
+  specialise: { titre: string; texte: string; lienDevis: string; lienFemmeDeMenage: string };
   questions: {
     titre: string;
     prix: {
@@ -59,7 +60,7 @@ const anglais: TextesCanapeTapis = {
   },
   fil: { accueil: 'Home', page: 'Sofa and carpet cleaning', libelle: 'Breadcrumb' },
   hero: {
-    surtitre: 'Specialised cleaning in Casablanca',
+    surtitre: 'Shampooing in Casablanca',
     titre: 'Sofa and carpet cleaning at home in Casablanca',
     chapo: (seul, option) =>
       `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}. Book it in the ${NOM} app.`,
@@ -94,8 +95,9 @@ const anglais: TextesCanapeTapis = {
     ],
   },
   specialise: {
-    titre: 'Carpets, sofas, windows, ironing',
-    texte: `Sofas and carpets are part of ${NOM}’s specialised cleaning, along with windows, ironing and disinfection: dedicated care, to be specified in your request, anywhere in ${communs.en.zone}.`,
+    titre: 'Another need?',
+    texte: 'For a request that is not in the app, ask us for a quote.',
+    lienDevis: 'Request a quote',
     lienFemmeDeMenage: 'Maid in Casablanca',
   },
   questions: {
@@ -143,7 +145,7 @@ const arabe: TextesCanapeTapis = {
   },
   fil: { accueil: 'الرئيسية', page: 'تنظيف الأرائك والزرابي', libelle: 'مسار التنقل' },
   hero: {
-    surtitre: 'التنظيف المتخصص بالدار البيضاء',
+    surtitre: 'الغسل بالآلة بالدار البيضاء',
     titre: 'تنظيف الأرائك والزرابي في منزلك بالدار البيضاء',
     chapo: (seul, option) =>
       `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}. الحجز من تطبيق ${NOM}.`,
@@ -178,8 +180,9 @@ const arabe: TextesCanapeTapis = {
     ],
   },
   specialise: {
-    titre: 'الزرابي والأرائك والزجاج والكي',
-    texte: `تندرج الأرائك والزرابي ضمن التنظيف المتخصص لدى ${NOM}، إلى جانب الزجاج والكي والتعقيم: عناية مخصصة تحددها في طلبك، في كل أنحاء ${communs.ar.zone}.`,
+    titre: 'حاجة أخرى؟',
+    texte: 'إذا كان طلبك غير موجود في التطبيق، اطلب منا عرض سعر.',
+    lienDevis: 'طلب عرض سعر',
     lienFemmeDeMenage: 'عاملة نظافة بالدار البيضاء',
   },
   questions: {

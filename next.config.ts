@@ -69,6 +69,17 @@ const nextConfig: NextConfig = {
       { source: '/app', destination: '/application', permanent: true },
       { source: '/about', destination: '/a-propos', permanent: true },
       { source: '/privacy', destination: '/confidentialite', permanent: true },
+      // Prestations retirées du site : on renvoie vers la demande de devis.
+      {
+        source: '/services/:service(nettoyage-apres-demenagement|entretien-specialise)',
+        destination: '/contact',
+        permanent: false,
+      },
+      {
+        source: '/:langue(ar|en)/services/:service(nettoyage-apres-demenagement|entretien-specialise)',
+        destination: '/:langue/contact',
+        permanent: false,
+      },
     ];
   },
 };

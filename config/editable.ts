@@ -220,7 +220,7 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
     label: 'Services',
     titre: 'Services de nettoyage à Casablanca',
     description:
-      'Nettoyage régulier, ponctuel, après déménagement, grand nettoyage et prestations pour professionnels à Casablanca, depuis l’application Najem.',
+      'Ménage régulier, ponctuel et grand ménage, et prestations pour professionnels à Casablanca, depuis l’application Najem.',
   },
   {
     chemin: 'tarifs',

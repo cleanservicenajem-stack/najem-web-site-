@@ -34,7 +34,7 @@ export const footerNav: { title: string; items: NavItem[] }[] = [
       { label: 'Grand ménage', href: '/services/grand-nettoyage' },
       { label: 'Ménage Airbnb', href: '/services/professionnels' },
       { label: 'Canapé et tapis', href: '/nettoyage-canape-tapis-casablanca' },
-      { label: 'Après déménagement', href: '/services/nettoyage-apres-demenagement' },
+      { label: 'Demande de devis', href: '/contact' },
     ],
   },
   {
@@ -108,7 +108,7 @@ export const navigationPied: Record<'fr' | 'ar' | 'en', { title: string; items: 
         { label: 'Deep cleaning', href: '/en/services/grand-nettoyage' },
         { label: 'Airbnb cleaning', href: '/en/services/professionnels' },
         { label: 'Sofa and carpet', href: '/en/nettoyage-canape-tapis-casablanca' },
-        { label: 'After moving', href: '/en/services/nettoyage-apres-demenagement' },
+        { label: 'Request a quote', href: '/en/contact' },
       ],
     },
     {
@@ -147,7 +147,7 @@ export const navigationPied: Record<'fr' | 'ar' | 'en', { title: string; items: 
         { label: 'التنظيف العميق', href: '/ar/services/grand-nettoyage' },
         { label: 'تنظيف شقق Airbnb', href: '/ar/services/professionnels' },
         { label: 'الأرائك والزرابي', href: '/ar/nettoyage-canape-tapis-casablanca' },
-        { label: 'التنظيف عند الانتقال', href: '/ar/services/nettoyage-apres-demenagement' },
+        { label: 'طلب عرض سعر', href: '/ar/contact' },
       ],
     },
     {

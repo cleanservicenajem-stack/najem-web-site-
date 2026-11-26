@@ -151,7 +151,9 @@ export const services: Service[] = [
     ],
     goodFor: ['Fin de bail', 'Entrée dans un nouveau logement', 'Remise des clés'],
     icon: Boxes,
-    enabled: true,
+    // Absente de l’application : seulement « Demande de devis » (décision du
+    // 26 novembre 2026). Remettre `true` si elle y est ajoutée.
+    enabled: false,
     status: 'a-confirmer',
   },
   {
@@ -204,7 +206,9 @@ export const services: Service[] = [
     ],
     goodFor: ['Besoin qui sort du nettoyage courant', 'Surface ou matériau particulier'],
     icon: SprayCan,
-    enabled: true,
+    // Absente de l’application : seulement « Demande de devis » (décision du
+    // 26 novembre 2026). Remettre `true` si elle y est ajoutée.
+    enabled: false,
     status: 'a-confirmer',
   },
   {

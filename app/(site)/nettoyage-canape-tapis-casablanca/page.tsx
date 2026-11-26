@@ -141,7 +141,7 @@ export default async function NettoyageCanapeTapisPage() {
   return (
     <>
       <PageHero
-        eyebrow="Entretien spécialisé à Casablanca"
+        eyebrow="Shampouineuse à Casablanca"
         title="Nettoyage de canapé et de tapis à domicile à Casablanca"
         crumbs={crumbs}
         lead={
@@ -263,15 +263,13 @@ export default async function NettoyageCanapeTapisPage() {
 
             <Reveal>
               <h2 className="font-display text-[1.4rem] font-semibold text-navy-900">
-                Tapis, canapés, vitres, repassage
+                Un autre besoin ?
               </h2>
               <p className="mt-4 text-[1rem] leading-relaxed text-ink-soft">
-                Le canapé et les tapis font partie de l’entretien spécialisé de {siteConfig.name},
-                avec les vitres, le repassage et la désinfection : des soins dédiés, à préciser
-                dans votre demande, partout à Casablanca et dans ses alentours.
+                Pour une demande qui ne figure pas dans l’application, faites une demande de devis.
               </p>
               <div className="mt-6 flex flex-wrap gap-6">
-                <ArrowLink href="/services/entretien-specialise">L’entretien spécialisé</ArrowLink>
+                <ArrowLink href="/contact">Demande de devis</ArrowLink>
                 <ArrowLink href="/femme-de-menage-casablanca">Femme de ménage à Casablanca</ArrowLink>
               </div>
             </Reveal>

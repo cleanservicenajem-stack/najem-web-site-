@@ -12,6 +12,8 @@ import { FinalCta } from '@/components/home/FinalCta';
 import { Reveal } from '@/components/animations/Reveal';
 import { Stagger, StaggerItem } from '@/components/animations/Stagger';
 import { StructuredData } from '@/components/seo/StructuredData';
+import { AutresPrestations } from '@/components/tarifs/AutresPrestations';
+import { prestationsFidelite, recharges, shampouineuseSeule } from '@/config/tarifs';
 import { communs } from '@/content/i18n/commun';
 import { textesTarifs } from '@/content/i18n/pages/tarifs';
 import { createMetadata } from '@/lib/seo';
@@ -417,6 +419,33 @@ export default async function TarifsTraduits({ params }: Props) {
           </Container>
         </section>
       ))}
+
+      <AutresPrestations
+        titre={t.complements.titre}
+        blocs={[
+          {
+            titre: t.complements.shampouineuse.titre,
+            lignes: [
+              t.complements.shampouineuse.seule(commun.prix(shampouineuseSeule.prix)),
+              t.complements.shampouineuse.supplement(commun.prix(shampouineuseSeule.supplement)),
+            ],
+          },
+          {
+            titre: t.complements.recharges.titre,
+            lignes: recharges.map(({ paye, credit }) =>
+              t.complements.recharges.ligne({
+                paye: commun.prix(paye),
+                credit: commun.prix(credit),
+                bonus: commun.prix(credit - paye),
+              }),
+            ),
+          },
+          {
+            titre: t.complements.fidelite.titre,
+            lignes: [t.complements.fidelite.texte(prestationsFidelite)],
+          },
+        ]}
+      />
 
       <section className="bg-surface py-14 md:py-20" aria-labelledby="tarifs-autres">
         <Container>

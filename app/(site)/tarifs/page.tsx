@@ -11,6 +11,8 @@ import { FinalCta } from '@/components/home/FinalCta';
 import { Reveal } from '@/components/animations/Reveal';
 import { Stagger, StaggerItem } from '@/components/animations/Stagger';
 import { StructuredData } from '@/components/seo/StructuredData';
+import { AutresPrestations } from '@/components/tarifs/AutresPrestations';
+import { prestationsFidelite, recharges, shampouineuseSeule } from '@/config/tarifs';
 import { createMetadata } from '@/lib/seo';
 import { getSeo, getTexte } from '@/lib/content';
 import {
@@ -287,6 +289,30 @@ export default async function TarifsPage() {
         </section>
       ))}
 
+      <AutresPrestations
+        titre="Prestation seule, recharges et fidélité"
+        blocs={[
+          {
+            titre: 'Shampouineuse seule',
+            lignes: [
+              `Canapé, tapis ou matelas : ${formaterDh(shampouineuseSeule.prix)} l’élément (${shampouineuseSeule.duree}).`,
+              `Élément supplémentaire : ${formaterDh(shampouineuseSeule.supplement)} (${shampouineuseSeule.duree}).`,
+            ],
+          },
+          {
+            titre: 'Recharges du porte-monnaie',
+            lignes: recharges.map(
+              ({ paye, credit }) =>
+                `${formaterDh(paye)} payés : ${formaterDh(credit)} de crédit (+${formaterDh(credit - paye)}).`,
+            ),
+          },
+          {
+            titre: 'Carte de fidélité',
+            lignes: [`${prestationsFidelite} prestations, puis la suivante est offerte.`],
+          },
+        ]}
+      />
+
       <section className="bg-surface py-14 md:py-20" aria-labelledby="tarifs-autres">
         <Container>
           <Reveal>
@@ -295,16 +321,17 @@ export default async function TarifsPage() {
                 id="tarifs-autres"
                 className="font-display text-[1.35rem] font-semibold text-navy-800"
               >
-                Après déménagement, conciergerie ou besoin professionnel ?
+                Un autre besoin ?
               </h2>
               <p className="mt-3 max-w-2xl text-[0.975rem] leading-relaxed text-ink-soft">
-                Décrivez votre demande au moment de la réservation dans l’application, ou
-                écrivez-nous depuis la page contact. La faisabilité est confirmée en fonction de la
-                demande et des professionnels disponibles.
+                Pour une demande qui ne figure pas dans l’application, faites une demande de devis.
+                Professionnels : compte pro dans l’application, ou page dédiée aux conciergeries et
+                propriétaires multi-biens.
               </p>
               <div className="mt-7 flex flex-wrap items-center gap-5">
                 <StoreButtons />
-                <ArrowLink href="/contact">Nous écrire</ArrowLink>
+                <ArrowLink href="/contact">Demande de devis</ArrowLink>
+                <ArrowLink href="/devis-pro">Conciergeries et multi-biens</ArrowLink>
               </div>
             </div>
           </Reveal>
