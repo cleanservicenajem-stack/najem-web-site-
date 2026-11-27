@@ -101,7 +101,7 @@ const anglais: TextesPagesServices = {
       ],
     },
     encart: {
-      titre: 'Book through the app',
+      titre: 'Everything in the app',
       texte: 'Bookings, appointments and messages are all handled in one place.',
       tarifs: 'See prices',
       femmeDeMenage: 'Cleaner in Casablanca',
@@ -159,7 +159,7 @@ const arabe: TextesPagesServices = {
       ],
     },
     encart: {
-      titre: 'احجز من التطبيق',
+      titre: 'كل شيء في التطبيق',
       texte: 'الحجز والمواعيد والتواصل، كل ذلك يُدار في مكان واحد.',
       tarifs: 'اطّلع على الأسعار',
       femmeDeMenage: 'عاملة نظافة في الدار البيضاء',

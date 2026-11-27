@@ -43,7 +43,7 @@ export async function Footer({ langue = 'fr' }: { langue?: Langue }) {
               >
                 {t.pied.telecharger}
               </p>
-              <StoreButtons tone="light" className="mt-4" textes={t.boutiques} />
+              <StoreButtons tone="light" className="mt-4" textes={t.boutiques} annonce={false} />
             </div>
           </div>
 

@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     template: `%s | ${siteConfig.name}`,
   },
   description:
-    "Réservez facilement un service de nettoyage professionnel avec Najem Clean Service. Téléchargez l’application sur iPhone ou Android et planifiez votre prochain nettoyage.",
+    "Service de nettoyage professionnel avec Najem Clean Service, depuis l’application sur iPhone ou Android. Ouverture des réservations bientôt annoncée.",
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,

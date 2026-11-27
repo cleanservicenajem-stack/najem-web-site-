@@ -1,3 +1,4 @@
+import { mentionOuverture, reservationsOuvertes } from '@/config/ouverture';
 import { siteConfig } from '@/config/site';
 import { cn } from '@/lib/utils';
 
@@ -34,6 +35,8 @@ export type TextesBoutiques = {
   ios: { haut: string; bas: string; aria: string };
   android: { haut: string; bas: string; aria: string };
   nouvelleFenetre: string;
+  /** Mention affichée tant que les réservations ne sont pas ouvertes. */
+  ouverture: string;
 };
 
 type StoreButtonProps = {
@@ -109,13 +112,26 @@ export function StoreButtons({
   tone = 'dark',
   className,
   textes,
+  annonce = true,
 }: {
   tone?: 'dark' | 'light';
   className?: string;
   textes?: TextesBoutiques;
+  /** `false` : sans la mention d'ouverture (pied de page, menu). */
+  annonce?: boolean;
 }) {
   return (
     <div className={cn('flex flex-wrap items-center gap-3', className)}>
+      {annonce && !reservationsOuvertes ? (
+        <p
+          className={cn(
+            'basis-full text-[0.95rem] font-semibold',
+            tone === 'light' ? 'text-white' : 'text-navy-800',
+          )}
+        >
+          {textes?.ouverture ?? mentionOuverture.fr}
+        </p>
+      ) : null}
       <StoreButton store="ios" tone={tone} textes={textes} />
       <StoreButton store="android" tone={tone} textes={textes} />
     </div>

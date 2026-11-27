@@ -10,17 +10,17 @@ const textes: Record<Langue, { titre: string; texte: string; question: string }>
   fr: {
     titre: 'Votre maison propre commence ici.',
     texte:
-      'Téléchargez Najem Clean Service et réservez votre prochain service de nettoyage en quelques minutes.',
+      'Téléchargez Najem Clean Service : vos services de nettoyage au même endroit.',
     question: 'Une question ? Écrivez-nous',
   },
   ar: {
     titre: 'منزلك النظيف يبدأ من هنا.',
-    texte: 'حمّل تطبيق Najem Clean Service واحجز خدمة التنظيف القادمة في دقائق.',
+    texte: 'حمّل تطبيق Najem Clean Service: خدمات التنظيف في مكان واحد.',
     question: 'لديك سؤال؟ راسلنا',
   },
   en: {
     titre: 'Your clean home starts here.',
-    texte: 'Download Najem Clean Service and book your next cleaning in just a few minutes.',
+    texte: 'Download Najem Clean Service: your cleaning services, all in one place.',
     question: 'A question? Write to us',
   },
 };

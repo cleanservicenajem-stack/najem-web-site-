@@ -53,7 +53,7 @@ export default function CookiesPage() {
                 najem:app-bar-dismissed
               </strong>{' '}
               — enregistré dans le stockage de session de votre navigateur lorsque vous fermez le
-              rappel « Réservez depuis l’application ». Il évite que ce rappel réapparaisse pendant
+              rappel de l’application. Il évite que ce rappel réapparaisse pendant
               votre visite, et disparaît à la fermeture de l’onglet.
             </li>
           </ul>

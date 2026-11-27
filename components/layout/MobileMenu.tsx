@@ -140,7 +140,7 @@ export function MobileMenu({ open, onClose, pathname, langue = 'fr' }: MobileMen
 
             <div className="mt-10">
               <p className={titrePetit}>{t.telechargerApplication}</p>
-              <StoreButtons className="mt-4" textes={t.boutiques} />
+              <StoreButtons className="mt-4" textes={t.boutiques} annonce={false} />
             </div>
 
             <div className="mt-8">

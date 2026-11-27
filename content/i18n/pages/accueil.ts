@@ -44,13 +44,13 @@ const anglais: TextesAccueil = {
   seo: {
     titre: 'Home Cleaning Services in Casablanca | Najem Clean Service',
     description: (prix) =>
-      `Cleaning service and maid in Casablanca${prix ? ` from ${prix}` : ''}: one-off cleaning, monthly plan or deep cleaning. Book in the iPhone or Android app.`,
+      `Cleaning service and maid in Casablanca${prix ? ` from ${prix}` : ''}: one-off cleaning, monthly plan or deep cleaning. Booking opening date to be announced soon.`,
   },
   hero: {
     badge: 'Your clean home, made simple.',
     titre: 'Home cleaning in Casablanca, simple and trustworthy.',
     accroche: (prix) =>
-      `Book a vetted cleaner${prix ? ` from ${prix}` : ''} in three clicks on the Najem Clean Service app. Enjoy your time, we’ll take care of the rest.`,
+      `A vetted cleaner${prix ? ` from ${prix}` : ''}, in three clicks on the Najem Clean Service app. Booking opening date to be announced soon.`,
     textes: {
       telecharger: 'Download the app',
       decouvrir: 'Explore our services',
@@ -61,7 +61,7 @@ const anglais: TextesAccueil = {
   presentation: {
     titre: 'Who are we?',
     texte:
-      'Najem Clean Service is a home cleaning team in Casablanca, for regular or one-off cleaning, or deep cleaning. Book and pay for your services, then receive your invoice directly in the app.',
+      'Najem Clean Service is a home cleaning team in Casablanca, for regular or one-off cleaning, or deep cleaning. Services are booked and paid in the app, where you also receive your invoice.',
     reperes: [
       { titre: 'A mobile app', texte: 'Available on iPhone and Android.' },
       { titre: 'Guided booking', texte: 'Service chosen, time slot selected, request sent.' },
@@ -175,7 +175,7 @@ const arabe: TextesAccueil = {
     badge: 'منزلك نظيف، ببساطة.',
     titre: 'تنظيف المنازل بالدار البيضاء، خدمة بسيطة وموثوقة.',
     accroche: (prix) =>
-      `احجز عاملة نظافة تم التحقق منها${prix ? ` ابتداءً من ${prix}` : ''}، بثلاث نقرات من تطبيق Najem Clean Service. استمتع بوقتك، ونحن نتكفّل بالباقي.`,
+      `عاملة نظافة تم التحقق منها${prix ? ` ابتداءً من ${prix}` : ''}، بثلاث نقرات من تطبيق Najem Clean Service. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
     textes: {
       telecharger: 'حمّل التطبيق',
       decouvrir: 'اكتشف خدماتنا',
@@ -186,7 +186,7 @@ const arabe: TextesAccueil = {
   presentation: {
     titre: 'من نحن؟',
     texte:
-      'Najem Clean Service فريق للتنظيف المنزلي بالدار البيضاء، للتنظيف المنتظم أو لمرة واحدة، أو للتنظيف العميق. احجز خدماتك وادفع ثمنها، ثم استلم فاتورتك مباشرة في التطبيق.',
+      'Najem Clean Service فريق للتنظيف المنزلي بالدار البيضاء، للتنظيف المنتظم أو لمرة واحدة، أو للتنظيف العميق. يتم حجز الخدمات ودفع ثمنها في التطبيق، حيث تستلم فاتورتك أيضا.',
     reperes: [
       { titre: 'تطبيق على الهاتف', texte: 'متوفر على الآيفون والأندرويد.' },
       { titre: 'حجز موجَّه خطوة بخطوة', texte: 'تختار الخدمة، وتحدد الموعد، وترسل طلبك.' },

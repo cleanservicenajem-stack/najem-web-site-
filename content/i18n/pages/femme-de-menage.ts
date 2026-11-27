@@ -75,14 +75,14 @@ const anglais: TextesFemmeDeMenage = {
     titre: (prixMin) =>
       `Maid and house cleaner in Casablanca${prixMin ? ` from ${prixMin}` : ''} | Najem`,
     description: (prixMin) =>
-      `Book a maid or house cleaner in Casablanca in minutes: express cleaning${prixMin ? ` from ${prixMin}` : ''}, full or deep cleaning, or a monthly plan, in the Najem app.`,
+      `Maid or house cleaner in Casablanca: express cleaning${prixMin ? ` from ${prixMin}` : ''}, full or deep cleaning, or a monthly plan. Booking opening date to be announced soon.`,
   },
   fil: { accueil: 'Home', page: 'Maid in Casablanca', libelle: 'Breadcrumb' },
   hero: {
     surtitre: 'Home cleaning in Casablanca',
     titre: 'Maid and house cleaner in Casablanca',
     chapo: (prixMin) =>
-      `Book your cleaner in a few minutes with the ${NOM} app${prixMin ? `: express cleaning from ${prixMin}` : ''}, one-off or on a monthly plan, anywhere in ${communs.en.zone}.`,
+      `Your cleaner through the ${NOM} app${prixMin ? `: express cleaning from ${prixMin}` : ''}, one-off or on a monthly plan, anywhere in ${communs.en.zone}.`,
   },
   intro: {
     titre: 'Your cleaner, booked from your phone',
@@ -105,7 +105,7 @@ const anglais: TextesFemmeDeMenage = {
       'Available as options: ironing, terrace or balcony, very dirty oven and fridge, sofa and carpet shampooing, extra hour. The exact details are confirmed when you book, depending on your home and your instructions.',
   },
   reserver: {
-    titre: 'Book in the app',
+    titre: 'Everything in the app',
     texte: 'Package, time slot, instructions and payment: everything happens in one place.',
   },
   prix: {
@@ -175,7 +175,7 @@ const anglais: TextesFemmeDeMenage = {
   },
   schema: {
     nomPage: `Maid and house cleaner in Casablanca — ${NOM}`,
-    descriptionPage: `Book a maid in Casablanca in the ${NOM} app: packages, prices, areas covered and frequently asked questions.`,
+    descriptionPage: `Maid in Casablanca with the ${NOM} app: packages, prices, areas covered and frequently asked questions.`,
     nomService: 'Maid and house cleaner in Casablanca',
     typeService: 'Maid service',
   },
@@ -186,14 +186,14 @@ const arabe: TextesFemmeDeMenage = {
     titre: (prixMin) =>
       `عاملة نظافة بالدار البيضاء${prixMin ? ` ابتداءً من ${prixMin}` : ''} | Najem`,
     description: (prixMin) =>
-      `احجز عاملة نظافة بالدار البيضاء في دقائق: تنظيف سريع${prixMin ? ` ابتداءً من ${prixMin}` : ''}، أو تنظيف شامل أو عميق، أو اشتراك شهري، من تطبيق Najem.`,
+      `عاملة نظافة بالدار البيضاء: تنظيف سريع${prixMin ? ` ابتداءً من ${prixMin}` : ''}، أو تنظيف شامل أو عميق، أو اشتراك شهري. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
   },
   fil: { accueil: 'الرئيسية', page: 'عاملة نظافة بالدار البيضاء', libelle: 'مسار التنقل' },
   hero: {
     surtitre: 'تنظيف المنازل بالدار البيضاء',
     titre: 'عاملة نظافة في منزلك بالدار البيضاء',
     chapo: (prixMin) =>
-      `احجز عاملة النظافة في دقائق من تطبيق ${NOM}${prixMin ? `: تنظيف سريع ابتداءً من ${prixMin}` : ''}، لمرة واحدة أو باشتراك شهري، في كل أنحاء ${communs.ar.zone}.`,
+      `عاملة النظافة من تطبيق ${NOM}${prixMin ? `: تنظيف سريع ابتداءً من ${prixMin}` : ''}، لمرة واحدة أو باشتراك شهري، في كل أنحاء ${communs.ar.zone}.`,
   },
   intro: {
     titre: 'عاملة نظافة تحجزها من هاتفك',
@@ -216,7 +216,7 @@ const arabe: TextesFemmeDeMenage = {
       'خيارات إضافية: الكي، التراس أو الشرفة، الفرن والثلاجة المتسخان جدا، غسل الأرائك والزرابي بالآلة، ساعة إضافية. تُؤكَّد التفاصيل الدقيقة عند الحجز، حسب مسكنك وتعليماتك.',
   },
   reserver: {
-    titre: 'احجز من التطبيق',
+    titre: 'كل شيء في التطبيق',
     texte: 'الباقة، والموعد، والتعليمات، والدفع: كل شيء يتم في مكان واحد.',
   },
   prix: {
@@ -284,7 +284,7 @@ const arabe: TextesFemmeDeMenage = {
   },
   schema: {
     nomPage: `عاملة نظافة في منزلك بالدار البيضاء — ${NOM}`,
-    descriptionPage: `احجز عاملة نظافة بالدار البيضاء من تطبيق ${NOM}: الباقات، والأسعار، والمناطق المخدومة، والأسئلة الشائعة.`,
+    descriptionPage: `عاملة نظافة بالدار البيضاء من تطبيق ${NOM}: الباقات، والأسعار، والمناطق المخدومة، والأسئلة الشائعة.`,
     nomService: 'عاملة نظافة في منزلك بالدار البيضاء',
     typeService: 'خدمة عاملة النظافة',
   },

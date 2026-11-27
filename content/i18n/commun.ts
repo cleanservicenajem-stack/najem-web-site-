@@ -1,5 +1,6 @@
 import type { LangueTraduite } from '@/config/i18n';
 import type { TextesBoutiques } from '@/components/ui/StoreButtons';
+import { mentionOuverture } from '@/config/ouverture';
 
 /**
  * Vocabulaire commun des pages traduites (/ar, /en).
@@ -69,6 +70,7 @@ const anglais: TextesCommuns = {
     ios: { haut: 'Download on the', bas: 'App Store', aria: 'Download on the App Store' },
     android: { haut: 'Get it on', bas: 'Google Play', aria: 'Get it on Google Play' },
     nouvelleFenetre: 'opens in a new window',
+    ouverture: mentionOuverture.en,
   },
   grille: {
     categories: {
@@ -164,6 +166,7 @@ const arabe: TextesCommuns = {
     ios: { haut: 'حمّله من', bas: 'App Store', aria: 'حمّل التطبيق من App Store' },
     android: { haut: 'متوفر على', bas: 'Google Play', aria: 'حمّل التطبيق من Google Play' },
     nouvelleFenetre: 'يفتح في نافذة جديدة',
+    ouverture: mentionOuverture.ar,
   },
   grille: {
     categories: {

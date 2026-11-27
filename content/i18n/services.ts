@@ -27,7 +27,7 @@ const anglais: Record<string, TexteService> = {
   'nettoyage-regulier': {
     metaTitle: 'Regular Home Cleaning in Casablanca',
     metaDescription:
-      'Regular home cleaning in Casablanca: scheduled visits at the pace you choose, or a monthly plan. Book in the Najem Clean Service app.',
+      'Regular home cleaning in Casablanca: scheduled visits at the pace you choose, or a monthly plan. Booking opening date to be announced soon.',
     benefit: 'A clean home without having to think about it',
     // Seconde ligne de l'administration.
     pitch:
@@ -50,7 +50,7 @@ const anglais: Record<string, TexteService> = {
   'nettoyage-ponctuel': {
     metaTitle: 'One-Off Home Cleaning in Casablanca',
     metaDescription:
-      'One-off home cleaning in Casablanca: a single visit with no commitment, before having guests or after a holiday. Book in the Najem Clean Service app.',
+      'One-off home cleaning in Casablanca: a single visit with no commitment, before having guests or after a holiday. Booking opening date to be announced soon.',
     benefit: 'A single visit, available any time from your phone',
     // Seconde ligne de l'administration.
     pitch: 'Express or full cleaning, in the time slot of your choice, with the options you need.',
@@ -74,7 +74,7 @@ const anglais: Record<string, TexteService> = {
   'nettoyage-apres-demenagement': {
     metaTitle: 'Move-In/Out Cleaning in Casablanca',
     metaDescription:
-      'Move-in and move-out cleaning in Casablanca: an empty home cleaned before you move in or after you move out. Book in the Najem Clean Service app.',
+      'Move-in and move-out cleaning in Casablanca: an empty home cleaned before you move in or after you move out. Booking opening date to be announced soon.',
     // Première et seconde lignes de l'administration.
     benefit: 'Your empty home cleaned, whether you are moving in or moving out',
     pitch:
@@ -96,7 +96,7 @@ const anglais: Record<string, TexteService> = {
   'grand-nettoyage': {
     metaTitle: 'Deep Home Cleaning in Casablanca',
     metaDescription:
-      'Deep home cleaning in Casablanca: a complete refresh that goes beyond routine cleaning, for an apartment or a villa. Book in the Najem Clean Service app.',
+      'Deep home cleaning in Casablanca: a complete refresh that goes beyond routine cleaning, for an apartment or a villa. Booking opening date to be announced soon.',
     // Première et seconde lignes de l'administration.
     benefit: 'A complete refresh of your home, room by room',
     pitch:
@@ -138,7 +138,7 @@ const anglais: Record<string, TexteService> = {
   professionnels: {
     metaTitle: 'Airbnb Cleaning in Casablanca',
     metaDescription:
-      'Airbnb and short-term rental cleaning in Casablanca: turnover cleaning between guests, for concierge companies and owners. Book in the Najem app.',
+      'Airbnb and short-term rental cleaning in Casablanca: turnover cleaning between guests, for concierge companies and owners. Booking opening date to be announced soon.',
     benefit: 'A tailored service for concierge companies and short-term rentals',
     // Seconde ligne de l'administration.
     pitch: 'Time slots that fit your turnovers, so every property is always ready.',
@@ -165,7 +165,7 @@ const arabe: Record<string, TexteService> = {
   'nettoyage-regulier': {
     metaTitle: 'تنظيف منزلي منتظم بالدار البيضاء',
     metaDescription:
-      'تنظيف منزلي منتظم بالدار البيضاء: زيارات مبرمجة بالوتيرة التي تختارها، أو اشتراك شهري. احجز من تطبيق Najem Clean Service.',
+      'تنظيف منزلي منتظم بالدار البيضاء: زيارات مبرمجة بالوتيرة التي تختارها، أو اشتراك شهري. سيتم الإعلان قريبا عن موعد فتح الحجز.',
     benefit: 'منزل نظيف دون أن تشغل بالك به',
     // Seconde ligne de l'administration.
     pitch:
@@ -188,7 +188,7 @@ const arabe: Record<string, TexteService> = {
   'nettoyage-ponctuel': {
     metaTitle: 'تنظيف منزلي لمرة واحدة بالدار البيضاء',
     metaDescription:
-      'تنظيف منزلي لمرة واحدة بالدار البيضاء: تدخل واحد دون التزام، قبل استقبال الضيوف أو عند العودة من العطلة. احجز من تطبيق Najem Clean Service.',
+      'تنظيف منزلي لمرة واحدة بالدار البيضاء: تدخل واحد دون التزام، قبل استقبال الضيوف أو عند العودة من العطلة. سيتم الإعلان قريبا عن موعد فتح الحجز.',
     benefit: 'تدخل واحد، متاح في أي وقت من هاتفك',
     // Seconde ligne de l'administration.
     pitch: 'تنظيف سريع أو شامل، في الموعد الذي تختاره، مع الخيارات التي تحتاجها.',
@@ -208,7 +208,7 @@ const arabe: Record<string, TexteService> = {
   'nettoyage-apres-demenagement': {
     metaTitle: 'التنظيف عند الانتقال بالدار البيضاء',
     metaDescription:
-      'التنظيف عند الانتقال بالدار البيضاء: مسكن فارغ يعود نظيفا، عند الدخول إليه كما عند مغادرته. احجز من تطبيق Najem Clean Service.',
+      'التنظيف عند الانتقال بالدار البيضاء: مسكن فارغ يعود نظيفا، عند الدخول إليه كما عند مغادرته. سيتم الإعلان قريبا عن موعد فتح الحجز.',
     // Première et seconde lignes de l'administration.
     benefit: 'مسكنك الفارغ نظيف من جديد، عند الدخول إليه كما عند مغادرته',
     pitch: 'الأرضيات والمطبخ والمرافق الصحية والأسطح نظيفة، لتسليم المفاتيح براحة بال.',
@@ -229,7 +229,7 @@ const arabe: Record<string, TexteService> = {
   'grand-nettoyage': {
     metaTitle: 'تنظيف عميق للمنازل بالدار البيضاء',
     metaDescription:
-      'تنظيف عميق للمنازل بالدار البيضاء: تجديد شامل يتجاوز التنظيف المعتاد، لشقة أو فيلا. احجز من تطبيق Najem Clean Service.',
+      'تنظيف عميق للمنازل بالدار البيضاء: تجديد شامل يتجاوز التنظيف المعتاد، لشقة أو فيلا. سيتم الإعلان قريبا عن موعد فتح الحجز.',
     // Première et seconde lignes de l'administration.
     benefit: 'تجديد شامل لنظافة مسكنك، غرفة بغرفة',
     pitch: 'من الاستوديو إلى الفيلا الكبيرة، بمدة وميزانية تناسبان مساحة مسكنك.',
@@ -270,7 +270,7 @@ const arabe: Record<string, TexteService> = {
   professionnels: {
     metaTitle: 'تنظيف شقق Airbnb بالدار البيضاء',
     metaDescription:
-      'تنظيف شقق Airbnb والكراء قصير المدة بالدار البيضاء: تجهيز العقار بين ضيف وآخر، لشركات الكونسيرج والملاك. احجز من تطبيق Najem Clean Service.',
+      'تنظيف شقق Airbnb والكراء قصير المدة بالدار البيضاء: تجهيز العقار بين ضيف وآخر، لشركات الكونسيرج والملاك. سيتم الإعلان قريبا عن موعد فتح الحجز.',
     benefit: 'خدمة على المقاس لشركات الكونسيرج والكراء قصير المدة',
     // Seconde ligne de l'administration.
     pitch: 'مواعيد تتلاءم مع تعاقب ضيوفك، ليبقى كل عقار جاهزا دائما.',

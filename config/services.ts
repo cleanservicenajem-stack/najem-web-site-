@@ -70,7 +70,7 @@ export const services: Service[] = [
     shortTitle: 'Régulier',
     metaTitle: 'Ménage régulier à Casablanca',
     metaDescription:
-      "Ménage régulier à domicile à Casablanca : des passages planifiés au rythme que vous fixez, ou un abonnement mensuel. Réservez depuis l'application Najem.",
+      "Ménage régulier à domicile à Casablanca : des passages planifiés au rythme que vous fixez, ou un abonnement mensuel. Ouverture des réservations bientôt annoncée.",
     benefit: 'Un intérieur propre sans y penser',
     pitch: 'Un abonnement disponible en 3 clics, sur mesure et sans engagement.',
     summary:
@@ -103,7 +103,7 @@ export const services: Service[] = [
     shortTitle: 'Ponctuel',
     metaTitle: 'Ménage ponctuel à Casablanca',
     metaDescription:
-      "Ménage ponctuel à domicile à Casablanca : une intervention unique, sans engagement, avant de recevoir ou au retour de vacances. Réservez dans l'app Najem.",
+      "Ménage ponctuel à domicile à Casablanca : une intervention unique, sans engagement, avant de recevoir ou au retour de vacances. Ouverture des réservations bientôt annoncée.",
     benefit: 'Une intervention unique, disponible à tout moment depuis votre téléphone',
     summary:
       "Le nettoyage ponctuel est une intervention unique, sans engagement de suivi. Il répond à un besoin précis : avant de recevoir, après un événement, ou simplement pour reprendre la main sur un logement.",
@@ -133,7 +133,7 @@ export const services: Service[] = [
     shortTitle: 'Déménagement',
     metaTitle: 'Nettoyage déménagement à Casablanca',
     metaDescription:
-      "Nettoyage après déménagement à Casablanca : un logement vide remis au propre, à l'entrée comme à la sortie. Réservez depuis l'application Najem.",
+      "Nettoyage après déménagement à Casablanca : un logement vide remis au propre, à l'entrée comme à la sortie. Ouverture des réservations bientôt annoncée.",
     benefit: 'Un logement vide remis au propre, entrée ou sortie',
     summary:
       "Le nettoyage après déménagement s'effectue dans un logement vide ou en cours de libération. Il permet de rendre un bien dans un état correct, ou d'emménager dans un intérieur déjà nettoyé.",
@@ -217,7 +217,7 @@ export const services: Service[] = [
     shortTitle: 'Airbnb et pros',
     metaTitle: 'Ménage Airbnb à Casablanca',
     metaDescription:
-      "Ménage Airbnb et location courte durée à Casablanca : remise en état entre deux voyageurs, pour conciergeries et propriétaires. Réservez dans l'app Najem.",
+      "Ménage Airbnb et location courte durée à Casablanca : remise en état entre deux voyageurs, pour conciergeries et propriétaires. Ouverture des réservations bientôt annoncée.",
     benefit: 'Prestation sur mesure pour les conciergeries et la location courte durée',
     pitch: 'Intervention rapide pour que votre bien soit toujours opérationnel.',
     summary:

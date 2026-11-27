@@ -159,7 +159,7 @@ export default async function ServicePage({ params }: PageProps) {
             <aside className="lg:sticky lg:top-32 lg:self-start">
               <div className="rounded-3xl border border-[var(--border)] bg-[image:var(--gradient-brand-soft)] p-7 shadow-[var(--shadow-soft)]">
                 <h2 className="font-display text-[1.15rem] font-semibold text-navy-800">
-                  Réserver depuis l’application
+                  Tout se passe dans l’application
                 </h2>
                 <p className="mt-3 text-[0.925rem] leading-relaxed text-ink-soft">
                   La réservation, les rendez-vous et les échanges se gèrent au même endroit.

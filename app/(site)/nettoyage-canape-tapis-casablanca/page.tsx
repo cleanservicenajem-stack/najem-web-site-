@@ -57,7 +57,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createMetadata({
     title: `Nettoyage canapé et tapis à Casablanca dès ${PRIX_SEUL} | Najem`,
     titreComplet: true,
-    description: `Canapé, tapis ou matelas nettoyés à la shampouineuse à Casablanca : ${PRIX_SEUL} l’élément${option}. Réservez dans l’application Najem.`,
+    description: `Canapé, tapis ou matelas nettoyés à la shampouineuse à Casablanca : ${PRIX_SEUL} l’élément${option}. Ouverture des réservations bientôt annoncée.`,
     path: CHEMIN,
   });
 }

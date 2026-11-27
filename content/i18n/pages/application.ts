@@ -56,7 +56,7 @@ const anglais: TextesApplication = {
   seo: {
     titre: 'Home cleaning app in Casablanca',
     description:
-      'Download the Najem Clean Service app on iPhone and Android: choose your time slot, then book and track your home cleaning in Casablanca.',
+      'Download the Najem Clean Service app on iPhone and Android: for your home cleaning in Casablanca. Booking opening date to be announced soon.',
   },
   fil: { accueil: 'Home', page: 'App', libelle: 'Breadcrumb' },
   hero: {
@@ -141,7 +141,7 @@ const arabe: TextesApplication = {
   seo: {
     titre: 'تطبيق تنظيف المنازل بالدار البيضاء',
     description:
-      'حمّل تطبيق Najem Clean Service على الآيفون والأندرويد: اختر موعدك، ثم احجز تنظيف منزلك بالدار البيضاء وتابعه.',
+      'حمّل تطبيق Najem Clean Service على الآيفون والأندرويد: لتنظيف منزلك بالدار البيضاء. سيتم الإعلان قريبا عن موعد فتح الحجز.',
   },
   fil: { accueil: 'الرئيسية', page: 'التطبيق', libelle: 'مسار التنقل' },
   hero: {

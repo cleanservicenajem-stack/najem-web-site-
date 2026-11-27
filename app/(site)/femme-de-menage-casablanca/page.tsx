@@ -47,7 +47,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return createMetadata({
     title: `Femme de ménage à Casablanca${depart} | Najem`,
     titreComplet: true,
-    description: `Agence de femme de ménage à Casablanca : ménage express${depart}, complet, prestige ou abonnement, à réserver dans l’application Najem.`,
+    description: `Agence de femme de ménage à Casablanca : ménage express${depart}, complet, prestige ou abonnement, dans l’application Najem. Ouverture des réservations bientôt annoncée.`,
     path: CHEMIN,
   });
 }
@@ -187,7 +187,7 @@ export default async function FemmeDeMenageCasablancaPage() {
         crumbs={crumbs}
         lead={
           <p>
-            Réservez votre femme de ménage en quelques minutes depuis l’application{' '}
+            Votre femme de ménage depuis l’application{' '}
             {siteConfig.name}
             {prix ? ` : ménage express dès ${formaterDh(prix.min)}` : ''}, ponctuel ou en
             abonnement, partout à Casablanca et dans ses alentours.
@@ -252,7 +252,7 @@ export default async function FemmeDeMenageCasablancaPage() {
             <aside className="lg:sticky lg:top-32 lg:self-start">
               <div className="rounded-3xl border border-[var(--border)] bg-[image:var(--gradient-brand-soft)] p-7 shadow-[var(--shadow-soft)]">
                 <h2 className="font-display text-[1.15rem] font-semibold text-navy-800">
-                  Réserver depuis l’application
+                  Tout se passe dans l’application
                 </h2>
                 <p className="mt-3 text-[0.925rem] leading-relaxed text-ink-soft">
                   Formule, créneau, consignes et paiement : tout se fait au même endroit.
@@ -444,7 +444,7 @@ export default async function FemmeDeMenageCasablancaPage() {
             path: CHEMIN,
             name: 'Femme de ménage à domicile à Casablanca — Najem Clean Service',
             description:
-              'Réserver une femme de ménage à Casablanca depuis l’application Najem Clean Service : formules, prix, zones desservies et questions fréquentes.',
+              'Femme de ménage à Casablanca avec l’application Najem Clean Service : formules, prix, zones desservies et questions fréquentes.',
           }),
           breadcrumbSchema(crumbs),
           serviceFemmeDeMenage(grille),

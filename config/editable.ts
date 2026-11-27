@@ -156,7 +156,7 @@ const accueil: GroupeEditable = {
       aide: 'C’est le passage que les moteurs de recherche reprennent le plus volontiers pour répondre à « qui est Najem Clean Service ».',
       type: 'paragraphe',
       repli:
-        'Najem Clean Service, c’est une équipe à votre disposition pour toutes les prestations, ménage régulier ou occasionnel. Réservez et réglez vos prestations, puis recevez votre facture directement sur l’application.',
+        'Najem Clean Service, c’est une équipe à votre disposition pour toutes les prestations, ménage régulier ou occasionnel. Vos prestations se réservent et se règlent dans l’application, où votre facture est disponible.',
       longueurMax: 600,
     },
   ],
@@ -234,7 +234,7 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
     label: 'Application',
     titre: 'Application mobile iOS et Android',
     description:
-      'L’application Najem Clean Service est disponible sur iPhone et Android : réservez un nettoyage à domicile à Casablanca et suivez vos rendez-vous.',
+      'L’application Najem Clean Service est disponible sur iPhone et Android pour le nettoyage à domicile à Casablanca. Ouverture des réservations bientôt annoncée.',
   },
   {
     chemin: 'a-propos',

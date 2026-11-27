@@ -56,14 +56,14 @@ const anglais: TextesCanapeTapis = {
   meta: {
     titre: (seul) => `Sofa and carpet cleaning in Casablanca from ${seul} | Najem`,
     description: (seul, option) =>
-      `Sofa, carpet or mattress shampooing in Casablanca: ${seul} per item${option ? `, or ${option} as a home cleaning option` : ''}. Book in the Najem app.`,
+      `Sofa, carpet or mattress shampooing in Casablanca: ${seul} per item${option ? `, or ${option} as a home cleaning option` : ''}. Booking opening date to be announced soon.`,
   },
   fil: { accueil: 'Home', page: 'Sofa and carpet cleaning', libelle: 'Breadcrumb' },
   hero: {
     surtitre: 'Shampooing in Casablanca',
     titre: 'Sofa and carpet cleaning at home in Casablanca',
     chapo: (seul, option) =>
-      `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}. Book it in the ${NOM} app.`,
+      `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}. Booking opening date to be announced soon.`,
   },
   fonctionnement: {
     titre: 'How it works',
@@ -141,14 +141,14 @@ const arabe: TextesCanapeTapis = {
   meta: {
     titre: (seul) => `تنظيف الأرائك والزرابي بالدار البيضاء من ${seul} | Najem`,
     description: (seul, option) =>
-      `غسل أريكة أو زربية أو مرتبة بالآلة في الدار البيضاء: ${seul} للقطعة${option ? `، أو ${option} كخيار مع تنظيف المنزل` : ''}. احجز من تطبيق ${NOM}.`,
+      `غسل أريكة أو زربية أو مرتبة بالآلة في الدار البيضاء: ${seul} للقطعة${option ? `، أو ${option} كخيار مع تنظيف المنزل` : ''}. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
   },
   fil: { accueil: 'الرئيسية', page: 'تنظيف الأرائك والزرابي', libelle: 'مسار التنقل' },
   hero: {
     surtitre: 'الغسل بالآلة بالدار البيضاء',
     titre: 'تنظيف الأرائك والزرابي في منزلك بالدار البيضاء',
     chapo: (seul, option) =>
-      `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}. الحجز من تطبيق ${NOM}.`,
+      `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
   },
   fonctionnement: {
     titre: 'طريقة العمل',
