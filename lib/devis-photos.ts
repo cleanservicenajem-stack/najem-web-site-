@@ -1,7 +1,11 @@
 import 'server-only';
 import { randomUUID } from 'node:crypto';
 import { createClient, type SupabaseClient } from '@supabase/supabase-js';
-import { PHOTOS_CONSERVATION_JOURS } from '@/lib/devis-config';
+import {
+  PHOTOS_CONSERVATION_JOURS,
+  PHOTOS_PAR_HEURE,
+  PHOTOS_PAR_JOUR,
+} from '@/lib/devis-config';
 
 /**
  * Photos jointes aux demandes de devis : espace de stockage privé
@@ -15,6 +19,9 @@ const ESPACE = 'devis-photos';
 const FICHIERS_MAX = 800;
 
 export const NOM_PHOTO = /^[a-f0-9]{32}\.jpg$/;
+
+/** Dépôt refusé parce qu'une limite est atteinte. */
+export class LimiteDepot extends Error {}
 
 const url = process.env.SUPABASE_URL;
 const cleSecrete = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -53,9 +60,29 @@ export const supprimerPhotosExpirees = async (): Promise<number> => {
   return noms.length;
 };
 
+/**
+ * Refuse le dépôt si une limite est atteinte. Le compte porte sur les photos
+ * réellement enregistrées : contrairement à la limite par adresse, gardée en
+ * mémoire, il vaut pour toutes les instances du serveur.
+ */
+const verifierLimites = async (): Promise<void> => {
+  const fichiers = await lister();
+  if (fichiers.length >= FICHIERS_MAX) throw new LimiteDepot('Espace des photos plein.');
+
+  const maintenant = Date.now();
+  const depuis = (heures: number) =>
+    fichiers.filter(
+      (fichier) =>
+        fichier.created_at && Date.parse(fichier.created_at) > maintenant - heures * 60 * 60 * 1000,
+    ).length;
+
+  if (depuis(1) >= PHOTOS_PAR_HEURE) throw new LimiteDepot('Limite horaire de photos atteinte.');
+  if (depuis(24) >= PHOTOS_PAR_JOUR) throw new LimiteDepot('Limite quotidienne de photos atteinte.');
+};
+
 /** Enregistre une photo JPEG et renvoie son nom. */
 export const enregistrerPhoto = async (contenu: ArrayBuffer): Promise<string> => {
-  if ((await lister()).length >= FICHIERS_MAX) throw new Error('Espace des photos plein.');
+  await verifierLimites();
 
   const nom = `${randomUUID().replaceAll('-', '')}.jpg`;
   const { error } = await espace()!.upload(nom, contenu, {
