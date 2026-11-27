@@ -213,7 +213,7 @@ const pagesReferencees: { chemin: string; label: string; titre: string; descript
     label: 'Accueil',
     titre: 'Najem Clean Service | Nettoyage à domicile à Casablanca',
     description:
-      'Nettoyage à domicile à Casablanca, réservable en quelques clics. Téléchargez l’application Najem Clean Service sur iPhone ou Android.',
+      'Femme de ménage vérifiée à Casablanca à partir de 200 DH : ménage ponctuel, abonnement, grand ménage. Ouverture des réservations bientôt annoncée.',
   },
   {
     chemin: 'services',
