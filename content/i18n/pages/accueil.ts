@@ -50,7 +50,7 @@ const anglais: TextesAccueil = {
     badge: 'Your clean home, made simple.',
     titre: 'Home cleaning in Casablanca, simple and trustworthy.',
     accroche: (prix) =>
-      `A vetted cleaner${prix ? ` from ${prix}` : ''}, in three clicks on the Najem Clean Service app. Booking opening date to be announced soon.`,
+      `A vetted cleaner${prix ? ` from ${prix}` : ''}, in three clicks on the Najem Clean Service app. Enjoy your time, we’ll take care of the rest.`,
     textes: {
       telecharger: 'Download the app',
       decouvrir: 'Explore our services',
@@ -175,7 +175,7 @@ const arabe: TextesAccueil = {
     badge: 'منزلك نظيف، ببساطة.',
     titre: 'تنظيف المنازل بالدار البيضاء، خدمة بسيطة وموثوقة.',
     accroche: (prix) =>
-      `عاملة نظافة تم التحقق منها${prix ? ` ابتداءً من ${prix}` : ''}، بثلاث نقرات من تطبيق Najem Clean Service. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
+      `عاملة نظافة تم التحقق منها${prix ? ` ابتداءً من ${prix}` : ''}، بثلاث نقرات من تطبيق Najem Clean Service. استمتع بوقتك، ونحن نتكفّل بالباقي.`,
     textes: {
       telecharger: 'حمّل التطبيق',
       decouvrir: 'اكتشف خدماتنا',

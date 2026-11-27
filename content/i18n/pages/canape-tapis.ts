@@ -63,7 +63,7 @@ const anglais: TextesCanapeTapis = {
     surtitre: 'Shampooing in Casablanca',
     titre: 'Sofa and carpet cleaning at home in Casablanca',
     chapo: (seul, option) =>
-      `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}. Booking opening date to be announced soon.`,
+      `Have a sofa, a carpet or a mattress shampooed: ${seul} per item${option ? `, or ${option} per item as an option with your home cleaning` : ''}.`,
   },
   fonctionnement: {
     titre: 'How it works',
@@ -148,7 +148,7 @@ const arabe: TextesCanapeTapis = {
     surtitre: 'الغسل بالآلة بالدار البيضاء',
     titre: 'تنظيف الأرائك والزرابي في منزلك بالدار البيضاء',
     chapo: (seul, option) =>
-      `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}. سيتم الإعلان قريبا عن موعد فتح الحجز.`,
+      `اغسل أريكة أو زربية أو مرتبة بالآلة: ${seul} للقطعة${option ? `، أو ${option} للقطعة كخيار مع تنظيف منزلك` : ''}.`,
   },
   fonctionnement: {
     titre: 'طريقة العمل',
